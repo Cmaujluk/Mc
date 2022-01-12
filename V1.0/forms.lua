@@ -267,7 +267,7 @@ local function onKeyDown(char, code)
   if keys[code] then keys[code]()
   else if not isControl(char) then insert(uchar(char)) end
   end
-  if self.onChange then self:onChange(_,text) end
+  if self.OnKeyDown then self:OnKeyDown(text) end
 end
 
 local function onClipboard(value)
@@ -408,8 +408,8 @@ function TList:scroll(x, y, sh, user)
   self:redraw()
 end
 
-function TComponent:addList(left, top, onChange)
-  local obj={left=left, top=top, lines={}, items={}, onChange=onChange}
+function TComponent:addList(left, top, OnKeyDown)
+  local obj={left=left, top=top, lines={}, items={}, OnKeyDown=OnKeyDown}
   self:makeChild(obj)
   return setmetatable(obj,TList)
 end
