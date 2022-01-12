@@ -85,6 +85,9 @@ function ListSearch()
 end
 
 function ListSearchText(Edit,text)
+
+	Label4.caption="111 "..Edit.." эм "..text
+	Label4:redraw()
 	ss=ss+1
 	local str=text[1]
 	List1:clear()
