@@ -185,7 +185,6 @@ function TEdit:paint()
 end
 
 local function editText(self,text,left,top,W,H)
- gpu.setBackground(self.color)
 local running=true
 local scrollX, scrollY = 0, 0
 local posX, posY =1, 1
