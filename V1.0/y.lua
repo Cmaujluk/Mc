@@ -95,7 +95,7 @@ function ListSearchText(text)
 
 	for i=1, #items do
 		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
-			List1:insert(items[i].label.. " text = "..str..";"..ss,items[i])
+			List1:insert(unicode.lower(items[i].label).. " text = "..unicode.lower(str)..";"..ss,items[i])
 		end
 	end
 
