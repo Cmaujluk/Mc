@@ -91,15 +91,15 @@ function ListSearchText(text)
 	List1:clear()
 
 	if text==nil then List1:insert("nil2",123) 
-	else if str==nil then List1:insert("nil",123) end
-	else
+	else if str==nil then List1:insert("nil",123) else
+
 
 	for i=1, #items do
 		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
 			List1:insert(items[i].label.. " text = "..str..";"..ss,items[i])
 		end
 	end
-	end
+	end end
 	List1:redraw()
 end
 
