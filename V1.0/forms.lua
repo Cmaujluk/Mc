@@ -268,7 +268,7 @@ local function onKeyDown(char, code)
   else if not isControl(char) then insert(uchar(char)) end
   end
   if text~=nil then
-    if self.OnChange then self:OnChange(text) end
+    if self.OnChange then self:OnChange(Edit,text) end
   end
 end
 
