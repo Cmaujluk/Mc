@@ -85,7 +85,7 @@ function ListSearch()
 end
 
 function ListSearchText(Edit,text)
-
+	os.sleep(1)
 	local str=text[1]
 	List1:clear()
 
