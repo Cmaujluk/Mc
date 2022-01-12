@@ -85,17 +85,7 @@ function ListSearch()
 end
 
 function ListSearchText(Edit,text)
-	forms.stop(Form1)    
-	for k,v in pairs(Edit) do
-		print( k,v )		
-	end
-	print("------------")
-	for k,v in pairs(text) do
-		print( k,"text= "..v )
-	end
-	Label4.caption=text[1].." gg"
-	Label4:redraw()
-	ss=ss+1
+
 	local str=text[1]
 	List1:clear()
 
