@@ -85,7 +85,7 @@ function ListSearch()
 end
 
 function ListSearchText(Edit,text)
-
+	if(text==nil) then return end
 	if(#text==0) then return end
 	ss=ss+1
 	local str=text[1]

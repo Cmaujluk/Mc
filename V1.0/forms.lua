@@ -1,4 +1,4 @@
-local gpu=require("component").gpu
+п»їlocal gpu=require("component").gpu
 local isPrimary=require("component").isPrimary
 local event=require("event")
 local len=require("unicode").len
@@ -33,8 +33,8 @@ function TComponent:draw()
   gpu.setBackground(self.color)
   gpu.setForeground(self.fontColor)
   local brd=nil
-  if self.border==1 then brd={"-","-","¬","L","¦","-"}
-  elseif self.border==2 then brd={"г","=","¬","L","¦","-"}
+  if self.border==1 then brd={"в”Њ","в”Ђ","в”ђ","в””","в”‚","в”"}
+  elseif self.border==2 then brd={"в•”","в•ђ","в•—","в•љ","в•‘","в•ќ"}
   end
   if brd then
     gpu.set(self.X,self.Y, brd[1]..string.rep(brd[2],self.W-2)..brd[3])
@@ -101,7 +101,7 @@ end
 
 function forms.activeForm() return activeForm end
 
-----------Визуальные компоненты---------
+----------Р’РёР·СѓР°Р»СЊРЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹---------
 ------------------Form------------------
 local TForm=setmetatable({type=function() return "Form" end},TComponent)
 TForm.__index=TForm
@@ -184,7 +184,7 @@ function TEdit:paint()
   end
 end
 
-local function editText(self,text,left,top,W,H)
+local function editText(text,left,top,W,H)
 local running=true
 local scrollX, scrollY = 0, 0
 local posX, posY =1, 1
@@ -267,9 +267,6 @@ local function onKeyDown(char, code)
   if keys[code] then keys[code]()
   else if not isControl(char) then insert(uchar(char)) end
   end
-  if text~=nil then
-    if self.OnChange then self:OnChange(Edit,text) end
-  end
 end
 
 local function onClipboard(value)
@@ -325,15 +322,15 @@ function TEdit:touch(x, y, btn, user)
   if btn==0 then
     gpu.setBackground(self.color)
     gpu.setForeground(self.fontColor)
-	if type(self.text)=="table" then editText(self,self.text,self.X+1,self.Y+1,self.W-2,self.H-2)
-	else self.text=editText(self,self.text,self.X+1,self.Y+1,self.W-2,1)	end
+	if type(self.text)=="table" then editText(self.text,self.X+1,self.Y+1,self.W-2,self.H-2)
+	else self.text=editText(self.text,self.X+1,self.Y+1,self.W-2,1)	end
 	self:draw()
     if self.onEnter then self:onEnter(user) end
   end
 end
 
-function TComponent:addEdit(left, top, onEnter,OnChange)
-  local obj={left=left, top=top, onEnter=onEnter,OnChange=OnChange}
+function TComponent:addEdit(left, top, onEnter)
+  local obj={left=left, top=top, onEnter=onEnter}
   self:makeChild(obj)
   return setmetatable(obj,TEdit)
 end
@@ -417,7 +414,7 @@ function TComponent:addList(left, top, onChange)
 end
 
 local work
----------Невизуальные компоненты--------
+---------РќРµРІРёР·СѓР°Р»СЊРЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹--------
 local TInvisible=setmetatable({W=10, H=3, border=2, draw=function() end},TComponent)
 TInvisible.__index=TInvisible
 ------------------Event-----------------
@@ -472,7 +469,7 @@ function TComponent:addTimer(interval, onTime)
   return obj
 end
 
------------Обработчик событий-----------
+-----------РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёР№-----------
 local listeners={}
 
 function forms.listen(name, callback)
