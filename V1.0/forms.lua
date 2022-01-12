@@ -184,7 +184,7 @@ function TEdit:paint()
   end
 end
 
-local function editText(text,left,top,W,H)
+local function editText(self,text,left,top,W,H)
 local running=true
 local scrollX, scrollY = 0, 0
 local posX, posY =1, 1
@@ -323,8 +323,8 @@ function TEdit:touch(x, y, btn, user)
   if btn==0 then
     gpu.setBackground(self.color)
     gpu.setForeground(self.fontColor)
-	if type(self.text)=="table" then editText(self.text,self.X+1,self.Y+1,self.W-2,self.H-2)
-	else self.text=editText(self.text,self.X+1,self.Y+1,self.W-2,1)	end
+	if type(self.text)=="table" then editText(self,self.text,self.X+1,self.Y+1,self.W-2,self.H-2)
+	else self.text=editText(self,self.text,self.X+1,self.Y+1,self.W-2,1)	end
 	self:draw()
     if self.onEnter then self:onEnter(user) end
   end
