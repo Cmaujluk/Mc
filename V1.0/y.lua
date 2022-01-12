@@ -85,7 +85,7 @@ function ListSearch()
 end
 
 function ListSearchText(text)
-	Label4.caption=text.." "
+	Label4.caption=text[1].." gg"
 	Label4:redraw()
 	ss=ss+1
 	local str=text[1]
