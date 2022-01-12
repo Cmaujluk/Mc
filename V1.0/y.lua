@@ -88,6 +88,9 @@ function ListSearchText(Edit,text)
 	forms.stop(Form1)    
 	for k,v in pairs(Edit) do
 		print( k,v )
+		for z,a in pairs(v) do
+			print( z,a )
+		end
 	end
 	print("------------")
 	for k,v in pairs(text) do
