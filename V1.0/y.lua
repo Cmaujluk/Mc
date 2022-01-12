@@ -85,17 +85,15 @@ function ListSearch()
 end
 
 function ListSearchText(text)
-
+	List1:clear()
 	ss=ss+1
 	local str=text[1]
 	if str==nil then
 		for i=1, #items do
-	
-			List1:insert(items[i].label.. " text = "..str..";",items[i])
+			List1:insert(items[i].label.. " text = "..str..";"..ss,items[i])
 		end
 	end
-	end
-	List1:clear()
+	
 	for i=1, #items do
 		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
 			List1:insert(items[i].label.. " text = "..str..";"..ss,items[i])
