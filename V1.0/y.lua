@@ -86,7 +86,7 @@ end
 
 function ListSearchText(text)
 	ss=ss+1
-	local str=text
+	local str=text[1]
 	List1:clear()
 	for i=1, #items do
 		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
