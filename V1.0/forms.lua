@@ -267,7 +267,7 @@ local function onKeyDown(char, code)
   if keys[code] then keys[code]()
   else if not isControl(char) then insert(uchar(char)) end
   end
-  if self.OnKeyDown then self:OnKeyDown(text) end
+  if self.OnChange then self:OnChange(text) end
 end
 
 local function onClipboard(value)
@@ -330,8 +330,8 @@ function TEdit:touch(x, y, btn, user)
   end
 end
 
-function TComponent:addEdit(left, top, onEnter,OnKeyDown)
-  local obj={left=left, top=top, onEnter=onEnter,OnKeyDown=OnKeyDown}
+function TComponent:addEdit(left, top, onEnter,OnChange)
+  local obj={left=left, top=top, onEnter=onEnter,OnChange=OnChange}
   self:makeChild(obj)
   return setmetatable(obj,TEdit)
 end

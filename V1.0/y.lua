@@ -259,7 +259,7 @@ function InitShopFrame ()
 	end
 	-------------------------------------
 
-	_editField=Form1:addEdit(5,36,ListSearch,ListSearch)
+	_editField=Form1:addEdit(5,36,ListSearch,ListSearchText)
 
 	shopCalculatorForm.visible=false
 end
