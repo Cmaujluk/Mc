@@ -84,7 +84,7 @@ function ListSearch()
 	List1:redraw()
 end
 
-function ListSearchText(text)
+function ListSearchText(Edit,text)
 	ss=ss+1
 	local str=text[1]
 	List1:clear()
