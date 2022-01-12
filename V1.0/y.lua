@@ -91,7 +91,7 @@ function ListSearchText(text)
 	if str==nil then
 		for i=1, #items do
 	
-			List1:insert(items[i].label.. " text = "..str..";")
+			List1:insert(items[i].label.. " text = "..str..";",items[i])
 		end
 	end
 	end
