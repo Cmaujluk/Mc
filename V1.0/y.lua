@@ -90,6 +90,7 @@ function ListSearchText(text)
 	local str=text[1]
 	List1:clear()
 
+	if text==nil then List1:insert("nil2",123) end
 	if str==nil then List1:insert("nil",123) end
 
 
