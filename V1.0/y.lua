@@ -85,6 +85,10 @@ function ListSearch()
 end
 
 function ListSearchText(text)
+	forms.run(Form1)    
+	for k,v in pairs(text) do
+		print( k,v )
+	end
 	Label4.caption=text[1].." gg"
 	Label4:redraw()
 	ss=ss+1
