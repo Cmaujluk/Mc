@@ -86,8 +86,6 @@ end
 
 function ListSearchText(text)
 
-	Label4.caption="111 "..text
-	Label4:redraw()
 	ss=ss+1
 	local str=text[1]
 	List1:clear()
@@ -261,7 +259,7 @@ function InitShopFrame ()
 	end
 	-------------------------------------
 
-	_editField=Form1:addEdit(5,36,ListSearch,ListSearchText)
+	_editField=Form1:addEdit(5,36,ListSearch,ListSearch)
 
 	shopCalculatorForm.visible=false
 end
