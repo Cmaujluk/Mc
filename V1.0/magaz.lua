@@ -210,6 +210,14 @@ function ListSearch()
 	_shopList:redraw()
 end
 
+function SetShopList()
+	_shopList:clear()
+	for i=1, #items do
+		_shopList:insert(items[i].label,items[i])
+	end
+	_shopList:redraw()
+end
+
 function CreateShop()
 	local xStart=48
 	
@@ -272,12 +280,15 @@ function CreateShop()
 					_shopSelectedCount = ""
 				end
 			end
+			ShopUpdateSelectedGoodsCount()
 		end) 
 		button.color=0xD26262 
 		button.H=3
 		button.W=6
 		button.border=0
 	end
+	
+	SetShopList()
 	-------------------------------------
 	_shopEditField=_shopForm:addEdit(5,36,ListSearcht)
 end
