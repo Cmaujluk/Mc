@@ -10,8 +10,7 @@ local unicode = require("unicode")
 	_mainBackgroundColor = nil
 
 	_state=""
------------------------------------
--------------USER------------------
+-------------USER------------------ 
 	_playerName="Cmaujluk"
 
 ------------BUTTONS----------------
@@ -34,7 +33,7 @@ function Init()
 end
 
 function CreateButtonExit()
-	exitForm=forms.addForm()       -- и форму диалога выхода
+	exitForm=forms.addForm()       
 	exitForm.border=2
 	exitForm.W=31
 	exitForm.H=7
@@ -48,12 +47,17 @@ function CreateButtonExit()
 	BtnExit.color=0x4e7640      
 end
 
+function AcrivateMainMenu()
+	gpu.setResolution(80,40)
+	_menuForm:setActive()
+end
+
 function OpenMainMenu(userName)
+	--тут я пытаюсь получить userName как стринг, но по ощущению приходит таблица - составные части всего объекта Button
 	SetState("main_menu")
 	_btnEnter:hide() 
 	AcrivateMainMenu()
 end
-
 
 function CreateEnterButton()
 	_btnEnter =_mainForm:addButton(17,10,"Войти",OpenMainMenu) 
@@ -90,19 +94,13 @@ function CreateMainMenu()
 		CreateMenuButton(20,4+shift*i,3, 40,labels[i],function() exitForm:setActive() end)
 	end
 end
-
-function AcrivateMainMenu()
-	gpu.setResolution(80,40)
-	_menuForm:setActive()
-end
-
 ------------------------------------
 
 function RunForm()
 	forms.run(_mainForm) 
 end
 
---==============================----
+------------------------------------
 Init()
 CreateButtonExit()
 CreateEnterButton()

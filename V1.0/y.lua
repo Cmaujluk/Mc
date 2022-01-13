@@ -7,7 +7,7 @@ gpu.setResolution(90,45)
 
 local _mainBackgroundColor=0x181D1E
 
-Form1=forms.addForm()          -- создаем основную форму
+Form1=forms.addForm()          -- создаем основную форму 
 Form1.color=_mainBackgroundColor
 
 local selectedLabel =""
@@ -72,7 +72,7 @@ end
 local ss=0
 
 function ListSearch()
-	ss=ss+1
+	ss=ss+1 --debug
 	local str=_editField.text
 	List1:clear()
 	for i=1, #items do
@@ -87,11 +87,9 @@ end
 function ListSearchText(Edit,text)
 	if(text==nil) then return end
 	if(#text==0) then return end
-	ss=ss+1
+	ss=ss+1 --debug
 	local str=text[1]
 	List1:clear()
-
-
 
 	for i=1, #items do
 		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
@@ -137,7 +135,7 @@ end
 
 
 function InitShopFrame ()
-	exitForm=forms.addForm()       -- и форму диалога выхода
+	exitForm=forms.addForm()       
 	exitForm.border=2
 	exitForm.W=31
 	exitForm.H=7
@@ -147,11 +145,11 @@ function InitShopFrame ()
 	exitForm:addButton(5,5,"Да",function() forms.stop() end)
 	exitForm:addButton(18,5,"Нет",function() Form1:setActive() end)
 	--------------------------------------
-	Btn1=Form1:addButton(2,1,"< Назад",function() exitForm:setActive() end) -- создаем кнопку выхода
-	Btn1.color=0x505050                       -- задаем цвет кнопки
+	Btn1=Form1:addButton(2,1,"< Назад",function() exitForm:setActive() end)
+	Btn1.color=0x505050                       
 	--------------------------------------
 
-	List1=Form1:addList(5,8,SetShopLabel) -- создаем список
+	List1=Form1:addList(5,8,SetShopLabel) 
 	List1.W=40
 	List1.H=26
 
@@ -263,7 +261,7 @@ function InitShopFrame ()
 	end
 	-------------------------------------
 
-	_editField=Form1:addEdit(5,36,ListSearch,ListSearchText)
+	_editField=Form1:addEdit(5,36,ListSearch,ListSearchText) --тут я передаю OnChange
 
 	shopCalculatorForm.visible=false
 end
