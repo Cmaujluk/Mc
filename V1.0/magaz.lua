@@ -37,7 +37,7 @@ local unicode = require("unicode")
 	_shopEditField = nil
 ----------GLOBALVARS-------------
 	_shopSelectedCount = ""
-	
+	_playerEms=100
 ------------DEBUG----------------
 items={}
 items[1]={label="Железо", price=0.8,count=10,stackSize=64}
@@ -182,7 +182,7 @@ function ShopUpdateSelectedGoodsCount()
 		if count >_shopList.items[_shopList.index].stackSize*27 then count =_shopList.items[_shopList.index].stackSize*27  end
 		local price=count*_shopList.items[_shopList.index].price
 
-		if price>_ems then
+		if price>_playerEms then
 			_shopWantBuyGoodLabel.fontColor=0xff3333
 			_shopCountWantBuyGoodLabel.fontColor=0xff3333
 		else
