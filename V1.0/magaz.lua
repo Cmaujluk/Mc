@@ -262,14 +262,14 @@ function CreateShop()
 		local xSpace=8
 		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(xSpace/2),toWrite,function() 
 			local j=i
-			if(i<10) then _count=_count..j.."" end
-			if i==10 then _count=""end
-			if i==11 then _count=_count.."0"end
+			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
+			if i==10 then _shopSelectedCount=""end
+			if i==11 then _shopSelectedCount=_shopSelectedCount.."0"end
 			if i==12 then
-				if(unicode.len(_count)>0) then
-					_count= _count:sub(1, -2)
+				if(unicode.len(_shopSelectedCount)>0) then
+					_shopSelectedCount = _shopSelectedCount:sub(1, -2)
 				else
-					_count=""
+					_shopSelectedCount = ""
 				end
 			end
 		end) 
