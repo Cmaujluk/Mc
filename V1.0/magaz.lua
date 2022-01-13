@@ -33,8 +33,20 @@ local unicode = require("unicode")
 	_shopCountWantBuyGoodLabel=nil
 -------------LISTS---------------
 	_shopList=nil
+------------EDITS----------------
+	_shopEditField = nil
 ----------GLOBALVARS-------------
 	_shopSelectedCount = ""
+	
+------------DEBUG----------------
+items={}
+items[1]={label="Железо", price=0.8,count=10,stackSize=64}
+items[2]={label="Алмаз", price=2.5,count=20,stackSize=64}
+items[3]={label="Золото", price=0.8,count=30,stackSize=64}
+items[4]={label="Алюминий", price=0.8,count=40,stackSize=64}
+items[5]={label="Капсула материи", price=5.0,count=50,stackSize=64}
+---------------------------------
+	
 	
 	
 function SetState(state)
@@ -187,6 +199,17 @@ function ShopUpdateSelectedGoodsCount()
 	end
 end
 
+function ListSearch()
+	local str=_shopEditField.text
+	_shopList:clear()
+	for i=1, #items do
+		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
+			_shopList:insert(items[i].label.. " text = "..str..";"..ss,items[i])
+		end
+	end
+	_shopList:redraw()
+end
+
 function CreateShop()
 	local xStart=48
 	
@@ -207,7 +230,7 @@ function CreateShop()
 	
 	local keyboard = {"1","2","3","4","5","6","7","8","9","C","0","<"}
 	
-	_shopList=_shopForm:addList(5,8,function() end) --обработка скролла
+	_shopList=_shopForm:addList(5,8,function() end) --обработка клика в скролле
 	_shopList.W=40
 	_shopList.H=26
 	_shopList.color=0x626262
@@ -256,7 +279,7 @@ function CreateShop()
 		button.border=0
 	end
 	-------------------------------------
-	_editField=Form1:addEdit(5,36,ListSearch,ListSearchText) --тут я передаю OnChange
+	_shopEditField=_shopForm:addEdit(5,36,ListSearcht)
 end
 
 function ShowChargingStatus(str)
