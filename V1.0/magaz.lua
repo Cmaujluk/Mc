@@ -1,4 +1,5 @@
-local forms=require("forms")         
+local forms=require("forms")      
+local charger=require("charger")   
 local component = require("component") 
 local gpu = component.gpu
 local unicode = require("unicode")
@@ -6,23 +7,42 @@ local unicode = require("unicode")
 -------------FORMS------------------
 	_mainForm = nil
 	_menuForm = nil
+	_shopForm = nil
+	_wandChargerForm = nil
 
 	_mainBackgroundColor = nil
 
 	_state=""
 -------------USER------------------ 
-	_playerName="Cmaujluk"
+	_playerName=""
 
 ------------BUTTONS----------------
 	_btnEnter=nil
-----------------------------------
-
+	
+	_btnShopToMain=nil
+------------LABELS---------------
+	_playerNameLabel=nil
+	_chargingLabel=nil
+	
+	_shopSelectedGoodLabel=nil
+	_shopAvailableGoodLabel=nil
+	_shopPriceGoodLabel=nil
+	_shopEnoyghEmsLabel=nil
+	_shopBalanceEmsLabel=nil
+	_shopWantBuyGoodLabel=nil
+	_shopCountWantBuyGoodLabel=nil
+-------------LISTS---------------
+	_shopList=nil
+----------GLOBALVARS-------------
+	_shopSelectedCount = ""
+	
+	
 function SetState(state)
 	_state=state
 end
 
 function Init()
-	gpu.setResolution(40,20)
+	gpu.setResolution(140,40)
 	_mainBackgroundColor=0x181D1E
 	_mainForm=forms.addForm()       
 	_mainForm.W=80
@@ -30,6 +50,12 @@ function Init()
 	_mainForm.color=_mainBackgroundColor
 	
 	SetState("enter_menu")
+end
+
+function InitCharger()
+	local chargerAddress="e1787a92-9c89-4537-b3ca-804a149473c4"
+	local getterAddress="4396b0e4-7aab-4259-bb72-1cfd8384c59a"
+	charger.Init(chargerAddress,getterAddress)
 end
 
 function CreateButtonExit()
@@ -50,12 +76,18 @@ end
 function AcrivateMainMenu()
 	gpu.setResolution(80,40)
 	_menuForm:setActive()
+	_playerNameLabel.caption=_playerName
+	_playerNameLabel:redraw()
 end
 
-function OpenMainMenu(userName)
-	--тут я пытаюсь получить userName как стринг, но по ощущению приходит таблица - составные части всего объекта Button
+function OpenEnterMenu()
+	gpu.setResolution(40,20)
+	_mainForm:setActive()
+end
+
+function OpenMainMenu(obj,userName)
+	_playerName=userName
 	SetState("main_menu")
-	_btnEnter:hide() 
 	AcrivateMainMenu()
 end
 
@@ -66,13 +98,23 @@ function CreateEnterButton()
 	_btnEnter.centered=true    
 end
 
-function CreateMenuButton(x,y,w,h,label,foo)
-	BtnShop=_menuForm:addButton(x,y,label,label,foo) 
+function CreateButton(form,x,y,h,w,label,foo)
+	BtnShop=form:addButton(x,y,label,foo) 
 	BtnShop.autoSize=false
 	BtnShop.centered=true
-	BtnShop.H=w
-	BtnShop.W=h
+	BtnShop.H=h
+	BtnShop.W=w
 	BtnShop.color=0x4e7640      
+end
+
+function ActivateShop()
+	gpu.setResolution(90,45)
+	_shopForm:setActive()
+end
+
+function ActivateWandCharger()
+	gpu.setResolution(90,45)
+	_wandChargerForm:setActive()
 end
 
 function CreateMainMenu()
@@ -81,28 +123,174 @@ function CreateMainMenu()
 	_menuForm.H=40
 	_menuForm.color=_mainBackgroundColor
 
-	local labels={}
-	labels[1]="Магазин"
-	labels[2]="Обмен ресурсов"
-	labels[3]="Зарядка жезлов"
-	labels[4]="Билеты казино"
-	labels[5]="Лотерея"
-	labels[6]="Мехи"
+	local labels={}	
+	labels[1]="Магазин"	
+	labels[2]="Обмен ресурсов"	
+	labels[3]="Зарядка жезлов"	
+	labels[4]="Билеты казино"	
+	labels[5]="Лотерея"	labels[6]="Мехи"
+	local methods={} 
+	methods[1]=ActivateShop 
+	methods[2]=ActivateShop 
+	methods[3]=ActivateWandCharger	
+	methods[4]=ActivateShop	
+	methods[5]=ActivateShop	
+	methods[6]=ActivateShop
 
 	local shift=5
 	for i=1, #labels do
-		CreateMenuButton(20,4+shift*i,3, 40,labels[i],function() exitForm:setActive() end)
+		CreateButton(_menuForm,20,4+shift*i,3, 40,labels[i],methods[i])
+	end
+	
+	_playerNameLabel=_menuForm:addLabel(1,3,_playerName)
+	
+	CreateButton(_menuForm,4,2,1,10,"Назад",OpenEnterMenu)
+end
+
+function SetLabel(form,x,y,label,w)
+	label = form:addLabel(x,y,label)
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.w=40
+	return label
+end
+
+function ShopUpdateSelectedGoodsCount()
+	local count = tonumber(_shopSelectedCount)
+
+	if count==nil or count==0 then
+		_shopWantBuyGoodLabel.caption=""
+		_shopWantBuyGoodLabel:redraw()
+
+		_shopCountWantBuyGoodLabel.caption=""
+		_shopCountWantBuyGoodLabel:redraw()
+	else
+
+		if count >_shopList.items[_shopList.index].stackSize*27 then count =_shopList.items[_shopList.index].stackSize*27  end
+		local price=count*_shopList.items[_shopList.index].price
+
+		if price>_ems then
+			_shopWantBuyGoodLabel.fontColor=0xff3333
+			_shopCountWantBuyGoodLabel.fontColor=0xff3333
+		else
+			_shopWantBuyGoodLabel.fontColor=0x33ff66
+			_shopCountWantBuyGoodLabel.fontColor=0x33ff66
+		end
+
+		_shopWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
+		_shopWantBuyGoodLabel:redraw()
+
+		_shopCountWantBuyGoodLabel.caption="за "..(count*_shopList.items[_shopList.index].price).." эм"
+		_shopCountWantBuyGoodLabel:redraw()
+
 	end
 end
-------------------------------------
 
+function CreateShop()
+	local xStart=48
+	
+	_shopForm=forms.addForm()
+	_shopForm.W=90
+	_shopForm.H=45
+	_shopForm.color=_mainBackgroundColor
+	
+	CreateButton(_shopForm,4,2,1,10,"Назад",OpenMainMenu)
+	frame=_shopForm:addFrame(39,1,1) 
+	frame.W=12 
+	frame.H=3 
+	frame.color= _mainBackgroundColor
+	
+	label=_shopForm:addLabel(42,2,"Магазин") 
+	label.fontColor =0xFFE600 
+	label.color=_mainBackgroundColor
+	
+	local keyboard = {"1","2","3","4","5","6","7","8","9","C","0","<"}
+	
+	_shopList=_shopForm:addList(5,8,function() end) --обработка скролла
+	_shopList.W=40
+	_shopList.H=26
+	_shopList.color=0x626262
+	
+	SetLabel(_shopForm,5,6,"Выберите товар",40)
+	
+	_shopSelectedGoodLabel=SetLabel(_shopForm,xStart,8,"1",40)
+	_shopSelectedGoodLabel.color=0x009999
+	_shopSelectedGoodLabel.frontColor=0xffd875
+	
+	_shopAvailableGoodLabel=SetLabel(_shopForm,xStart,10,"2",40)
+	
+	_shopPriceGoodLabel=SetLabel(_shopForm,xStart,12,"3",40)
+	
+	_shopEnoyghEmsLabel=SetLabel(_shopForm,xStart,14,"4",40)
+	
+	_shopBalanceEmsLabel=SetLabel(_shopForm,xStart,16,"5",40)
+	
+	_shopWantBuyGoodLabel=SetLabel(_shopForm,xStart,39,"6",40)
+	
+	_shopCountWantBuyGoodLabel=SetLabel(_shopForm,xStart,40,"7",40)
+	
+	button=_shopForm:addButton(60,43,"Купить",function() exitForm:setActive() end) 
+	button.color=0x4e7640      
+	
+	
+	for i=1, 12 do
+		local toWrite=keyboard[i]
+		local xSpace=8
+		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(xSpace/2),toWrite,function() 
+			local j=i
+			if(i<10) then _count=_count..j.."" end
+			if i==10 then _count=""end
+			if i==11 then _count=_count.."0"end
+			if i==12 then
+				if(unicode.len(_count)>0) then
+					_count= _count:sub(1, -2)
+				else
+					_count=""
+				end
+			end
+		end) 
+		button.color=0xD26262 
+		button.H=3
+		button.W=6
+		button.border=0
+	end
+	-------------------------------------
+	_editField=Form1:addEdit(5,36,ListSearch,ListSearchText) --тут я передаю OnChange
+end
+
+function ShowChargingStatus(str)
+	_chargingLabel.caption="Статус: "..str
+	_chargingLabel:redraw()
+end
+
+function CreateWandCharger()
+	_wandChargerForm = forms.addForm()
+	_wandChargerForm.W=90
+	_wandChargerForm.H=45
+	_wandChargerForm.color=_mainBackgroundColor
+	
+	CreateButton(_wandChargerForm ,4,2,1,10,"Назад",OpenMainMenu)
+	
+	frame=_wandChargerForm:addFrame(33,1,1) frame.W=22 frame.H=3 frame.color= _mainBackgroundColor
+	
+	label=_wandChargerForm:addLabel(39,2,"Зарядка жезлов") label.fontColor =0xFFE600 label.color=_mainBackgroundColor
+	
+	_chargingLabel=_wandChargerForm:addLabel(39,30,"Подготовка") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
+	
+	CreateButton(_wandChargerForm,20,40,3,50,"Зарядить мою палку",function()ShowChargingStatus("Charging") ShowChargingStatus(charger.StartChargingWand()) end)--
+end
+------------------------------------
 function RunForm()
 	forms.run(_mainForm) 
 end
 
 ------------------------------------
 Init()
+InitCharger()
 CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()
+CreateShop()
+CreateWandCharger()
 RunForm()
