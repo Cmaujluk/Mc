@@ -14,7 +14,7 @@ local unicode = require("unicode")
 
 	_state=""
 -------------USER------------------ 
-	_playerName=""
+	_playerName=""  
 
 ------------BUTTONS----------------
 	_btnEnter=nil
@@ -40,11 +40,11 @@ local unicode = require("unicode")
 	_playerEms=100
 ------------DEBUG----------------
 items={}
-items[1]={label="Железо", price=0.8,count=10,stackSize=64}
-items[2]={label="Алмаз", price=2.5,count=20,stackSize=64}
-items[3]={label="Золото", price=0.8,count=30,stackSize=64}
-items[4]={label="Алюминий", price=0.8,count=40,stackSize=64}
-items[5]={label="Капсула материи", price=5.0,count=50,stackSize=64}
+items[1]={label="Р–РµР»РµР·Рѕ", price=0.8,count=10,stackSize=64}
+items[2]={label="РђР»РјР°Р·", price=2.5,count=20,stackSize=64}
+items[3]={label="Р—РѕР»РѕС‚Рѕ", price=0.8,count=30,stackSize=64}
+items[4]={label="РђР»СЋРјРёРЅРёР№", price=0.8,count=40,stackSize=64}
+items[5]={label="РљР°РїСЃСѓР»Р° РјР°С‚РµСЂРёРё", price=5.0,count=50,stackSize=64}
 ---------------------------------
 	
 	
@@ -77,11 +77,11 @@ function CreateButtonExit()
 	exitForm.H=7
 	exitForm.left=math.floor((_mainForm.W-exitForm.W)/2)
 	exitForm.top =math.floor((_mainForm.H-exitForm.H)/2)
-	exitForm:addLabel(8,3,"Вы хотите выйти?")
-	exitForm:addButton(5,5,"Да",function() forms.stop() end)
-	exitForm:addButton(18,5,"Нет",function() _mainForm:setActive() end)
+	exitForm:addLabel(8,3,"Р’С‹ С…РѕС‚РёС‚Рµ РІС‹Р№С‚Рё?")
+	exitForm:addButton(5,5,"Р”Р°",function() forms.stop() end)
+	exitForm:addButton(18,5,"РќРµС‚",function() _mainForm:setActive() end)
 
-	BtnExit=_mainForm:addButton(4,2,"Выйти",function() exitForm:setActive() end) 
+	BtnExit=_mainForm:addButton(4,2,"Р’С‹Р№С‚Рё",function() exitForm:setActive() end) 
 	BtnExit.color=0x4e7640      
 end
 
@@ -104,7 +104,7 @@ function OpenMainMenu(obj,userName)
 end
 
 function CreateEnterButton()
-	_btnEnter =_mainForm:addButton(17,10,"Войти",OpenMainMenu) 
+	_btnEnter =_mainForm:addButton(17,10,"Р’РѕР№С‚Рё",OpenMainMenu) 
 	_btnEnter.color=0x4e7640    
 	_btnEnter.autoSize=false    
 	_btnEnter.centered=true    
@@ -136,11 +136,11 @@ function CreateMainMenu()
 	_menuForm.color=_mainBackgroundColor
 
 	local labels={}	
-	labels[1]="Магазин"	
-	labels[2]="Обмен ресурсов"	
-	labels[3]="Зарядка жезлов"	
-	labels[4]="Билеты казино"	
-	labels[5]="Лотерея"	labels[6]="Мехи"
+	labels[1]="РњР°РіР°Р·РёРЅ"	
+	labels[2]="РћР±РјРµРЅ СЂРµСЃСѓСЂСЃРѕРІ"	
+	labels[3]="Р—Р°СЂСЏРґРєР° Р¶РµР·Р»РѕРІ"	
+	labels[4]="Р‘РёР»РµС‚С‹ РєР°Р·РёРЅРѕ"	
+	labels[5]="Р›РѕС‚РµСЂРµСЏ"	labels[6]="РњРµС…Рё"
 	local methods={} 
 	methods[1]=ActivateShop 
 	methods[2]=ActivateShop 
@@ -156,7 +156,7 @@ function CreateMainMenu()
 	
 	_playerNameLabel=_menuForm:addLabel(1,3,_playerName)
 	
-	CreateButton(_menuForm,4,2,1,10,"Назад",OpenEnterMenu)
+	CreateButton(_menuForm,4,2,1,10,"РќР°Р·Р°Рґ",OpenEnterMenu)
 end
 
 function SetLabel(form,x,y,label,w)
@@ -190,10 +190,10 @@ function ShopUpdateSelectedGoodsCount()
 			_shopCountWantBuyGoodLabel.fontColor=0x33ff66
 		end
 
-		_shopWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
+		_shopWantBuyGoodLabel.caption="РЇ С…РѕС‡Сѓ РєСѓРїРёС‚СЊ: "..count.." С€С‚"
 		_shopWantBuyGoodLabel:redraw()
 
-		_shopCountWantBuyGoodLabel.caption="за "..(count*_shopList.items[_shopList.index].price).." эм"
+		_shopCountWantBuyGoodLabel.caption="Р·Р° "..(count*_shopList.items[_shopList.index].price).." СЌРј"
 		_shopCountWantBuyGoodLabel:redraw()
 
 	end
@@ -226,24 +226,24 @@ function CreateShop()
 	_shopForm.H=45
 	_shopForm.color=_mainBackgroundColor
 	
-	CreateButton(_shopForm,4,2,1,10,"Назад",OpenMainMenu)
+	CreateButton(_shopForm,4,2,1,10,"РќР°Р·Р°Рґ",OpenMainMenu)
 	frame=_shopForm:addFrame(39,1,1) 
 	frame.W=12 
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 	
-	label=_shopForm:addLabel(42,2,"Магазин") 
+	label=_shopForm:addLabel(42,2,"РњР°РіР°Р·РёРЅ") 
 	label.fontColor =0xFFE600 
 	label.color=_mainBackgroundColor
 	
 	local keyboard = {"1","2","3","4","5","6","7","8","9","C","0","<"}
 	
-	_shopList=_shopForm:addList(5,8,function() end) --обработка клика в скролле
+	_shopList=_shopForm:addList(5,8,function() end) --РѕР±СЂР°Р±РѕС‚РєР° РєР»РёРєР° РІ СЃРєСЂРѕР»Р»Рµ
 	_shopList.W=40
 	_shopList.H=26
 	_shopList.color=0x626262
 	
-	SetLabel(_shopForm,5,6,"Выберите товар",40)
+	SetLabel(_shopForm,5,6,"Р’С‹Р±РµСЂРёС‚Рµ С‚РѕРІР°СЂ",40)
 	
 	_shopSelectedGoodLabel=SetLabel(_shopForm,xStart,8,"1",40)
 	_shopSelectedGoodLabel.color=0x009999
@@ -261,7 +261,7 @@ function CreateShop()
 	
 	_shopCountWantBuyGoodLabel=SetLabel(_shopForm,xStart,40,"7",40)
 	
-	button=_shopForm:addButton(60,43,"Купить",function() exitForm:setActive() end) 
+	button=_shopForm:addButton(60,43,"РљСѓРїРёС‚СЊ",function() exitForm:setActive() end) 
 	button.color=0x4e7640      
 	
 	
@@ -294,7 +294,7 @@ function CreateShop()
 end
 
 function ShowChargingStatus(str)
-	_chargingLabel.caption="Статус: "..str
+	_chargingLabel.caption="РЎС‚Р°С‚СѓСЃ: "..str
 	_chargingLabel:redraw()
 end
 
@@ -304,15 +304,15 @@ function CreateWandCharger()
 	_wandChargerForm.H=45
 	_wandChargerForm.color=_mainBackgroundColor
 	
-	CreateButton(_wandChargerForm ,4,2,1,10,"Назад",OpenMainMenu)
+	CreateButton(_wandChargerForm ,4,2,1,10,"РќР°Р·Р°Рґ",OpenMainMenu)
 	
 	frame=_wandChargerForm:addFrame(33,1,1) frame.W=22 frame.H=3 frame.color= _mainBackgroundColor
 	
-	label=_wandChargerForm:addLabel(39,2,"Зарядка жезлов") label.fontColor =0xFFE600 label.color=_mainBackgroundColor
+	label=_wandChargerForm:addLabel(39,2,"Р—Р°СЂСЏРґРєР° Р¶РµР·Р»РѕРІ") label.fontColor =0xFFE600 label.color=_mainBackgroundColor
 	
-	_chargingLabel=_wandChargerForm:addLabel(39,30,"Подготовка") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
+	_chargingLabel=_wandChargerForm:addLabel(39,30,"РџРѕРґРіРѕС‚РѕРІРєР°") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
 	
-	CreateButton(_wandChargerForm,20,40,3,50,"Зарядить мою палку",function()ShowChargingStatus("Charging") ShowChargingStatus(charger.StartChargingWand()) end)--
+	CreateButton(_wandChargerForm,20,40,3,50,"Р—Р°СЂСЏРґРёС‚СЊ РјРѕСЋ РїР°Р»РєСѓ",function()ShowChargingStatus("Charging") ShowChargingStatus(charger.StartChargingWand()) end)--
 end
 ------------------------------------
 function RunForm()
