@@ -36,7 +36,7 @@ local unicode = require("unicode")
 ------------EDITS----------------
 	_shopEditField = nil
 ----------GLOBALVARS-------------
-	_shopSelectedCount = ""
+	local _shopSelectedCount = " "
 	_playerEms=100
 ------------DEBUG----------------
 items={}
