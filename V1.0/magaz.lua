@@ -225,13 +225,9 @@ function UpdateShopGoodInfo()
 	if _shopList.items==nil then return end
 	if _shopList.index==nil  then return end
 	if _shopList.items[_shopList.index]==nil  then return end
-	
-	if _shopSelectedGoodLabel.isVisible==false then
-		_shopSelectedGoodLabel.visible=true
-		_shopSelectedGoodLabel:show()
-		_shopSelectedGoodLabel:redraw()
-	end
-	
+		
+	_shopSelectedGoodLabel:show()
+
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
@@ -362,7 +358,7 @@ function CreateShop()
 	-------------------------------------
 	_shopEditField=_shopForm:addEdit(5,36,ListSearch,ListSearchQuick)
 	
-	_shopSelectedGoodLabel.visible=false
+	_shopSelectedGoodLabel:hide()
 end
 
 function ShowChargingStatus(str)
