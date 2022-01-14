@@ -34,8 +34,8 @@ function TComponent:draw()
   gpu.setBackground(self.color)
   gpu.setForeground(self.fontColor)
   local brd=nil
-  if self.border==1 then brd={"-","-","¬","L","¦","-"}
-  elseif self.border==2 then brd={"г","=","¬","L","¦","-"}
+  if self.border==1 then brd={"-","-","В¬","L","В¦","-"}
+  elseif self.border==2 then brd={"Рі","=","В¬","L","В¦","-"}
   end
   if brd then
     gpu.set(self.X,self.Y, brd[1]..string.rep(brd[2],self.W-2)..brd[3])
@@ -102,7 +102,7 @@ end
 
 function forms.activeForm() return activeForm end
 
-----------Визуальные компоненты---------
+----------Р’РёР·СѓР°Р»СЊРЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹---------
 ------------------Form------------------
 local TForm=setmetatable({type=function() return "Form" end},TComponent)
 TForm.__index=TForm
@@ -416,7 +416,7 @@ function TComponent:addList(left, top, onChange)
 end
 
 local work
----------Невизуальные компоненты--------
+---------РќРµРІРёР·СѓР°Р»СЊРЅС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹--------
 local TInvisible=setmetatable({W=10, H=3, border=2, draw=function() end},TComponent)
 TInvisible.__index=TInvisible
 ------------------Event-----------------
@@ -471,7 +471,7 @@ function TComponent:addTimer(interval, onTime)
   return obj
 end
 
------------Обработчик событий-----------
+-----------РћР±СЂР°Р±РѕС‚С‡РёРє СЃРѕР±С‹С‚РёР№-----------
 local listeners={}
 
 function forms.listen(name, callback)
