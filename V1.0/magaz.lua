@@ -168,8 +168,8 @@ function ShopUpdateSelectedGoodsCount()
 		_shopCountWantBuyGoodLabel:redraw()
 	else
 
-		if count >_shopList._items[_shopList.index].stackSize*27 then count =_shopList._items[_shopList.index].stackSize*27  end
-		local price=count*_shopList._items[_shopList.index].price
+		if count >_shopList.items[_shopList.index].stackSize*27 then count =_shopList.items[_shopList.index].stackSize*27  end
+		local price=count*_shopList.items[_shopList.index].price
 
 		if price>_playerEms then
 			_shopWantBuyGoodLabel.fontColor=0xff3333
@@ -182,7 +182,7 @@ function ShopUpdateSelectedGoodsCount()
 		_shopWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
 		_shopWantBuyGoodLabel:redraw()
 
-		_shopCountWantBuyGoodLabel.caption="за "..(count*_shopList._items[_shopList.index].price).." эм"
+		_shopCountWantBuyGoodLabel.caption="за "..(count*_shopList.items[_shopList.index].price).." эм"
 		_shopCountWantBuyGoodLabel:redraw()
 	end
 end
