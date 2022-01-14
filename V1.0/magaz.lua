@@ -208,6 +208,7 @@ function SetShopList()
 end
 
 function UpdateShopGoodInfo()
+	if _shopList.index==nil then return end
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
