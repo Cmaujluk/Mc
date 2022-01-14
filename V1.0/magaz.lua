@@ -225,16 +225,18 @@ function UpdateShopGoodInfo()
 	if _shopList.items==nil then return end
 	if _shopList.index==nil  then return end
 	if _shopList.items[_shopList.index]==nil  then return end
+	
+	if _shopSelectedGoodLabel.isVisible==false then
+		_shopSelectedGoodLabel.visible=true
+		_shopSelectedGoodLabel:show()
+		_shopSelectedGoodLabel:redraw()
+	end
+	
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
 	--Label3:paint()
 	
-	if _shopSelectedGoodLabel.visible==false then
-		_shopSelectedGoodLabel.visible=true
-		_shopSelectedGoodLabel:redraw()
-	end
-
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
 
