@@ -268,7 +268,7 @@ local function onKeyDown(char, code)
   if keys[code] then keys[code]()
   else if not isControl(char) then insert(uchar(char)) end
   end
-  if self.onChange then self:onChange() end
+  if self.onChange then self:onChange(text) end
 end
 
 local function onClipboard(value)
