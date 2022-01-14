@@ -329,7 +329,9 @@ function CreateShop()
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	button=_shopSelectedGoodLabel:addButton(60,43,"Купить",function() exitForm:setActive() end) 
+	button=_shopSelectedGoodLabel:addButton(60,43,"Купить",function() 
+		shop.GetItems(_shopList.items[_shopList.index].fingerprint,1)--DEBUG Не 1 а кол-во
+	end) 
 	button.color=0x4e7640      
 	
 	

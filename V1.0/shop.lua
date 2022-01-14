@@ -1,6 +1,6 @@
 local component = require("component")  
 local internet = require("internet")
-local interface = component.me_interface
+local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
 
 local _itemsBD={}
 local _itemsME={}
@@ -47,6 +47,20 @@ function ParseItemsToSale()
 				i=i+1
 			end
 		end
+	end
+end
+
+function shop.GetItems(fingerprint,count)
+	local resourchesToGive=count
+	while resourchesToGive>0 do
+		if resourchesToGive>fingerprint.stackSize then 
+			interface(fingerprint,2,fingerprint.stackSize)
+			resourchesToGive=resourchesToGive-fingerprint.stackSize
+		else
+			interface(fingerprint,2,resourchesToGive)
+			resourchesToGive=0
+		end
+
 	end
 end
 
