@@ -196,6 +196,7 @@ function ListSearch()
 		end
 	end
 	_shopList:redraw()
+	UpdateShopGoodInfo()
 end
 
 function SetShopList()

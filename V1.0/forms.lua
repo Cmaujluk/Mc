@@ -1,6 +1,6 @@
 local gpu=require("component").gpu
 local isPrimary=require("component").isPrimary
-local event=require("event")
+--local event=require("event")
 local len=require("unicode").len
 local sub=require("unicode").sub
 local uchar=require("unicode").char
@@ -10,6 +10,7 @@ local kbd  = require("component").keyboard
 local wrap = require("text").wrap
 local padRight=require("text").padRight
 local isControl= require("keyboard").isControl 
+local computer = require "computer"
 
 local forms={}
 local mouseEv={touch=true, scroll=true, drag=true, drop=true}
@@ -517,7 +518,7 @@ function forms.run(form)
   activeForm=form
   activeForm:draw()
   while work do
-    local ev,adr,x,y,btn,user=event.pull()
+    local ev,adr,x,y,btn,user=computer.pullSignal()--event.pull()
     if mouseEv[ev] and adr==gpu.getScreen() then activeForm:mouseEv(ev,x,y,btn,user) end
 	if listeners[ev] then
 	  for i=1,#listeners[ev] do listeners[ev][i](ev,adr,x,y,btn,user) end
