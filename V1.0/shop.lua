@@ -7,6 +7,18 @@ local _itemsME={}
 local _itemsToSale={}
 local shop={}
 
+function parseString (inputString)
+  local result = {}
+  for value in string.gmatch(inputString, '".-":".-"') do
+    table.insert(result, (string.gsub(value, '"(.-)":"(.-)"', "%2")))
+  end
+  return result
+end
+
+function RoundToPlaces(value, divisor)
+    return (value * divisor) / divisor
+end
+
 function GetItemsFromBD()
 	getData = internet.request("https://www.toolbexgames.com/mc_getshopdata.php?")
 	local result=""
@@ -38,11 +50,14 @@ function ParseItemsToSale()
 	end
 end
 
+function shop.GetItemsToSale()
+	return _itemsToSale
+end
+
 function shop.Init()
 	GetItemsFromBD()
 	GetItemsFromME()
 	ParseItemsToSale()
-	print(#_itemsToSale)
 end
 
 return shop

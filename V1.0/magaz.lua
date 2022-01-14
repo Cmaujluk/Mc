@@ -3,6 +3,7 @@ local charger=require("charger")
 local component = require("component") 
 local gpu = component.gpu
 local unicode = require("unicode")
+local shop = require("shop")
 
 -------------FORMS------------------
 local _mainForm = nil
@@ -38,13 +39,10 @@ local _shopEditField = nil
 ----------GLOBALVARS-------------
 local _shopSelectedCount = ""
 local _playerEms=100
+local _items={}
 ------------DEBUG----------------
-local items={}
-items[1]={label="Железо", price=0.8,count=10,stackSize=64}
-items[2]={label="Алмаз", price=2.5,count=20,stackSize=64}
-items[3]={label="Золото", price=0.8,count=30,stackSize=64}
-items[4]={label="Алюминий", price=0.8,count=40,stackSize=64}
-items[5]={label="Капсула материи", price=5.0,count=50,stackSize=64}
+
+
 ---------------------------------
 		
 function SetState(state)
@@ -170,8 +168,8 @@ function ShopUpdateSelectedGoodsCount()
 		_shopCountWantBuyGoodLabel:redraw()
 	else
 
-		if count >_shopList.items[_shopList.index].stackSize*27 then count =_shopList.items[_shopList.index].stackSize*27  end
-		local price=count*_shopList.items[_shopList.index].price
+		if count >_shopList._items[_shopList.index].stackSize*27 then count =_shopList._items[_shopList.index].stackSize*27  end
+		local price=count*_shopList._items[_shopList.index].price
 
 		if price>_playerEms then
 			_shopWantBuyGoodLabel.fontColor=0xff3333
@@ -184,7 +182,7 @@ function ShopUpdateSelectedGoodsCount()
 		_shopWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
 		_shopWantBuyGoodLabel:redraw()
 
-		_shopCountWantBuyGoodLabel.caption="за "..(count*_shopList.items[_shopList.index].price).." эм"
+		_shopCountWantBuyGoodLabel.caption="за "..(count*_shopList._items[_shopList.index].price).." эм"
 		_shopCountWantBuyGoodLabel:redraw()
 	end
 end
@@ -192,9 +190,9 @@ end
 function ListSearch()
 	_shopList:clear()
 	local str=_shopEditField.text
-	for i=1, #items do
-		if string.find(unicode.lower(items[i].label), unicode.lower(str)) then			
-			_shopList:insert(items[i].label,items[i])
+	for i=1, #_items do
+		if string.find(unicode.lower(_items[i].label), unicode.lower(str)) then			
+			_shopList:insert(_items[i].label,_items[i])
 		end
 	end
 	_shopList:redraw()
@@ -202,28 +200,32 @@ end
 
 function SetShopList()
 	_shopList:clear()
-	for i=1, #items do
-		_shopList:insert(items[i].label,items[i])
+	for i=1, #_items do
+		_shopList:insert(_items[i].label,_items[i])
 	end
 	_shopList:redraw()
 end
 
 function UpdateShopGoodInfo()
-	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
+	_shopSelectedGoodLabel.caption =_shopList._items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
 	--Label3:paint()
 
-	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
+	_shopPriceGoodLabel.caption="Цена: ".._shopList._items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
 
-	_shopAvailableGoodLabel.caption="Доступно: ".._shopList.items[_shopList.index].count
+	_shopAvailableGoodLabel.caption="Доступно: ".."10"--DEBUG _shopList._items[_shopList.index].count
 	_shopAvailableGoodLabel:redraw()
 
-	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
+	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList._items[_shopList.index].price).." шт"
 	_shopEnoughEmsLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
+end
+
+function InitShop()
+	_items=shop.GetItemsToSale()
 end
 
 function CreateShop()
@@ -361,8 +363,10 @@ function RunForm()
 end
 
 ------------------------------------
+shop.Init()
 Init()
 InitCharger()
+InitShop()
 CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()
