@@ -221,18 +221,18 @@ function SetShopList()
 end
 
 function UpdateShopGoodInfo()
-	_shopSelectedGoodLabel.caption =List1.items[List1.index].label
+	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
 	--Label3:paint()
 
-	_shopPriceGoodLabel.caption="Цена: "..List1.items[List1.index].price.." эм"
+	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
 
-	_shopAvailableGoodLabel.caption="Доступно: "..List1.items[List1.index].count
+	_shopAvailableGoodLabel.caption="Доступно: ".._shopList.items[_shopList.index].count
 	_shopAvailableGoodLabel:redraw()
 
-	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_ems/List1.items[List1.index].price).." шт"
+	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
 	_shopEnoughEmsLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
