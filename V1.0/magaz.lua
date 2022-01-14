@@ -199,6 +199,18 @@ function ListSearch()
 	UpdateShopGoodInfo()
 end
 
+function ListSearchQuick(Edit,text)
+	_shopList:clear()
+	local str=text[1]
+	for i=1, #_items do
+		if string.find(unicode.lower(_items[i].label), unicode.lower(str)) then			
+			_shopList:insert(_items[i].label,_items[i])
+		end
+	end
+	_shopList:redraw()
+	UpdateShopGoodInfo()
+end
+
 function SetShopList()
 	_shopList:clear()
 	for i=1, #_items do
@@ -208,7 +220,10 @@ function SetShopList()
 end
 
 function UpdateShopGoodInfo()
-	if _shopList==nil or _shopList.items==nil then return end
+	if _shopList==nil then return end
+	if _shopList.items==nil then return end
+	if _shopList.index==nil  then return end
+	if shopList.items[_shopList.index]==nil  then return end
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
@@ -335,7 +350,7 @@ function CreateShop()
 	
 	SetShopList()
 	-------------------------------------
-	_shopEditField=_shopForm:addEdit(5,36,ListSearch)
+	_shopEditField=_shopForm:addEdit(5,36,ListSearch,ListSearchQuick)
 end
 
 function ShowChargingStatus(str)
