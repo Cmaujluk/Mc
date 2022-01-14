@@ -157,14 +157,7 @@ function CreateMainMenu()
 	CreateButton(_menuForm,4,2,1,10,"Назад",OpenEnterMenu)
 end
 
-function SetLabel(label,w)
-    local modLabel=label
-	modLabel.color = _mainBackgroundColor
-	modLabel.centered = true
-	modLabel.autoSize  = false
-	modLabel.w=40
-	return modLabel
-end
+
 
 function ShopUpdateSelectedGoodsCount()
 	local count = tonumber(_shopSelectedCount)
@@ -262,30 +255,55 @@ function CreateShop()
 	_shopList.color=0x626262
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
-	label=setLabel(label,40) 
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.w=40
 	
 	_shopSelectedGoodLabel=_shopForm:addLabel(xStart,8,"1")
 	_shopSelectedGoodLabel.color=0x009999
 	_shopSelectedGoodLabel.frontColor=0xffd875
-	_shopSelectedGoodLabel=SetLabel(_shopSelectedGoodLabel,40) 
+	_shopSelectedGoodLabel.color = _mainBackgroundColor
+	_shopSelectedGoodLabel.centered = true
+	_shopSelectedGoodLabel.autoSize  = false
+	_shopSelectedGoodLabel.w=40
 	
 	_shopAvailableGoodLabel=_shopForm:addLabel(xStart,10,"2")
-	_shopAvailableGoodLabel=SetLabel(_shopAvailableGoodLabel,40)
+	_shopAvailableGoodLabel.color = _mainBackgroundColor
+	_shopAvailableGoodLabel.centered = true
+	_shopAvailableGoodLabel.autoSize  = false
+	_shopAvailableGoodLabel.w=40
 	
 	_shopPriceGoodLabel=_shopForm:addLabel(xStart,12,"3")
-	_shopPriceGoodLabel=SetLabel(_shopPriceGoodLabel,40)
+	_shopPriceGoodLabel.color = _mainBackgroundColor
+	_shopPriceGoodLabel.centered = true
+	_shopPriceGoodLabel.autoSize  = false
+	_shopPriceGoodLabel.w=40
 	
 	_shopEnoughEmsLabel=_shopForm:addLabel(xStart,14,"4")
-	_shopEnoughEmsLabel=SetLabel(_shopEnoughEmsLabel,40)
+	_shopEnoughEmsLabel.color = _mainBackgroundColor
+	_shopEnoughEmsLabel.centered = true
+	_shopEnoughEmsLabel.autoSize  = false
+	_shopEnoughEmsLabel.w=40
 	
 	_shopBalanceEmsLabel=_shopForm:addLabel(xStart,16,"5")
-	_shopBalanceEmsLabel=SetLabel(_shopBalanceEmsLabel,40)
+	_shopBalanceEmsLabel.color = _mainBackgroundColor
+	_shopBalanceEmsLabel.centered = true
+	_shopBalanceEmsLabel.autoSize  = false
+	_shopBalanceEmsLabel.w=40
+	
 	
 	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,39,"6")
-	_shopWantBuyGoodLabel=SetLabel(_shopWantBuyGoodLabel,40)
+	_shopWantBuyGoodLabel.color = _mainBackgroundColor
+	_shopWantBuyGoodLabel.centered = true
+	_shopWantBuyGoodLabel.autoSize  = false
+	_shopWantBuyGoodLabel.w=40
 	
 	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,40,"7")
-	_shopCountWantBuyGoodLabel=SetLabel(_shopCountWantBuyGoodLabel,40)
+	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
+	_shopCountWantBuyGoodLabel.centered = true
+	_shopCountWantBuyGoodLabel.autoSize  = false
+	_shopCountWantBuyGoodLabel.w=40
 	
 	button=_shopForm:addButton(60,43,"Купить",function() exitForm:setActive() end) 
 	button.color=0x4e7640      
@@ -307,9 +325,6 @@ function CreateShop()
 				end
 			end
 			ShopUpdateSelectedGoodsCount()
-			
-			_shopAvailableGoodLabel.caption=""..j.." ".._shopSelectedCount --дебаг
-			_shopAvailableGoodLabel:redraw()
 		end) 
 		button.color=0xD26262 
 		button.H=3
