@@ -158,7 +158,7 @@ function CreateMainMenu()
 end
 
 function SetLabel(form,x,y,label,w)
-	label = form:addLabel(x,y,label)
+	local label = form:addLabel(x,y,label)
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
