@@ -50,14 +50,17 @@ function ParseItemsToSale()
 	end
 end
 
-function shop.GetItems(fingerprint,count)
+function shop.GetItems(item,count)
 	local resourchesToGive=count
 	while resourchesToGive>0 do
-		if resourchesToGive>fingerprint.stackSize then 
-			interface(fingerprint,2,fingerprint.stackSize)
-			resourchesToGive=resourchesToGive-fingerprint.stackSize
+	
+	
+	
+		if resourchesToGive>item.stackSize then 
+			interface.exportItem(item.fingerprint,2,item.stackSize)
+			resourchesToGive=resourchesToGive-item.stackSize
 		else
-			interface(fingerprint,2,resourchesToGive)
+			interface.exportItem(item.fingerprint,2,resourchesToGive)
 			resourchesToGive=0
 		end
 
