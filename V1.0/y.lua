@@ -227,12 +227,12 @@ function InitShopFrame ()
 	Label8.color=_mainBackgroundColor
 	Label8.centered =true
 	Label8.autoSize  =false
-	Label8.W=40
+	Label8.W=40 
 
 	UpdateCount()
 	--------------------------------------
 	Btn2=Form1:addButton(60,43,"Купить",function() exitForm:setActive() end) 
-	Btn2.color=0x4e7640      
+	Btn2.color=0x4e7640      --->
 
 	-------------------------------------
 	for i=1, 12 do
