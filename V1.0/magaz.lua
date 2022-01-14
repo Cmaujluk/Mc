@@ -5,50 +5,48 @@ local gpu = component.gpu
 local unicode = require("unicode")
 
 -------------FORMS------------------
-	_mainForm = nil
-	_menuForm = nil
-	_shopForm = nil
-	_wandChargerForm = nil
+local _mainForm = nil
+local _menuForm = nil
+local _shopForm = nil
+local _wandChargerForm = nil
 
-	_mainBackgroundColor = nil
+local _mainBackgroundColor = nil
 
-	_state=""
+local _state=""
 -------------USER------------------ 
-	_playerName=""  
+local _playerName=""  
 
 ------------BUTTONS----------------
-	_btnEnter=nil
-	
-	_btnShopToMain=nil
+local _btnEnter=nil
+
+local _btnShopToMain=nil
 ------------LABELS---------------
-	_playerNameLabel=nil
-	_chargingLabel=nil
-	
-	_shopSelectedGoodLabel=nil
-	_shopAvailableGoodLabel=nil
-	_shopPriceGoodLabel=nil
-	_shopEnoughEmsLabel=nil
-	_shopBalanceEmsLabel=nil
-	_shopWantBuyGoodLabel=nil
-	_shopCountWantBuyGoodLabel=nil
+local _playerNameLabel=nil
+local _chargingLabel=nil
+
+local _shopSelectedGoodLabel=nil
+local _shopAvailableGoodLabel=nil
+local _shopPriceGoodLabel=nil
+local _shopEnoughEmsLabel=nil
+local _shopBalanceEmsLabel=nil
+local _shopWantBuyGoodLabel=nil
+local _shopCountWantBuyGoodLabel=nil
 -------------LISTS---------------
-	_shopList=nil
+local _shopList=nil
 ------------EDITS----------------
-	_shopEditField = nil
+local _shopEditField = nil
 ----------GLOBALVARS-------------
-	local _shopSelectedCount = ""
-	_playerEms=100
+local _shopSelectedCount = ""
+local _playerEms=100
 ------------DEBUG----------------
-items={}
+local items={}
 items[1]={label="Железо", price=0.8,count=10,stackSize=64}
 items[2]={label="Алмаз", price=2.5,count=20,stackSize=64}
 items[3]={label="Золото", price=0.8,count=30,stackSize=64}
 items[4]={label="Алюминий", price=0.8,count=40,stackSize=64}
 items[5]={label="Капсула материи", price=5.0,count=50,stackSize=64}
 ---------------------------------
-	
-	
-	
+		
 function SetState(state)
 	_state=state
 end
