@@ -261,30 +261,30 @@ function CreateShop()
 	_shopList.H=26
 	_shopList.color=0x626262
 	
-	local label = form:addLabel(5,6,"Выберите товар")
+	local label = _shopForm:addLabel(5,6,"Выберите товар")
 	SetLabel(label,40) 
 	
-	_shopSelectedGoodLabel=addLabel(xStart,8,"1")
+	_shopSelectedGoodLabel=_shopForm:addLabel(xStart,8,"1")
 	_shopSelectedGoodLabel.color=0x009999
 	_shopSelectedGoodLabel.frontColor=0xffd875
 	SetLabel(_shopSelectedGoodLabel,40) 
 	
-	_shopAvailableGoodLabel=addLabel(xStart,10,"2")
+	_shopAvailableGoodLabel=_shopForm:addLabel(xStart,10,"2")
 	SetLabel(_shopAvailableGoodLabel,40)
 	
-	_shopPriceGoodLabel=addLabel(xStart,12,"3")
+	_shopPriceGoodLabel=_shopForm:addLabel(xStart,12,"3")
 	SetLabel(_shopPriceGoodLabel,40)
 	
-	_shopEnoughEmsLabel=addLabel(xStart,14,"4")
+	_shopEnoughEmsLabel=_shopForm:addLabel(xStart,14,"4")
 	SetLabel(_shopEnoughEmsLabel,40)
 	
-	_shopBalanceEmsLabel=addLabel(xStart,16,"5")
+	_shopBalanceEmsLabel=_shopForm:addLabel(xStart,16,"5")
 	SetLabel(_shopBalanceEmsLabel,40)
 	
-	_shopWantBuyGoodLabel=addLabel(xStart,39,"6")
+	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,39,"6")
 	SetLabel(_shopWantBuyGoodLabel,40)
 	
-	_shopCountWantBuyGoodLabel=addLabel(xStart,40,"7")
+	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,40,"7")
 	SetLabel(_shopCountWantBuyGoodLabel,40)
 	
 	button=_shopForm:addButton(60,43,"Купить",function() exitForm:setActive() end) 
