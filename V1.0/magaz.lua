@@ -157,8 +157,8 @@ function CreateMainMenu()
 	CreateButton(_menuForm,4,2,1,10,"Назад",OpenEnterMenu)
 end
 
-function SetLabel(form,x,y,label,w)
-	local label = form:addLabel(x,y,label)
+function SetLabel(label,w)
+	label = form:addLabel(x,y,label)
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -261,23 +261,31 @@ function CreateShop()
 	_shopList.H=26
 	_shopList.color=0x626262
 	
-	SetLabel(_shopForm,5,6,"Выберите товар",40)
+	local label = form:addLabel(5,6,"Выберите товар")
+	SetLabel(label,40) 
 	
-	_shopSelectedGoodLabel=SetLabel(_shopForm,xStart,8,"1",40)
+	_shopSelectedGoodLabel=addLabel(xStart,8,"1")
 	_shopSelectedGoodLabel.color=0x009999
 	_shopSelectedGoodLabel.frontColor=0xffd875
+	SetLabel(_shopSelectedGoodLabel,40) 
 	
-	_shopAvailableGoodLabel=SetLabel(_shopForm,xStart,10,"2",40)
+	_shopAvailableGoodLabel=addLabel(xStart,10,"2")
+	SetLabel(_shopAvailableGoodLabel,40)
 	
-	_shopPriceGoodLabel=SetLabel(_shopForm,xStart,12,"3",40)
+	_shopPriceGoodLabel=addLabel(xStart,12,"3")
+	SetLabel(_shopPriceGoodLabel,40)
 	
-	_shopEnoughEmsLabel=SetLabel(_shopForm,xStart,14,"4",40)
+	_shopEnoughEmsLabel=addLabel(xStart,14,"4")
+	SetLabel(_shopEnoughEmsLabel,40)
 	
-	_shopBalanceEmsLabel=SetLabel(_shopForm,xStart,16,"5",40)
+	_shopBalanceEmsLabel=addLabel(xStart,16,"5")
+	SetLabel(_shopBalanceEmsLabel,40)
 	
-	_shopWantBuyGoodLabel=SetLabel(_shopForm,xStart,39,"6",40)
+	_shopWantBuyGoodLabel=addLabel(xStart,39,"6")
+	SetLabel(_shopWantBuyGoodLabel,40)
 	
-	_shopCountWantBuyGoodLabel=SetLabel(_shopForm,xStart,40,"7",40)
+	_shopCountWantBuyGoodLabel=addLabel(xStart,40,"7")
+	SetLabel(_shopCountWantBuyGoodLabel,40)
 	
 	button=_shopForm:addButton(60,43,"Купить",function() exitForm:setActive() end) 
 	button.color=0x4e7640      
