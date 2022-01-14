@@ -221,9 +221,10 @@ end
 
 function UpdateShopGoodInfo()
 	if _shopList==nil then return end
+	if _shopList==nil then return end
 	if _shopList.items==nil then return end
 	if _shopList.index==nil  then return end
-	if shopList.items[_shopList.index]==nil  then return end
+	if _shopList.items[_shopList.index]==nil  then return end
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
