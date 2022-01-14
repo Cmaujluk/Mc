@@ -284,7 +284,7 @@ function CreateShop()
 			end
 			ShopUpdateSelectedGoodsCount()
 			
-			_shopAvailableGoodLabel.caption=""..j --дебаг
+			_shopAvailableGoodLabel.caption=""..j.." ".._shopSelectedCount --дебаг
 			_shopAvailableGoodLabel:redraw()
 		end) 
 		button.color=0xD26262 
