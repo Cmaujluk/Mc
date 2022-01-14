@@ -268,10 +268,7 @@ local function onKeyDown(char, code)
   if keys[code] then keys[code]()
   else if not isControl(char) then insert(uchar(char)) end
   end
-  if self.OnChange then 
-	gpu.setForeground(self.fontColor)
-	gpu.setBackground(self.color)
-  self:OnChange(text) end
+  if self.OnChange then self:OnChange(text) end
 end
 
 local function onClipboard(value)
