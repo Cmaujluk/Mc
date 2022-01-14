@@ -73,8 +73,8 @@ function CreateButtonExit()
 	exitForm.border=2
 	exitForm.W=31
 	exitForm.H=7
-	exitForm.left=math.floor((_mainForm.W-exitForm.W)/2)
-	exitForm.top =math.floor((_mainForm.H-exitForm.H)/2)
+	exitForm.left=math.floor((40-exitForm.W)/2)
+	exitForm.top =math.floor((20-exitForm.H)/2)
 	exitForm:addLabel(8,3,"Вы хотите выйти?")
 	exitForm:addButton(5,5,"Да",function() forms.stop() end)
 	exitForm:addButton(18,5,"Нет",function() _mainForm:setActive() end)
