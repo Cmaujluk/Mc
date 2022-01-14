@@ -27,7 +27,7 @@ local unicode = require("unicode")
 	_shopSelectedGoodLabel=nil
 	_shopAvailableGoodLabel=nil
 	_shopPriceGoodLabel=nil
-	_shopEnoyghEmsLabel=nil
+	_shopEnoughEmsLabel=nil
 	_shopBalanceEmsLabel=nil
 	_shopWantBuyGoodLabel=nil
 	_shopCountWantBuyGoodLabel=nil
@@ -36,7 +36,7 @@ local unicode = require("unicode")
 ------------EDITS----------------
 	_shopEditField = nil
 ----------GLOBALVARS-------------
-	local _shopSelectedCount = " "
+	local _shopSelectedCount = ""
 	_playerEms=100
 ------------DEBUG----------------
 items={}
@@ -60,7 +60,7 @@ function Init()
 	_mainForm.W=80
 	_mainForm.H=40
 	_mainForm.color=_mainBackgroundColor
-	
+
 	SetState("enter_menu")
 end
 
@@ -220,6 +220,24 @@ function SetShopList()
 	_shopList:redraw()
 end
 
+function UpdateShopGoodInfo()
+	_shopSelectedGoodLabel.caption =List1.items[List1.index].label
+	_shopSelectedGoodLabel.centered =true
+	_shopSelectedGoodLabel:redraw()
+	--Label3:paint()
+
+	_shopPriceGoodLabel.caption="Цена: "..List1.items[List1.index].price.." эм"
+	_shopPriceGoodLabel:redraw()
+
+	_shopAvailableGoodLabel.caption="Доступно: "..List1.items[List1.index].count
+	_shopAvailableGoodLabel:redraw()
+
+	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_ems/List1.items[List1.index].price).." шт"
+	_shopEnoughEmsLabel:redraw()
+	_shopSelectedCount = ""
+	ShopUpdateSelectedGoodsCount()
+end
+
 function CreateShop()
 	local xStart=48
 	
@@ -240,7 +258,7 @@ function CreateShop()
 	
 	local keyboard = {"1","2","3","4","5","6","7","8","9","C","0","<"}
 	
-	_shopList=_shopForm:addList(5,8,function() end) --обработка клика в скролле
+	_shopList=_shopForm:addList(5,8,UpdateShopGoodInfo) --обработка клика в скролле
 	_shopList.W=40
 	_shopList.H=26
 	_shopList.color=0x626262
@@ -255,7 +273,7 @@ function CreateShop()
 	
 	_shopPriceGoodLabel=SetLabel(_shopForm,xStart,12,"3",40)
 	
-	_shopEnoyghEmsLabel=SetLabel(_shopForm,xStart,14,"4",40)
+	_shopEnoughEmsLabel=SetLabel(_shopForm,xStart,14,"4",40)
 	
 	_shopBalanceEmsLabel=SetLabel(_shopForm,xStart,16,"5",40)
 	
