@@ -229,6 +229,11 @@ function UpdateShopGoodInfo()
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
 	--Label3:paint()
+	
+	if _shopSelectedGoodLabel.visible==false then
+		_shopSelectedGoodLabel.visible=true
+		_shopSelectedGoodLabel:redraw()
+	end
 
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
