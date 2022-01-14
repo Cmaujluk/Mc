@@ -170,8 +170,7 @@ end
 
 function ShopUpdateSelectedGoodsCount()
 	local count = tonumber(_shopSelectedCount)
-	_shopAvailableGoodLabel.caption="".._shopSelectedCount.." "..count
-	_shopAvailableGoodLabel:redraw()
+	
 	if count==nil or count==0 then
 		_shopWantBuyGoodLabel.caption=""
 		_shopWantBuyGoodLabel:redraw()
@@ -284,6 +283,9 @@ function CreateShop()
 				end
 			end
 			ShopUpdateSelectedGoodsCount()
+			
+			_shopAvailableGoodLabel.caption=""..j --дебаг
+			_shopAvailableGoodLabel:redraw()
 		end) 
 		button.color=0xD26262 
 		button.H=3
