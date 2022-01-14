@@ -226,7 +226,7 @@ function UpdateShopGoodInfo()
 	if _shopList.index==nil  then return end
 	if _shopList.items[_shopList.index]==nil  then return end
 		
-	_shopSelectedGoodLabel:show()
+	--_shopSelectedGoodLabel:show()
 
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
@@ -288,44 +288,44 @@ function CreateShop()
 	_shopSelectedGoodLabel.autoSize  = false
 	_shopSelectedGoodLabel.W=40
 	
-	_shopAvailableGoodLabel=_shopSelectedGoodLabel:addLabel(xStart,10,"2")
+	_shopAvailableGoodLabel=_shopForm:addLabel(xStart,10,"2")
 	_shopAvailableGoodLabel.color = _mainBackgroundColor
 	_shopAvailableGoodLabel.centered = true
 	_shopAvailableGoodLabel.autoSize  = false
 	_shopAvailableGoodLabel.W=40
 	
-	_shopPriceGoodLabel=_shopSelectedGoodLabel:addLabel(xStart,12,"3")
+	_shopPriceGoodLabel=_shopForm:addLabel(xStart,12,"3")
 	_shopPriceGoodLabel.color = _mainBackgroundColor
 	_shopPriceGoodLabel.centered = true
 	_shopPriceGoodLabel.autoSize  = false
 	_shopPriceGoodLabel.W=40
 	
-	_shopEnoughEmsLabel=_shopSelectedGoodLabel:addLabel(xStart,14,"4")
+	_shopEnoughEmsLabel=_shopForm:addLabel(xStart,14,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 	_shopEnoughEmsLabel.centered = true
 	_shopEnoughEmsLabel.autoSize  = false
 	_shopEnoughEmsLabel.W=40
 	
-	_shopBalanceEmsLabel=_shopSelectedGoodLabel:addLabel(xStart,16,"5")
+	_shopBalanceEmsLabel=_shopForm:addLabel(xStart,16,"5")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	_shopBalanceEmsLabel.centered = true
 	_shopBalanceEmsLabel.autoSize  = false
 	_shopBalanceEmsLabel.W=40
 	
 	
-	_shopWantBuyGoodLabel=_shopSelectedGoodLabel:addLabel(xStart,39,"6")
+	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,39,"6")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopWantBuyGoodLabel.centered = true
 	_shopWantBuyGoodLabel.autoSize  = false
 	_shopWantBuyGoodLabel.W=40
 	
-	_shopCountWantBuyGoodLabel=_shopSelectedGoodLabel:addLabel(xStart,40,"7")
+	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,40,"7")
 	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopCountWantBuyGoodLabel.centered = true
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	button=_shopSelectedGoodLabel:addButton(60,43,"Купить",function() 
+	button=_shopForm:addButton(60,43,"Купить",function() 
 		shop.GetItems(_shopList.items[_shopList.index].fingerprint,1)--DEBUG Не 1 а кол-во
 	end) 
 	button.color=0x4e7640      
@@ -334,7 +334,7 @@ function CreateShop()
 	for i=1, 12 do
 		local toWrite=keyboard[i]
 		local xSpace=8
-		button=_shopSelectedGoodLabel:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(xSpace/2),toWrite,function() 
+		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(xSpace/2),toWrite,function() 
 			local j=i
 			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
 			if i==10 then _shopSelectedCount=""end
@@ -358,7 +358,7 @@ function CreateShop()
 	-------------------------------------
 	_shopEditField=_shopForm:addEdit(5,36,ListSearch,ListSearchQuick)
 	
-	_shopSelectedGoodLabel:hide()
+	--_shopSelectedGoodLabel:hide()
 end
 
 function ShowChargingStatus(str)
