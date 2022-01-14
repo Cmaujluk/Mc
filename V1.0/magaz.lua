@@ -158,12 +158,10 @@ function CreateMainMenu()
 end
 
 function SetLabel(label,w)
-	label = form:addLabel(x,y,label)
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.w=40
-	return label
 end
 
 function ShopUpdateSelectedGoodsCount()
