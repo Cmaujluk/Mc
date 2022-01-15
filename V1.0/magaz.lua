@@ -209,10 +209,10 @@ function ListSearchQuick(Edit,text)
 	end
 	_shopList:redraw()
 	
-	if _shopList==nil then return end
-	if _shopList.items==nil then return end
-	if _shopList.index==nil  then return end
-	if _shopList.items[_shopList.index]==nil  then return end
+	--if _shopList==nil then return end
+	--if _shopList.items==nil then return end
+	--if _shopList.index==nil  then return end
+	--if _shopList.items[_shopList.index]==nil  then return end
 	
 	UpdateShopGoodInfo()
 end

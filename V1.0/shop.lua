@@ -38,6 +38,10 @@ function GetItemsFromME()
 	_itemsME=interface.getAvailableItems()
 end
 
+function shop.GetItemDetails(fingerprint)
+	return interface.getItemDetail(fingerprint)
+end
+
 function ParseItemsToSale()
 	i=1
 	for index,item in pairs(_itemsBD) do
