@@ -254,11 +254,13 @@ function UpdateShopGoodInfo()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
 
-	gpu.setBackground(0x212e41)
+	gpu.setBackground(0x3E3D47)
 	gpu.fill(51,10,12,6," ")
+	gpu.setBackground(0x22293C)
+	gpu.fill(53,11,10,4," ")
 	
 	pic=graffiti.load("/home/img2.png") --debug
-	graffiti.draw(pic, 51,22,12,12) --debug картиночки
+	graffiti.draw(pic, 51,19,12,12) --debug картиночки
 end
 
 function InitShop()
@@ -267,6 +269,7 @@ end
 
 function CreateShop()
 	local xStart=48
+	local xShift=15
 	
 	_shopForm=forms.addForm()
 	_shopForm.W=90
@@ -298,24 +301,24 @@ function CreateShop()
 	
 	_shopSelectedGoodLabel=_shopForm:addLabel(xStart,8,"1")
 	_shopSelectedGoodLabel.color=0x009999
-	_shopSelectedGoodLabel.frontColor=0xffd875
+	_shopSelectedGoodLabel.fontColor=0xffd875
 	_shopSelectedGoodLabel.color = _mainBackgroundColor
 	_shopSelectedGoodLabel.centered = true
 	_shopSelectedGoodLabel.autoSize  = false
 	_shopSelectedGoodLabel.W=40
 	
-	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+20,10,"2")
+	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+xShift,10,"2")
 	_shopAvailableGoodLabel.color = _mainBackgroundColor
 		
-	_shopPriceGoodLabel=_shopForm:addLabel(xStart+20,12,"3")
+	_shopPriceGoodLabel=_shopForm:addLabel(xStart+xShift,12,"3")
 	_shopPriceGoodLabel.color = _mainBackgroundColor
 
 	
-	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+20,14,"4")
+	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,14,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
 	
-	_shopBalanceEmsLabel=_shopForm:addLabel(xStart+20,16,"5")
+	_shopBalanceEmsLabel=_shopForm:addLabel(2,1,"Баланс")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	
 	
@@ -331,19 +334,22 @@ function CreateShop()
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	button=_shopForm:addButton(60,43,"Купить",function() 
+	button=_shopForm:addButton(56,38,"Купить",function() 
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
 		shop.GetItems(_shopList.items[_shopList.index],count)--DEBUG Не 1 а кол-во
 		
 	end) 
 	button.color=0x4e7640      
+	button.W=20
+	button.H=3
 	
 	
 	for i=1, 12 do
 		local toWrite=keyboard[i]
 		local xSpace=8
-		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(xSpace/2),toWrite,function() 
+		local ySpace=6
+		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(ySpace/2),toWrite,function() 
 			local j=i
 			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
 			if i==10 then _shopSelectedCount=""end
