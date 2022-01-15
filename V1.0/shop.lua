@@ -38,9 +38,7 @@ function GetItemsFromME()
 	_itemsME=interface.getAvailableItems()
 end
 
-function shop.GetItemDetails(fingerprint)
-	return interface.getItemDetail(fingerprint)
-end
+
 
 function ParseItemsToSale()
 	i=1
@@ -54,12 +52,19 @@ function ParseItemsToSale()
 	end
 end
 
+function shop.GetItemDetails(fingerprint)
+	return interface.getItemDetail(fingerprint).all()
+end
+
+function shop.GetItemCount(fingerprint)
+	local count = interface.getItemDetail(fingerprint).all()[qty]
+	if count ==nil then count = 0 end
+	return count
+end
+
 function shop.GetItems(item,count)
 	local resourchesToGive=count
 	while resourchesToGive>0 do
-	
-	
-	
 		if resourchesToGive>item.stackSize then 
 			interface.exportItem(item.fingerprint,2,item.stackSize)
 			resourchesToGive=resourchesToGive-item.stackSize

@@ -238,7 +238,7 @@ function UpdateShopGoodInfo()
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
 
-	_shopAvailableGoodLabel.caption="Доступно: ".."10"--DEBUG _shopList._items[_shopList.index].count
+	_shopAvailableGoodLabel.caption="Доступно: "..shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
 	_shopAvailableGoodLabel:redraw()
 
 	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
