@@ -256,8 +256,7 @@ function UpdateShopGoodInfo()
 
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(51,10,12,6," ")
-	gpu.setBackground(0x22293C)
-	gpu.fill(52,10.5,8,4," ")
+
 	
 	pic=graffiti.load("/home/img2.png") --debug
 	graffiti.draw(pic, 51,19,12,12) --debug картиночки
@@ -298,6 +297,12 @@ function CreateShop()
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
+
+	local label = _shopForm:addLabel(xStart,18,"Наберите кол-во товара")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
 	
 	_shopSelectedGoodLabel=_shopForm:addLabel(xStart,8,"1")
 	_shopSelectedGoodLabel.color=0x009999
@@ -318,7 +323,7 @@ function CreateShop()
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
 	
-	_shopBalanceEmsLabel=_shopForm:addLabel(2,1,"Баланс")
+	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"Баланс: 20.4 эм")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	
 	
@@ -334,22 +339,22 @@ function CreateShop()
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	button=_shopForm:addButton(56,38,"Купить",function() 
+	buyButton= _shopForm:addButton(56,38,"Купить",function() 
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
 		shop.GetItems(_shopList.items[_shopList.index],count)--DEBUG Не 1 а кол-во
 		
 	end) 
-	button.color=0x4e7640      
-	button.W=20
-	button.H=3
+	buyButton.color=0x4e7640      
+	buyButton.W=20
+	buyButton.H=3
 	
 	
 	for i=1, 12 do
 		local toWrite=keyboard[i]
 		local xSpace=8
 		local ySpace=7
-		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(ySpace/2),toWrite,function() 
+		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*4,toWrite,function() 
 			local j=i
 			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
 			if i==10 then _shopSelectedCount=""end
