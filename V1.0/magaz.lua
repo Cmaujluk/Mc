@@ -255,7 +255,7 @@ function UpdateShopGoodInfo()
 	ShopUpdateSelectedGoodsCount()
 
 	gpu.setBackground(0x212e41)
-	gpu.fill(52,9,12,6," ")
+	gpu.fill(52,9,10,5," ")
 	
 	--pic=graffiti.load("/home/img2.png") --debug
 	--graffiti.draw(pic, 61, 20,14,14 ) --debug картиночки
