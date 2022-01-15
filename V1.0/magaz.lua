@@ -208,6 +208,12 @@ function ListSearchQuick(Edit,text)
 		end
 	end
 	_shopList:redraw()
+	
+	if _shopList==nil then return end
+	if _shopList.items==nil then return end
+	if _shopList.index==nil  then return end
+	if _shopList.items[_shopList.index]==nil  then return end
+	
 	UpdateShopGoodInfo()
 end
 
@@ -220,11 +226,7 @@ function SetShopList()
 end
 
 function UpdateShopGoodInfo()
-	if _shopList==nil then return end
-	if _shopList==nil then return end
-	if _shopList.items==nil then return end
-	if _shopList.index==nil  then return end
-	if _shopList.items[_shopList.index]==nil  then return end
+
 		
 	--_shopSelectedGoodLabel:show()
 
@@ -326,7 +328,9 @@ function CreateShop()
 	_shopCountWantBuyGoodLabel.W=40
 	
 	button=_shopForm:addButton(60,43,"Купить",function() 
-		shop.GetItems(_shopList.items[_shopList.index],1)--DEBUG Не 1 а кол-во
+		local count = tonumber(_shopSelectedCount)
+		if count==nil or count ==0 then return end
+		shop.GetItems(_shopList.items[_shopList.index],count)--DEBUG Не 1 а кол-во
 		
 	end) 
 	button.color=0x4e7640      
