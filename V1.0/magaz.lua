@@ -240,10 +240,11 @@ end
 
 function UpdateShopGoodInfo()
 	--_shopSelectedGoodLabel:show()
-
-	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
-	_shopSelectedGoodLabel.centered =true
-	_shopSelectedGoodLabel:redraw()
+	if _shopList.index then
+		_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
+		_shopSelectedGoodLabel.centered =true
+		_shopSelectedGoodLabel:redraw()
+	end
 	--Label3:paint()
 	
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
@@ -278,9 +279,8 @@ function SetBalanceView(count)
 
 	_shopBalanceEmsLabel.caption="Баланс:"..add.."эм"
 	_shopBalanceEmsLabel2.caption=str
-	_shopBalanceEmsLabel2.X=2+#str
-	_shopBalanceEmsLabel:redraw();
-	_shopBalanceEmsLabel2:redraw();
+	_shopBalanceEmsLabel:redraw()
+	_shopBalanceEmsLabel2:redraw()
 end
 
 function CreateShop()
@@ -352,7 +352,7 @@ function CreateShop()
 	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	_shopBalanceEmsLabel.fontColor = 0xFFB950
-	_shopBalanceEmsLabel2=_shopForm:addLabel(2,2,"")
+	_shopBalanceEmsLabel2=_shopForm:addLabel(9,2,"")
 	_shopBalanceEmsLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
 	SetBalanceView(20.4)
@@ -430,12 +430,26 @@ function CreateShopBuyBought()
 	_ShopBuyBoughtForm.H=40
 	_ShopBuyBoughtForm.color=_mainBackgroundColor
 
-	toShopButton= _ShopBuyBoughtForm:addButton(37,20,"Купить",function() 
+	toShopButton= _ShopBuyBoughtForm:addButton(30,14,"Купить",function() 
 		ActivateShop()		
 	end) 
 	toShopButton.color=0x5C9A47
 	toShopButton.W=20
 	toShopButton.H=3
+
+	toSellButton= _ShopBuyBoughtForm:addButton(30,26,"Продать",function() 
+		ActivateShop()		
+	end) 
+	toSellButton.color=0x5C9A47
+	toSellButton.W=20
+	toSellButton.H=3
+
+	backToMain=_ShopBuyBoughtForm:addButton(5,38,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
 end
 
 
