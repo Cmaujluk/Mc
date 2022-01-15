@@ -255,7 +255,7 @@ function UpdateShopGoodInfo()
 	ShopUpdateSelectedGoodsCount()
 
 	gpu.setBackground(0x212e41)
-	gpu.fill(60,10,20,20," ")
+	gpu.fill(52,9,20,20," ")
 	
 	--pic=graffiti.load("/home/img2.png") --debug
 	--graffiti.draw(pic, 61, 20,14,14 ) --debug картиночки
@@ -287,7 +287,7 @@ function CreateShop()
 	
 	_shopList=_shopForm:addList(5,8,UpdateShopGoodInfo) --обработка клика в скролле
 	_shopList.W=40
-	_shopList.H=38
+	_shopList.H=32
 	_shopList.color=0x626262
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
