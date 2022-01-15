@@ -168,8 +168,13 @@ function ShopUpdateSelectedGoodsCount()
 		_shopCountWantBuyGoodLabel:redraw()
 	else
 
-		if count >_shopList.items[_shopList.index].stackSize*27 then count =_shopList.items[_shopList.index].stackSize*27  end
-		if count > shop.GetItemCount(_shopList.items[_shopList.index].fingerprint) then count = shop.GetItemCount(_shopList.items[_shopList.index].fingerprint) end
+		if count >_shopList.items[_shopList.index].stackSize*27 then 
+			count =_shopList.items[_shopList.index].stackSize*27  
+		end
+		if count > shop.GetItemCount(_shopList.items[_shopList.index].fingerprint) then 
+			count = shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
+		end
+		_shopSelectedCount=tostring(count)
 		local price=count*_shopList.items[_shopList.index].price
 
 		if price>_playerEms then

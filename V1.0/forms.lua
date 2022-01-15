@@ -410,7 +410,7 @@ function TList:scroll(x, y, sh, user)
 end
 
 function TComponent:addList(left, top, OnChange)
-  local obj={left=left, top=top, lines={}, items={}, OnChange=OnChange}
+  local obj={left=left, top=top, lines={}, items={}, onChange=OnChange}
   self:makeChild(obj)
   return setmetatable(obj,TList)
 end
