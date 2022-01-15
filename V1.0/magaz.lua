@@ -208,8 +208,8 @@ function ListSearch()
 end
 
 function ListSearchQuick(Edit,text)
-	if(text==_lastTextToSort) then return end
-	_lastTextToSort=text
+	if(text[1]==_lastTextToSort) then return end
+	_lastTextToSort=text[1]
 	_shopList:clear()
 	local str=text[1]
 	for i=1, #_items do
@@ -253,6 +253,9 @@ function UpdateShopGoodInfo()
 	_shopEnoughEmsLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
+
+	gpu.setBackground(0x212e41)
+	gpu.fill(60,10,20,20," ")
 	
 	--pic=graffiti.load("/home/img2.png") --debug
 	--graffiti.draw(pic, 61, 20,14,14 ) --debug картиночки
@@ -284,7 +287,7 @@ function CreateShop()
 	
 	_shopList=_shopForm:addList(5,8,UpdateShopGoodInfo) --обработка клика в скролле
 	_shopList.W=40
-	_shopList.H=26
+	_shopList.H=38
 	_shopList.color=0x626262
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
@@ -372,7 +375,7 @@ function CreateShop()
 	
 	SetShopList()
 	-------------------------------------
-	_shopEditField=_shopForm:addEdit(5,36,ListSearch,ListSearchQuick)
+	_shopEditField=_shopForm:addEdit(5,46,ListSearch,ListSearchQuick)
 	
 	--_shopSelectedGoodLabel:hide()
 end
