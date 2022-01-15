@@ -53,7 +53,7 @@ end
 
 function Init()
 	gpu.setResolution(140,40)
-	_mainBackgroundColor=0x181D1E
+	_mainBackgroundColor=0x2B2A33
 	_mainForm=forms.addForm()       
 	_mainForm.W=80
 	_mainForm.H=40
@@ -275,14 +275,24 @@ function CreateShop()
 	_shopForm.H=45
 	_shopForm.color=_mainBackgroundColor
 	
-	CreateButton(_shopForm,4,43,1,10,"Назад",OpenMainMenu)
+	backToMain=_shopForm:addButton(5,43,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+
+
+
 	frame=_shopForm:addFrame(39,1,1) 
 	frame.W=12 
 	frame.H=3 
 	frame.color= _mainBackgroundColor
+
+
 	
 	label=_shopForm:addLabel(42,2,"Магазин") 
-	label.fontColor =0xFFE600 
+	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor
 	
 	local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
@@ -298,7 +308,7 @@ function CreateShop()
 	label.autoSize  = false
 	label.W=40
 
-	local label = _shopForm:addLabel(xStart,18,"Наберите кол-во товара")
+	local label = _shopForm:addLabel(xStart-1,17,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -327,13 +337,13 @@ function CreateShop()
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	
 	
-	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,39,"6")
+	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,35,"6")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopWantBuyGoodLabel.centered = true
 	_shopWantBuyGoodLabel.autoSize  = false
 	_shopWantBuyGoodLabel.W=40
 	
-	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,40,"7")
+	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,36,"7")
 	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopCountWantBuyGoodLabel.centered = true
 	_shopCountWantBuyGoodLabel.autoSize  = false
@@ -345,7 +355,7 @@ function CreateShop()
 		shop.GetItems(_shopList.items[_shopList.index],count)--DEBUG Не 1 а кол-во
 		
 	end) 
-	buyButton.color=0x4e7640      
+	buyButton.color=0x5C9A47
 	buyButton.W=20
 	buyButton.H=3
 	
@@ -368,7 +378,12 @@ function CreateShop()
 			end
 			ShopUpdateSelectedGoodsCount()
 		end) 
-		button.color=0xD26262 
+		if i==10 or i==12 then
+			button.color=0x42AECB
+		else
+			button.color=0xD26262 
+		end
+		
 		button.H=3
 		button.W=6
 		button.border=0
