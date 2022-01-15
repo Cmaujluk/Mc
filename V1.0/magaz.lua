@@ -257,7 +257,7 @@ function UpdateShopGoodInfo()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(51,10,12,6," ")
 	gpu.setBackground(0x22293C)
-	gpu.fill(53,11,10,4," ")
+	gpu.fill(52,10.5,8,4," ")
 	
 	pic=graffiti.load("/home/img2.png") --debug
 	graffiti.draw(pic, 51,19,12,12) --debug картиночки
@@ -348,7 +348,7 @@ function CreateShop()
 	for i=1, 12 do
 		local toWrite=keyboard[i]
 		local xSpace=8
-		local ySpace=6
+		local ySpace=7
 		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*(ySpace/2),toWrite,function() 
 			local j=i
 			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
