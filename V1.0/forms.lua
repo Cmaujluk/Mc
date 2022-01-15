@@ -270,7 +270,7 @@ local function onKeyDown(char, code)
   end
   if(posX<=0) then return end
   if(code==203 or code==205 or code==199 or code==207) then return end
-  if (code==211 or code==14) and (text=="" or text=" ") then return end
+  if (code==211 or code==14) and (text=="" or text==" ") then return end
   if self.OnChange then
 	self:OnChange(text) 
   end
