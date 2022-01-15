@@ -269,7 +269,7 @@ end
 
 function CreateShop()
 	local xStart=48
-	local xShift=15
+	local xShift=16
 	
 	_shopForm=forms.addForm()
 	_shopForm.W=90
