@@ -259,8 +259,8 @@ function UpdateShopGoodInfo()
 	gpu.fill(51,10,12,6," ")
 
 	
-	pic=graffiti.load("/home/img2.png") --debug
-	graffiti.draw(pic, 51,19,12,12) --debug картиночки
+	--pic=graffiti.load("/home/img2.png") --debug
+	--graffiti.draw(pic, 51,19,12,12) --debug картиночки
 end
 
 function InitShop()
@@ -270,12 +270,13 @@ end
 function SetBalanceView(count)
 	local str=tostring(count)
 	local add=""
-	for i in str do
+	for i=1, #str do
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс:"..add.."эм")
-	_shopBalanceEmsLabel2.caption="       "..str)
+	_shopBalanceEmsLabel.caption="Баланс:"..add.."эм"
+	_shopBalanceEmsLabel2.caption=str
+	_shopBalanceEmsLabel2.x=2+#str
 	_shopBalanceEmsLabel:redraw();
 	_shopBalanceEmsLabel2:redraw();
 end
@@ -320,7 +321,6 @@ function CreateShop()
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
-	label.border=1
 
 	local label = _shopForm:addLabel(xStart-1,17,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
