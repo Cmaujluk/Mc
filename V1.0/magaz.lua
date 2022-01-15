@@ -41,6 +41,7 @@ local _shopEditField = nil
 local _shopSelectedCount = ""
 local _playerEms=100
 local _items={}
+local _lastTextToSort=""
 ------------DEBUG----------------
 
 
@@ -207,6 +208,8 @@ function ListSearch()
 end
 
 function ListSearchQuick(Edit,text)
+	if(text==_lastTextToSort) then return end
+	_lastTextToSort=text
 	_shopList:clear()
 	local str=text[1]
 	for i=1, #_items do
