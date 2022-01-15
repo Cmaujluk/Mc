@@ -251,8 +251,8 @@ function UpdateShopGoodInfo()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
 	
-	pic=graffiti.load("/home/img2.png") --debug
-	graffiti.draw(pic, 61, 20,14,14 ) --debug
+	--pic=graffiti.load("/home/img2.png") --debug
+	--graffiti.draw(pic, 61, 20,14,14 ) --debug картиночки
 end
 
 function InitShop()
