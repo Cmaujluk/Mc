@@ -258,7 +258,7 @@ function UpdateShopGoodInfo()
 	gpu.fill(51,10,12,6," ")
 	
 	pic=graffiti.load("/home/img2.png") --debug
-	graffiti.draw(pic, 51,16,12,12) --debug картиночки
+	graffiti.draw(pic, 51,22,12,12) --debug картиночки
 end
 
 function InitShop()
@@ -304,18 +304,18 @@ function CreateShop()
 	_shopSelectedGoodLabel.autoSize  = false
 	_shopSelectedGoodLabel.W=40
 	
-	_shopAvailableGoodLabel=_shopForm:addLabel(xStart,10,"2")
+	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+20,10,"2")
 	_shopAvailableGoodLabel.color = _mainBackgroundColor
 		
-	_shopPriceGoodLabel=_shopForm:addLabel(xStart,12,"3")
+	_shopPriceGoodLabel=_shopForm:addLabel(xStart+20,12,"3")
 	_shopPriceGoodLabel.color = _mainBackgroundColor
 
 	
-	_shopEnoughEmsLabel=_shopForm:addLabel(xStart,14,"4")
+	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+20,14,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
 	
-	_shopBalanceEmsLabel=_shopForm:addLabel(xStart,16,"5")
+	_shopBalanceEmsLabel=_shopForm:addLabel(xStart+20,16,"5")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	
 	
