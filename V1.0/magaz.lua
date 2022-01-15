@@ -14,6 +14,8 @@ local _wandChargerForm = nil
 
 local _mainBackgroundColor = nil
 
+local _ShopBuyBoughtForm = nil
+
 local _state=""
 -------------USER------------------ 
 local _playerName=""  
@@ -141,7 +143,7 @@ function CreateMainMenu()
 	labels[4]="Билеты казино"	
 	labels[5]="Лотерея"	labels[6]="Мехи"
 	local methods={} 
-	methods[1]=ActivateShop 
+	methods[1]=AcrivateShopBuyBoughtMenu 
 	methods[2]=ActivateShop 
 	methods[3]=ActivateWandCharger	
 	methods[4]=ActivateShop	
@@ -417,6 +419,21 @@ function CreateShop()
 	--_shopSelectedGoodLabel:hide()
 end
 
+function AcrivateShopBuyBoughtMenu()
+	gpu.setResolution(80,40)
+	_ShopBuyBoughtForm:setActive()
+end
+
+function CreateShopBuyBought()	
+	toShopButton= _ShopBuyBoughtForm:addButton(37,20,"Купить",function() 
+		ActivateShop()		
+	end) 
+	toShopButton.color=0x5C9A47
+	toShopButton.W=20
+	toShopButton.H=3
+end
+
+
 function ShowChargingStatus(str)
 	_chargingLabel.caption="Статус: "..str
 	_chargingLabel:redraw()
@@ -447,6 +464,7 @@ end
 Init()
 shop.Init()
 InitCharger()
+CreateShopBuyBought()	
 InitShop()
 CreateButtonExit()
 CreateEnterButton()
