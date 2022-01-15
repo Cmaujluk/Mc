@@ -257,8 +257,8 @@ function UpdateShopGoodInfo()
 	gpu.setBackground(0x212e41)
 	gpu.fill(51,10,12,6," ")
 	
-	--pic=graffiti.load("/home/img2.png") --debug
-	--graffiti.draw(pic, 61, 20,14,14 ) --debug картиночки
+	pic=graffiti.load("/home/img2.png") --debug
+	graffiti.draw(pic, 51,10,12,12) --debug картиночки
 end
 
 function InitShop()
@@ -375,7 +375,7 @@ function CreateShop()
 	
 	SetShopList()
 	-------------------------------------
-	_shopEditField=_shopForm:addEdit(5,40,ListSearch,ListSearchQuick)
+	_shopEditField=_shopForm:addEdit(5,38,ListSearch,ListSearchQuick)
 	
 	--_shopSelectedGoodLabel:hide()
 end
