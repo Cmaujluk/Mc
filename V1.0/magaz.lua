@@ -255,7 +255,7 @@ function UpdateShopGoodInfo()
 	ShopUpdateSelectedGoodsCount()
 
 	gpu.setBackground(0x212e41)
-	gpu.fill(52,9,10,5," ")
+	gpu.fill(51,10,12,6," ")
 	
 	--pic=graffiti.load("/home/img2.png") --debug
 	--graffiti.draw(pic, 61, 20,14,14 ) --debug картиночки
@@ -273,7 +273,7 @@ function CreateShop()
 	_shopForm.H=45
 	_shopForm.color=_mainBackgroundColor
 	
-	CreateButton(_shopForm,4,2,1,10,"Назад",OpenMainMenu)
+	CreateButton(_shopForm,4,43,1,10,"Назад",OpenMainMenu)
 	frame=_shopForm:addFrame(39,1,1) 
 	frame.W=12 
 	frame.H=3 
@@ -375,7 +375,7 @@ function CreateShop()
 	
 	SetShopList()
 	-------------------------------------
-	_shopEditField=_shopForm:addEdit(5,46,ListSearch,ListSearchQuick)
+	_shopEditField=_shopForm:addEdit(5,40,ListSearch,ListSearchQuick)
 	
 	--_shopSelectedGoodLabel:hide()
 end
