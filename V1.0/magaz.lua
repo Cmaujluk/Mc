@@ -277,7 +277,7 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс:"..add.."эм"
+	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -352,7 +352,7 @@ function CreateShop()
 	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
 	_shopBalanceEmsLabel.fontColor = 0xFFB950
-	_shopBalanceEmsLabel2=_shopForm:addLabel(9,2,"")
+	_shopBalanceEmsLabel2=_shopForm:addLabel(10,2,"")
 	_shopBalanceEmsLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
 	SetBalanceView(20.4)
