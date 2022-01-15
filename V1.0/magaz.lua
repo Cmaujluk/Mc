@@ -425,10 +425,10 @@ function AcrivateShopBuyBoughtMenu()
 end
 
 function CreateShopBuyBought()	
-	toShopButton=forms.addForm()
-	toShopButton.W=80
-	toShopButton.H=40
-	toShopButton.color=_mainBackgroundColor
+	_ShopBuyBoughtForm=forms.addForm()
+	_ShopBuyBoughtForm.W=80
+	_ShopBuyBoughtForm.H=40
+	_ShopBuyBoughtForm.color=_mainBackgroundColor
 
 	toShopButton= _ShopBuyBoughtForm:addButton(37,20,"Купить",function() 
 		ActivateShop()		
