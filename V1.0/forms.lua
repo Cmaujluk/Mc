@@ -34,8 +34,8 @@ function TComponent:draw()
   gpu.setBackground(self.color)
   gpu.setForeground(self.fontColor)
   local brd=nil
-  if self.border==1 then brd={"-","-","¬","L","¦","-"}
-  elseif self.border==2 then brd={"г","=","¬","L","¦","-"}
+  if self.border==1 then brd={"┌","─","┐","└","│","┘"}
+  elseif self.border==2 then brd={"╔","═","╗","╚","║","╝"}
   end
   if brd then
     gpu.set(self.X,self.Y, brd[1]..string.rep(brd[2],self.W-2)..brd[3])

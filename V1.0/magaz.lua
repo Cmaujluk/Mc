@@ -1,3 +1,4 @@
+local graffiti=require("graffiti")
 local forms=require("forms")      
 local charger=require("charger")   
 local component = require("component") 
@@ -249,6 +250,9 @@ function UpdateShopGoodInfo()
 	_shopEnoughEmsLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
+	
+	pic=graffiti.load("/home/img2.png") --debug
+	graffiti.draw(pic, 61, 20,14,14 ) --debug
 end
 
 function InitShop()
