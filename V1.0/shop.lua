@@ -53,11 +53,11 @@ function ParseItemsToSale()
 end
 
 function shop.GetItemDetails(fingerprint)
-	return interface.getItemDetail(fingerprint).all()
+	return interface.getItemDetails(fingerprint).all()
 end
 
 function shop.GetItemCount(fingerprint)
-	local count = interface.getItemDetail(fingerprint).all()[qty]
+	local count = interface.getItemDetails(fingerprint).all()["qty"]
 	if count ==nil then count = 0 end
 	return count
 end
