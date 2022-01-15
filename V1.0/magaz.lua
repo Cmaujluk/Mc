@@ -276,7 +276,7 @@ function SetBalanceView(count)
 
 	_shopBalanceEmsLabel.caption="Баланс:"..add.."эм"
 	_shopBalanceEmsLabel2.caption=str
-	_shopBalanceEmsLabel2.x=2+#str
+	_shopBalanceEmsLabel2.X=2+#str
 	_shopBalanceEmsLabel:redraw();
 	_shopBalanceEmsLabel2:redraw();
 end
@@ -297,8 +297,8 @@ function CreateShop()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor    
 
-	frame=_shopForm:addFrame(39,1,1) 
-	frame.W=12 
+	frame=_shopForm:addFrame(36,1,1) 
+	frame.W=24
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
@@ -315,6 +315,7 @@ function CreateShop()
 	_shopList.H=29
 	_shopList.color=0x42414D
 	_shopList.selColor=0x2E7183
+	_shopList.sfColor=0xffffff
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
 	label.color = _mainBackgroundColor
