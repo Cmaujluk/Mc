@@ -31,6 +31,7 @@ local _shopAvailableGoodLabel=nil
 local _shopPriceGoodLabel=nil
 local _shopEnoughEmsLabel=nil
 local _shopBalanceEmsLabel=nil
+local _shopBalanceEmsLabel2=nil
 local _shopWantBuyGoodLabel=nil
 local _shopCountWantBuyGoodLabel=nil
 -------------LISTS---------------
@@ -266,6 +267,19 @@ function InitShop()
 	_items=shop.GetItemsToSale()
 end
 
+function SetBalanceView(count)
+	local str=tostring(count)
+	local add=""
+	for i in str do
+		add=add.." "
+	end
+
+	_shopBalanceEmsLabel.caption="Баланс:"..add.."эм")
+	_shopBalanceEmsLabel2.caption="       "..str)
+	_shopBalanceEmsLabel:redraw();
+	_shopBalanceEmsLabel2:redraw();
+end
+
 function CreateShop()
 	local xStart=48
 	local xShift=16
@@ -281,8 +295,6 @@ function CreateShop()
 	backToMain.H=1
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor    
-
-
 
 	frame=_shopForm:addFrame(39,1,1) 
 	frame.W=12 
@@ -300,13 +312,15 @@ function CreateShop()
 	_shopList=_shopForm:addList(5,8,UpdateShopGoodInfo) --обработка клика в скролле
 	_shopList.W=40
 	_shopList.H=29
-	_shopList.color=0x626262
+	_shopList.color=0x42414D
+	_shopList.selColor=0x2E7183
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
+	label.border=1
 
 	local label = _shopForm:addLabel(xStart-1,17,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
@@ -332,10 +346,13 @@ function CreateShop()
 	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,14,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
-	
-	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"Баланс: 20.4 эм")
+	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
-	
+	_shopBalanceEmsLabel.fontColor = 0xFFB950
+	_shopBalanceEmsLabel2=_shopForm:addLabel(2,2,"")
+	_shopBalanceEmsLabel2.color = _mainBackgroundColor
+	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
+	SetBalanceView(20.4)
 	
 	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,35,"6")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
@@ -392,7 +409,10 @@ function CreateShop()
 	SetShopList()
 	-------------------------------------
 	_shopEditField=_shopForm:addEdit(5,38,ListSearch,ListSearchQuick)
-	
+	_shopEditField.W=40
+	_shopEditField.h=3
+	_shopEditField.border=0
+	_shopEditField.color=0x42414D
 	--_shopSelectedGoodLabel:hide()
 end
 
