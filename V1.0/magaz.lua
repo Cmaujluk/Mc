@@ -458,12 +458,21 @@ end
 function CreateDialogWindowBuyShopForm()
 	dialogForm=forms.addForm()       
 	dialogForm.border=1
-	dialogForm.W=31
+	dialogForm.W=70
 	dialogForm.H=7
-	dialogForm.left=math.floor((40-dialogForm.W)/2)
-	dialogForm.top =math.floor((20-dialogForm.H)/2)
-	_shopDialogForm=dialogForm:addLabel(8,3,"")
-	dialogForm:addButton(18,5,"Ок",function() _shopForm:setActive() end)
+	dialogForm.left=math.floor(10)
+	dialogForm.top =math.floor(19)
+	_shopDialogLabel=dialogForm:addLabel(8,3,"")
+	_shopDialogLabel.autoSize=false
+	_shopDialogLabel.centered=true
+	_shopDialogLabel.W=62
+	_shopDialogLabel.fontColor=0x92DEA3
+	btn=dialogForm:addButton(34,5,"Ок",function() 
+		_shopForm:setActive() 
+		UpdateShopGoodInfo()	
+	end)
+	btn.color=0xC1C1C1
+	dialogForm.color=0x333145
 end
 
 function ShowShopBuyDialog(string)
