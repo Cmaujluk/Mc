@@ -243,6 +243,14 @@ function SetShopList()
 	_shopList:redraw()
 end
 
+function SetShopSellList()
+	_shopSellList:clear()
+	for i=1, #_itemsSaleData do
+		_shopSellList:insert(_itemsSaleData[i].label,_itemsSaleData[i])
+	end
+	_shopSellList:redraw()
+end
+
 function UpdateShopGoodInfo(check)
 	--_shopSelectedGoodLabel:show()
 	if check then
@@ -276,6 +284,10 @@ end
 
 function InitShop()
 	_items=shop.GetItemsToSale()
+end
+
+function InitSaleShop()
+	_itemsSaleData=shop.GetItemsSaleData()
 end
 
 function SetBalanceView(count)
@@ -456,7 +468,7 @@ function CreateShopSell()
 	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor
 	
-	_shopSellList=_shopSellForm:addList(5,8,function()UpdateShopGoodInfo(false) end) --обработка клика в скролле
+	_shopSellList=_shopSellForm:addList(5,8,function()UpdateShopGoodInfo(false) end) --> --обработка клика в скролле
 	_shopSellList.W=40
 	_shopSellList.H=29
 	_shopSellList.color=0x42414D
@@ -481,7 +493,7 @@ function CreateShopSell()
 	_shopSelectedSellGoodLabel.color = _mainBackgroundColor
 	_shopSelectedSellGoodLabel.centered = true
 	_shopSelectedSellGoodLabel.autoSize  = false
-	_shopSelectedSellGoodLabel.W=40  -->
+	_shopSelectedSellGoodLabel.W=40  
 	
 	_shopAvailableGoodLabel=_shopSellForm:addLabel(xStart+xShift,10,"2")
 	_shopAvailableGoodLabel.color = _mainBackgroundColor
@@ -559,7 +571,7 @@ function CreateShopSell()
 		button.border=0
 	end
 	
-	SetShopList()
+	SetShopSellList()
 	-------------------------------------
 	_shopEditField=_shopSellForm:addEdit(5,38,ListSearch,ListSearchQuick)
 	_shopEditField.W=40
@@ -669,6 +681,7 @@ InitCharger()
 CreateShopBuyBought()	
 CreateDialogWindowBuyShopForm()
 InitShop()
+InitSaleShop()
 CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()

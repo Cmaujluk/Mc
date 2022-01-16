@@ -3,6 +3,7 @@ local internet = require("internet")
 local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
 
 local _itemsBD={}
+local _itemsSaleData={}
 local _itemsME={}
 local _itemsToSale={}
 local shop={}
@@ -31,6 +32,21 @@ function GetItemsFromBD()
 	for i=1,#product/8 do
 		local id = (i-1)*8
 		_itemsBD[tonumber(product[id+1])]={name=product[id+2], label=product[id+3], info=product[id+4], damage=tonumber(product[id+5]), price=RoundToPlaces(tonumber(product[id+6]),100), stackSize=tonumber(product[id+7]), itemId=product[id+8]}
+	end
+end
+
+function GetSellItemsData()
+	getData = internet.request("https://www.toolbexgames.com/mc_getsellitemsdata?")
+	local result=""
+	local product = {}
+	for chunk in getData do
+			result = result..chunk
+	end
+	product = parseString(result)
+	result = {}
+	for i=1,#product/6 do
+		local id = (i-1)*6
+		_itemsSaleData[tonumber(product[id+1])]={name=product[id+2], label=product[id+3], damage=tonumber(product[id+4]), hash=product[id+5], price=RoundToPlaces(tonumber(product[id+6]),100)}
 	end
 end
 
@@ -82,10 +98,15 @@ function shop.GetItemsToSale()
 	return _itemsToSale
 end
 
+function shop.GetItemsSaleData()
+	return _itemsSaleData
+end
+
 function shop.Init()
 	GetItemsFromBD()
 	GetItemsFromME()
 	ParseItemsToSale()
+	GetSellItemsData()
 end
 
 return shop
