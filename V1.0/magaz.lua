@@ -242,11 +242,12 @@ end
 
 function UpdateShopGoodInfo()
 	--_shopSelectedGoodLabel:show()
-	if _shopList.index then
-		_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
-		_shopSelectedGoodLabel.centered =true
-		_shopSelectedGoodLabel:redraw()
-	end
+	if _shopList.index~=nil or _shopList.index~=0 then return end
+
+	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
+	_shopSelectedGoodLabel.centered =true
+	_shopSelectedGoodLabel:redraw()
+	
 	--Label3:paint()
 	
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
@@ -279,7 +280,7 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм ♦"
+	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -462,13 +463,13 @@ function CreateDialogWindowBuyShopForm()
 	dialogForm.H=7
 	dialogForm.left=math.floor(10)
 	dialogForm.top =math.floor(19)
-	_shopDialogLabel=dialogForm:addLabel(1,3,"")
+	_shopDialogLabel=dialogForm:addLabel(3,3,"")
 	_shopDialogLabel.autoSize=false
 	_shopDialogLabel.centered=true
-	_shopDialogLabel.W=70
+	_shopDialogLabel.W=64
 	_shopDialogLabel.fontColor=0x92DEA3
 	_shopDialogLabel.color=0x333145
-	btn=dialogForm:addButton(34,5,"Ок",function() 
+	btn=dialogForm:addButton(30,5,"Ок",function() 
 		_shopForm:setActive() 
 		UpdateShopGoodInfo()	
 	end)
