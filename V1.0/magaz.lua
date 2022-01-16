@@ -224,12 +224,7 @@ function ListSearchQuick(Edit,text)
 	end
 	_shopList:redraw()
 	
-	--if _shopList==nil then return end
-	--if _shopList.items==nil then return end
-	--if _shopList.index==nil  then return end
-	--if _shopList.items[_shopList.index]==nil  then return end
-	
-	UpdateShopGoodInfo()
+	UpdateShopGoodInfo(true)
 end
 
 function SetShopList()
@@ -240,9 +235,11 @@ function SetShopList()
 	_shopList:redraw()
 end
 
-function UpdateShopGoodInfo()
+function UpdateShopGoodInfo(check=false)
 	--_shopSelectedGoodLabel:show()
-	if _shopList.index~=nil or _shopList.index~=0 then return end
+	if check then
+		if _shopList.index~=nil or _shopList.inde~=0 then return end
+	end
 
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
@@ -375,8 +372,16 @@ function CreateShop()
 	buyButton= _shopForm:addButton(56,38,"Купить",function() 
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
-		shop.GetItems(_shopList.items[_shopList.index],count)
-		ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label) -- тут проверка на бабки
+
+		local cost = _shopList.items[_shopList.index].price*count
+		if(cost<=_playerEms) then
+			shop.GetItems(_shopList.items[_shopList.index],count)
+			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label) -- тут проверка на бабки
+		else
+			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label) -- тут проверка на бабки
+		end
+		
+		
 		
 	end) 
 	buyButton.color=0x5C9A47
@@ -477,10 +482,15 @@ function CreateDialogWindowBuyShopForm()
 	dialogForm.color=0x333145
 end
 
-function ShowShopBuyDialog(string)
+function ShowShopBuyDialog(string,enough=true)
 
 	dialogForm:setActive()
 	_shopDialogLabel.caption=string
+	if enough then
+		_shopDialogLabel.fontColor=0x92DEA3
+	else
+		_shopDialogLabel.fontColor=0xdb7093
+	end
 	_shopDialogLabel:redraw()
 end
 
