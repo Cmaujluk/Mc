@@ -279,7 +279,7 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм"
+	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм ♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -462,11 +462,12 @@ function CreateDialogWindowBuyShopForm()
 	dialogForm.H=7
 	dialogForm.left=math.floor(10)
 	dialogForm.top =math.floor(19)
-	_shopDialogLabel=dialogForm:addLabel(8,3,"")
+	_shopDialogLabel=dialogForm:addLabel(1,3,"")
 	_shopDialogLabel.autoSize=false
 	_shopDialogLabel.centered=true
-	_shopDialogLabel.W=62
+	_shopDialogLabel.W=70
 	_shopDialogLabel.fontColor=0x92DEA3
+	_shopDialogLabel.color=0x333145
 	btn=dialogForm:addButton(34,5,"Ок",function() 
 		_shopForm:setActive() 
 		UpdateShopGoodInfo()	
