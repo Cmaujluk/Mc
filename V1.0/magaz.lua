@@ -376,9 +376,9 @@ function CreateShop()
 		local cost = _shopList.items[_shopList.index].price*count
 		if(cost<=_playerEms) then
 			shop.GetItems(_shopList.items[_shopList.index],count)
-			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label) -- тут проверка на бабки
+			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true) -- тут проверка на бабки
 		else
-			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label) -- тут проверка на бабки
+			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) -- тут проверка на бабки
 		end
 		
 		
@@ -482,7 +482,7 @@ function CreateDialogWindowBuyShopForm()
 	dialogForm.color=0x333145
 end
 
-function ShowShopBuyDialog(string,enough=true)
+function ShowShopBuyDialog(string,enough)
 
 	dialogForm:setActive()
 	_shopDialogLabel.caption=string
