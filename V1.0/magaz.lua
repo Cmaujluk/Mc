@@ -209,7 +209,7 @@ function ListSearch()
 		end
 	end
 	_shopList:redraw()
-	UpdateShopGoodInfo()
+	UpdateShopGoodInfo(false)
 end
 
 function ListSearchQuick(Edit,text)
@@ -235,7 +235,7 @@ function SetShopList()
 	_shopList:redraw()
 end
 
-function UpdateShopGoodInfo(check=false)
+function UpdateShopGoodInfo(check)
 	--_shopSelectedGoodLabel:show()
 	if check then
 		if _shopList.index~=nil or _shopList.inde~=0 then return end
@@ -312,7 +312,7 @@ function CreateShop()
 	
 	local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 	
-	_shopList=_shopForm:addList(5,8,UpdateShopGoodInfo) --обработка клика в скролле
+	_shopList=_shopForm:addList(5,8,function()UpdateShopGoodInfo(false) end) --обработка клика в скролле
 	_shopList.W=40
 	_shopList.H=29
 	_shopList.color=0x42414D
@@ -476,7 +476,7 @@ function CreateDialogWindowBuyShopForm()
 	_shopDialogLabel.color=0x333145
 	btn=dialogForm:addButton(30,5,"Ок",function() 
 		_shopForm:setActive() 
-		UpdateShopGoodInfo()	
+		UpdateShopGoodInfo(true)	
 	end)
 	btn.color=0xC1C1C1
 	dialogForm.color=0x333145
