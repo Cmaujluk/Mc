@@ -11,7 +11,7 @@ local _mainForm = nil
 local _menuForm = nil
 local _shopForm = nil
 local _wandChargerForm = nil
-
+local _shopSellForm = nil
 local _mainBackgroundColor = nil
 
 local _ShopBuyBoughtForm = nil
@@ -36,10 +36,11 @@ local _shopBalanceEmsLabel=nil
 local _shopBalanceEmsLabel2=nil
 local _shopWantBuyGoodLabel=nil
 local _shopCountWantBuyGoodLabel=nil
-
+local _shopSelectedSellGoodLabel=nil
 local _shopDialogLabel = nil
 -------------LISTS---------------
 local _shopList=nil
+local _shopSellList=nil
 ------------EDITS----------------
 local _shopEditField = nil
 ----------GLOBALVARS-------------
@@ -47,6 +48,8 @@ local _shopSelectedCount = ""
 local _playerEms=100
 local _items={}
 local _lastTextToSort=""
+
+local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
 
 
@@ -125,6 +128,11 @@ end
 function ActivateShop()
 	gpu.setResolution(90,45)
 	_shopForm:setActive()
+end
+
+function ActivateSellShop()
+	gpu.setResolution(90,45)
+	_shopSellForm:setActive()
 end
 
 function ActivateWandCharger()
@@ -310,8 +318,6 @@ function CreateShop()
 	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor
 	
-	local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
-	
 	_shopList=_shopForm:addList(5,8,function()UpdateShopGoodInfo(false) end) --обработка клика в скролле
 	_shopList.W=40
 	_shopList.H=29
@@ -380,9 +386,6 @@ function CreateShop()
 		else
 			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) -- тут проверка на бабки
 		end
-		
-		
-		
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=20
@@ -428,6 +431,144 @@ function CreateShop()
 	--_shopSelectedGoodLabel:hide()
 end
 
+function CreateShopSell()
+	local xStart=48
+	local xShift=16
+	
+	_shopSellForm=forms.addForm()
+	_shopSellForm.W=90
+	_shopSellForm.H=45
+	_shopSellForm.color=_mainBackgroundColor
+	
+	backToMain=_shopSellForm:addButton(5,43,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+
+	frame=_shopSellForm:addFrame(36,1,1) 
+	frame.W=24
+	frame.H=3 
+	frame.color= _mainBackgroundColor
+
+	label=_shopSellForm:addLabel(37,2,"Пополнение счета") 
+	label.fontColor =0xFFE600
+	label.color=_mainBackgroundColor
+	
+	_shopSellList=_shopSellForm:addList(5,8,function()UpdateShopGoodInfo(false) end) --обработка клика в скролле
+	_shopSellList.W=40
+	_shopSellList.H=29
+	_shopSellList.color=0x42414D
+	_shopSellList.selColor=0x2E7183
+	_shopSellList.sfColor=0xffffff 
+	
+	local label = _shopSellForm:addLabel(5,6,"Выберите товар")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _shopSellForm:addLabel(xStart-1,17,"Наберите кол-во товара")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+	
+	_shopSelectedSellGoodLabel=_shopSellForm:addLabel(xStart,8,"1")
+	_shopSelectedSellGoodLabel.color=0x009999
+	_shopSelectedSellGoodLabel.fontColor=0xffd875
+	_shopSelectedSellGoodLabel.color = _mainBackgroundColor
+	_shopSelectedSellGoodLabel.centered = true
+	_shopSelectedSellGoodLabel.autoSize  = false
+	_shopSelectedSellGoodLabel.W=40  -->
+	
+	_shopAvailableGoodLabel=_shopSellForm:addLabel(xStart+xShift,10,"2")
+	_shopAvailableGoodLabel.color = _mainBackgroundColor
+		
+	_shopPriceGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"3")
+	_shopPriceGoodLabel.color = _mainBackgroundColor
+
+	
+	_shopEnoughEmsLabel=_shopSellForm:addLabel(xStart+xShift,14,"4")
+	_shopEnoughEmsLabel.color = _mainBackgroundColor
+
+	_shopBalanceEmsLabel=_shopSellForm:addLabel(2,2,"")
+	_shopBalanceEmsLabel.color = _mainBackgroundColor
+	_shopBalanceEmsLabel.fontColor = 0xFFB950
+	_shopBalanceEmsLabel2=_shopSellForm:addLabel(10,2,"")
+	_shopBalanceEmsLabel2.color = _mainBackgroundColor
+	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
+	SetBalanceView(20.4)
+	
+	_shopWantBuyGoodLabel=_shopSellForm:addLabel(xStart,35,"6")
+	_shopWantBuyGoodLabel.color = _mainBackgroundColor
+	_shopWantBuyGoodLabel.centered = true
+	_shopWantBuyGoodLabel.autoSize  = false
+	_shopWantBuyGoodLabel.W=40
+	
+	_shopCountWantBuyGoodLabel=_shopSellForm:addLabel(xStart,36,"7")
+	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
+	_shopCountWantBuyGoodLabel.centered = true
+	_shopCountWantBuyGoodLabel.autoSize  = false
+	_shopCountWantBuyGoodLabel.W=40
+	
+	buyButton= _shopSellForm:addButton(56,38,"Купить",function() 
+		local count = tonumber(_shopSelectedCount)
+		if count==nil or count ==0 then return end
+
+		local cost = _shopList.items[_shopList.index].price*count
+		if(cost<=_playerEms) then
+			shop.GetItems(_shopList.items[_shopList.index],count)
+			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true) -- тут проверка на бабки
+		else
+			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) -- тут проверка на бабки
+		end
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=20
+	buyButton.H=3
+	
+	
+	for i=1, 12 do
+		local toWrite=keyboard[i]
+		local xSpace=8
+		local ySpace=7
+		button=_shopSellForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*4,toWrite,function() 
+			local j=i
+			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
+			if i==10 then _shopSelectedCount=""end
+			if i==11 then _shopSelectedCount=_shopSelectedCount.."0"end
+			if i==12 then
+				if(unicode.len(_shopSelectedCount)>0) then
+					_shopSelectedCount = _shopSelectedCount:sub(1, -2)
+				else
+					_shopSelectedCount = ""
+				end
+			end
+			ShopUpdateSelectedGoodsCount()
+		end) 
+		if i==10 or i==12 then
+			button.color=0x42AECB
+		else
+			button.color=0xD26262 
+		end
+		
+		button.H=3
+		button.W=6
+		button.border=0
+	end
+	
+	SetShopList()
+	-------------------------------------
+	_shopEditField=_shopSellForm:addEdit(5,38,ListSearch,ListSearchQuick)
+	_shopEditField.W=40
+	_shopEditField.h=3
+	_shopEditField.border=0
+	_shopEditField.color=0x42414D
+	--_shopSelectedGoodLabel:hide()
+end
+
 function AcrivateShopBuyBoughtMenu()
 	gpu.setResolution(80,40)
 	_ShopBuyBoughtForm:setActive()
@@ -447,7 +588,7 @@ function CreateShopBuyBought()
 	toShopButton.H=3
 
 	toSellButton= _ShopBuyBoughtForm:addButton(30,26,"Продать",function() 
-		ActivateShop()		
+		ActivateSellShop()		
 	end) 
 	toSellButton.color=0x5C9A47
 	toSellButton.W=20
@@ -532,5 +673,6 @@ CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()
 CreateShop()
+CreateShopSell()
 CreateWandCharger()
 RunForm()
