@@ -36,6 +36,8 @@ local _shopBalanceEmsLabel=nil
 local _shopBalanceEmsLabel2=nil
 local _shopWantBuyGoodLabel=nil
 local _shopCountWantBuyGoodLabel=nil
+
+local _shopDialogLabel = nil
 -------------LISTS---------------
 local _shopList=nil
 ------------EDITS----------------
@@ -372,7 +374,8 @@ function CreateShop()
 	buyButton= _shopForm:addButton(56,38,"Купить",function() 
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
-		shop.GetItems(_shopList.items[_shopList.index],count)--DEBUG Не 1 а кол-во
+		shop.GetItems(_shopList.items[_shopList.index],count)
+		ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label) -- тут проверка на бабки
 		
 	end) 
 	buyButton.color=0x5C9A47
@@ -452,6 +455,24 @@ function CreateShopBuyBought()
 	backToMain.color=_mainBackgroundColor    
 end
 
+function CreateDialogWindowBuyShopForm()
+	dialogForm=forms.addForm()       
+	dialogForm.border=1
+	dialogForm.W=31
+	dialogForm.H=7
+	dialogForm.left=math.floor((40-dialogForm.W)/2)
+	dialogForm.top =math.floor((20-dialogForm.H)/2)
+	_shopDialogForm=dialogForm:addLabel(8,3,"")
+	dialogForm:addButton(18,5,"Ок",function() _shopForm:setActive() end)
+end
+
+function ShowShopBuyDialog(string)
+
+	dialogForm:setActive()
+	_shopDialogLabel.caption=string
+	_shopDialogLabel:redraw()
+end
+
 
 function ShowChargingStatus(str)
 	_chargingLabel.caption="Статус: "..str
@@ -484,6 +505,7 @@ Init()
 shop.Init()
 InitCharger()
 CreateShopBuyBought()	
+CreateDialogWindowBuyShopForm()
 InitShop()
 CreateButtonExit()
 CreateEnterButton()
