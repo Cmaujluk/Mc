@@ -476,7 +476,7 @@ function CreateDialogWindowBuyShopForm()
 	_shopDialogLabel.color=0x333145
 	btn=dialogForm:addButton(30,5,"Ок",function() 
 		_shopForm:setActive() 
-		UpdateShopGoodInfo(true)	
+		UpdateShopGoodInfo(false)	
 	end)
 	btn.color=0xC1C1C1
 	dialogForm.color=0x333145
