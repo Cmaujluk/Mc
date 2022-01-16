@@ -36,7 +36,7 @@ function GetItemsFromBD()
 end
 
 function GetSellItemsData()
-	getData = internet.request("https://www.toolbexgames.com/mc_getsellitemsdata?")
+	getData = internet.request("https://www.toolbexgames.com/mc_getsellitemsdata.php?")
 	local result=""
 	local product = {}
 	for chunk in getData do
