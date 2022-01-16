@@ -291,14 +291,14 @@ end
 function UpdateShopSellGoodInfo()
 
 
-	_shopSelectedSellGoodLabel.caption =_shopList.items[_shopList.index].label
+	_shopSelectedSellGoodLabel.caption =_shopSellList.items[_shopSellList.index].label
 	_shopSelectedSellGoodLabel.centered =true
-	_shopSelectedSellGoodLabeledraw()
+	_shopSelectedSellGoodLabel:redraw()
 	
 	
 
 		
-	_shopPriceSellGoodLabel.caption="Цена продажи: ".._shopList.items[_shopList.index].price.." эм"
+	_shopPriceSellGoodLabel.caption="Цена продажи: ".._shopSellList.items[_shopSellList.index].price.." эм"
 	_shopPriceSellGoodLabel:redraw()
 
 	
@@ -308,7 +308,7 @@ function UpdateShopSellGoodInfo()
 	_shopAvailableSellGoodLabel:redraw()
 
 	
-	_shopSelectedCount = ""
+	--_shopSelectedCount = ""
 	--ShopUpdateSelectedGoodsCount()
 
 	--gpu.setBackground(0x3E3D47)
