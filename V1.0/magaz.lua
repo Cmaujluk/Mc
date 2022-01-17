@@ -135,11 +135,13 @@ end
 function ActivateShop()
 	gpu.setResolution(90,45)
 	_shopForm:setActive()
+	SetBalanceView(_playerEms)
 end
 
 function ActivateSellShop()
 	gpu.setResolution(90,45)
 	_shopSellForm:setActive()
+	SetBalanceSellView(_playerEms)
 end
 
 function ActivateWandCharger()
@@ -673,12 +675,12 @@ function CreateDialogWindowBuyShopForm()
 	dialogForm.H=7
 	dialogForm.left=math.floor(10)
 	dialogForm.top =math.floor(19)
-	_shopDialogSellLabel=dialogForm:addLabel(3,3,"")
-	_shopDialogSellLabel.autoSize=false
-	_shopDialogSellLabel.centered=true
-	_shopDialogSellLabel.W=64
-	_shopDialogSellLabel.fontColor=0x92DEA3
-	_shopDialogSellLabel.color=0x333145
+	_shopDialogLabel=dialogForm:addLabel(3,3,"")
+	_shopDialogLabel.autoSize=false
+	_shopDialogLabel.centered=true
+	_shopDialogLabel.W=64
+	_shopDialogLabel.fontColor=0x92DEA3
+	_shopDialogLabel.color=0x333145
 	btn=dialogForm:addButton(30,5,"Ок",function() 
 		_shopForm:setActive() 
 		UpdateShopGoodInfo(false)	
@@ -690,11 +692,11 @@ end
 function ShowShopBuyDialog(string,enough)
 
 	dialogForm:setActive()
-	_shopDialogSellLabel.caption=string
+	_shopDialogLabel.caption=string
 	if enough then
-		_shopDialogSellLabel.fontColor=0x92DEA3
+		_shopDialogLabel.fontColor=0x92DEA3
 	else
-		_shopDialogSellLabel.fontColor=0xdb7093
+		_shopDialogLabel.fontColor=0xdb7093
 	end
 	_shopDialogLabel:redraw()
 end
