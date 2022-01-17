@@ -2,6 +2,7 @@ local component = require("component")
 local internet = require("internet")
 local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
 local chest = component.crystal
+local chestToSale = component.chest
 
 local _itemsBD={}
 local _itemsSaleData={}
@@ -37,18 +38,23 @@ function GetItemsFromBD()
 end
 
 function GetSellItemsData()
-	getData = internet.request("https://www.toolbexgames.com/mc_getsellitemsdata.php?")
-	local result=""
-	local product = {}
-	for chunk in getData do
-			result = result..chunk
+	local items = chestToSale.getAllStacks()
+	local i=1
+	for _,item in pairs(items) do
+		_itemsSaleData[i]=item.all()
+		i=i+1
 	end
-	product = parseString(result)
-	result = {}
-	for i=1,#product/6 do
-		local id = (i-1)*6
-		_itemsSaleData[tonumber(product[id+1])]={name=product[id+2], label=product[id+3], damage=tonumber(product[id+4]), hash=product[id+5], price=RoundToPlaces(tonumber(product[id+6]),100)}
+
+	for i=1,#_itemsSaleData do
+		if _itemsSaleData[i].id=="customnpcs:npcMoney" then _itemsSaleData[i].label="Äåíüãè" _itemsSaleData[i].price=i end
+		if _itemsSaleData[i].id=="mcs_addons:item.cashback_item_2" then _itemsSaleData[i].label="Ïûëü" _itemsSaleData[i].price=i end
+		if _itemsSaleData[i].id=="customnpcs:npcAmethyst" then _itemsSaleData[i].label="Äåíüãè"..i _itemsSaleData[i].price=i end
+		if _itemsSaleData[i].id=="customnpcs:npcRuby" then _itemsSaleData[i].label="Äåíüãè"..i _itemsSaleData[i].price=i end
+		if _itemsSaleData[i].id=="customnpcs:npcSaphire" then _itemsSaleData[i].label="Äåíüãè"..i _itemsSaleData[i].price=i end
+		if _itemsSaleData[i].id=="OpenComputers:print" then _itemsSaleData[i].label="Äåíüãè"..i _itemsSaleData[i].price=i end
 	end
+
+	return _itemsSaleData
 end
 
 function GetItemsFromME()
@@ -69,19 +75,13 @@ function ParseItemsToSale()
 	end
 end
 
-function shop.GetItemSellCount(item)
+function shop.GetItemSellCount(itemToCheck)
 	local items = chest.getAllStacks()
 	local count=0
 	for _,item in pairs(items) do
 		itemData=item.all()
-		if itemData.nbt_hash~=nil then
-			if item.hash==itemData.nbt_hash then
-				count=count+itemData.qty
-			end
-		else
-			if item.name==itemData.id and item.damage==itemData.dmg  then
-				count=count+ itemData.qty
-			end
+		if itemToCheck.id==itemData.id and itemToCheck.dmg==itemData.dmg  and itemToCheck.nbt_hash == itemData.nbt_hash then
+			count=count+itemData.qty
 		end
 	end
 	return count
