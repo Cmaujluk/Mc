@@ -259,7 +259,6 @@ function SetShopSellList()
 end
 
 function UpdateShopGoodInfo(check)
-	--_shopSelectedGoodLabel:show()
 	if check then
 		if _shopList.index~=nil or _shopList.inde~=0 then return end
 	end
@@ -267,8 +266,6 @@ function UpdateShopGoodInfo(check)
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
 	_shopSelectedGoodLabel:redraw()
-	
-	--Label3:paint()
 	
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
@@ -285,8 +282,8 @@ function UpdateShopGoodInfo(check)
 	gpu.fill(51,10,12,6," ")
 
 	
-	--pic=graffiti.load("/home/img2.png") --debug
-	--graffiti.draw(pic, 51,19,12,12) --debug картиночки
+	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
+	graffiti.draw(pic, 51,19,12,12) --debug картиночки
 end
 
 function UpdateShopSellGoodInfo()
