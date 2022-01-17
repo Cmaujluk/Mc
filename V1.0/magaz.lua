@@ -262,10 +262,18 @@ end
 
 function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(48,8,14,7," ")
+	gpu.fill(47,10,16,8," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 48,18,14,14) --debug картиночки
+	graffiti.draw(pic, 47,16,16,16) --debug картиночки
+end
+
+function ShopShowImageSell()
+	gpu.setBackground(0x3E3D47)
+	gpu.fill(47,10,16,8," ")
+
+	--pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
+	--graffiti.draw(pic, 48,16,14,14) --debug картиночки
 end
 
 function UpdateShopGoodInfo(check)
@@ -306,19 +314,11 @@ function UpdateShopSellGoodInfo()
 	
 
 
-	_shopAvailableSellGoodLabel.caption="Доступно: "..shop.GetItemSellCount(_shopSellList.items[_shopSellList.index])
+	_shopAvailableSellGoodLabel.caption="У вас есть "..shop.GetItemSellCount(_shopSellList.items[_shopSellList.index].."  шт")
 	_shopAvailableSellGoodLabel:redraw()
 
+	ShopShowImageSell()
 	
-	--_shopSelectedCount = ""
-	--ShopUpdateSelectedGoodsCount()
-
-	--gpu.setBackground(0x3E3D47)
-	--gpu.fill(51,10,12,6," ")
-
-	
-	--pic=graffiti.load("/home/img2.png") --debug
-	--graffiti.draw(pic, 51,19,12,12) --debug картиночки
 end
 
 
@@ -555,12 +555,16 @@ function CreateShopSell()
 	_shopSelectedSellGoodLabel.centered = true
 	_shopSelectedSellGoodLabel.autoSize  = false
 	_shopSelectedSellGoodLabel.W=40  
+
+	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,10,"3")
+	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
 	
-	_shopAvailableSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,10,"2")
+	_shopAvailableSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"2")
 	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
 		
-	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"3")
-	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
+	
+	local label=_shopSellForm:addLabel(xStart+xShift,13,"(в левом сундуке)")
+	label.color = _mainBackgroundColor 
 
 	_shopBalanceEmsSellLabel=_shopSellForm:addLabel(2,2,"")
 	_shopBalanceEmsSellLabel.color = _mainBackgroundColor
@@ -653,7 +657,7 @@ function CreateShopBuyBought()
 	toShopButton.W=20
 	toShopButton.H=3
 
-	toSellButton= _ShopBuyBoughtForm:addButton(30,26,"Продать",function() 
+	toSellButton= _ShopBuyBoughtForm:addButton(30,26,"Пополнить счёт",function() 
 		ActivateSellShop()		
 	end) 
 	toSellButton.color=0x5C9A47
