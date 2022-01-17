@@ -38,6 +38,7 @@ local _shopWantBuyGoodLabel=nil
 local _shopCountWantBuyGoodLabel=nil
 local _shopSelectedSellGoodLabel=nil
 local _shopDialogLabel = nil
+local _shopDialogSellLabel = nil
 local _shopCountWantSellGoodLabel = nil
 local _shopWantSellGoodLabel = nil
 local _shopBalanceEmsSellLabel = nil
@@ -581,9 +582,9 @@ function CreateShopSell()
 
 
 		if soldCount>0 then
-			ShowShopBuyDialog("Вы успешно продали "..count.." ".._shopSellList.items[_shopSellList.index].label,true) -- тут проверка на бабки
+			ShowShopSellDialog("Вы успешно продали товар на сумму"..(soldCount*_shopSellList.items[_shopSellList.index].price),true) -- тут проверка на бабки
 		else
-			ShowShopBuyDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) -- тут проверка на бабки
+			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) -- тут проверка на бабки
 		end
 	end) 
 	buyButton.color=0x5C9A47
@@ -640,12 +641,12 @@ function CreateDialogWindowBuyShopForm()
 	dialogForm.H=7
 	dialogForm.left=math.floor(10)
 	dialogForm.top =math.floor(19)
-	_shopDialogLabel=dialogForm:addLabel(3,3,"")
-	_shopDialogLabel.autoSize=false
-	_shopDialogLabel.centered=true
-	_shopDialogLabel.W=64
-	_shopDialogLabel.fontColor=0x92DEA3
-	_shopDialogLabel.color=0x333145
+	_shopDialogSellLabel=dialogForm:addLabel(3,3,"")
+	_shopDialogSellLabel.autoSize=false
+	_shopDialogSellLabel.centered=true
+	_shopDialogSellLabel.W=64
+	_shopDialogSellLabel.fontColor=0x92DEA3
+	_shopDialogSellLabel.color=0x333145
 	btn=dialogForm:addButton(30,5,"Ок",function() 
 		_shopForm:setActive() 
 		UpdateShopGoodInfo(false)	
@@ -657,13 +658,46 @@ end
 function ShowShopBuyDialog(string,enough)
 
 	dialogForm:setActive()
-	_shopDialogLabel.caption=string
+	_shopDialogSellLabel.caption=string
 	if enough then
-		_shopDialogLabel.fontColor=0x92DEA3
+		_shopDialogSellLabel.fontColor=0x92DEA3
 	else
-		_shopDialogLabel.fontColor=0xdb7093
+		_shopDialogSellLabel.fontColor=0xdb7093
 	end
 	_shopDialogLabel:redraw()
+end
+
+function CreateDialogWindowSellShopForm()
+	dialogSellForm=forms.addForm()       
+	dialogSellForm.border=1
+	dialogSellForm.W=70
+	dialogSellForm.H=7
+	dialogSellForm.left=math.floor(10)
+	dialogSellForm.top =math.floor(19)
+	_shopDialogSellLabel=dialogSellForm:addLabel(3,3,"")
+	_shopDialogSellLabel.autoSize=false
+	_shopDialogSellLabel.centered=true
+	_shopDialogSellLabel.W=64
+	_shopDialogSellLabel.fontColor=0x92DEA3
+	_shopDialogSellLabel.color=0x333145
+	btn=dialogSellForm:addButton(30,5,"Ок",function() 
+		_shopSellForm:setActive() 
+		--UpdateShopGoodInfo(false)	 -->Просчет остатка в на продажу
+	end)
+	btn.color=0xC1C1C1
+	dialogSellForm.color=0x333145
+end
+
+function ShowShopSellDialog(string,enough)
+
+	dialogSellForm:setActive()
+	_shopDialogSellLabel.caption=string
+	if enough then
+		_shopDialogSellLabel.fontColor=0x92DEA3
+	else
+		_shopDialogSellLabel.fontColor=0xdb7093
+	end
+	_shopDialogSellLabel:redraw()
 end
 
 
@@ -699,6 +733,7 @@ shop.Init()
 InitCharger()
 CreateShopBuyBought()	
 CreateDialogWindowBuyShopForm()
+CreateDialogWindowSellShopForm()
 InitShop()
 InitSaleShop()
 CreateButtonExit()

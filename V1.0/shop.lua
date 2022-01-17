@@ -89,14 +89,13 @@ function shop.GetItemSellCount(itemToCheck)
 end
 
 function shop.BuyItem(itemToSell)
-	local count= shop.GetItemSellCount(itemToSell)
-	
 	local items = chest.getAllStacks()
 	local count=0
 	for k,item in pairs(items) do
 		itemData=item.all()
 		if itemToSell.id==itemData.id and itemToSell.dmg==itemData.dmg  and itemToSell.nbt_hash == itemData.nbt_hash then
 			chest.pushItem(1,k)
+			count=count+itemData.qty
 		end
 	end
 	return count
