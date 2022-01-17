@@ -1,4 +1,4 @@
-﻿local component = require("component")  
+local component = require("component")  
 local internet = require("internet")
 local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
 local chestToSale = component.chest
