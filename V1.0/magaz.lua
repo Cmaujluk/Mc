@@ -335,7 +335,7 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм♦"
+	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм ♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -348,7 +348,7 @@ function SetBalanceSellView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsSellLabel.caption="Баланс: "..add.." эм♦"
+	_shopBalanceEmsSellLabel.caption="Баланс: "..add.." эм ♦"
 	_shopBalanceEmsSellLabel2.caption=str
 	_shopBalanceEmsSellLabel:redraw()
 	_shopBalanceEmsSellLabel2:redraw()
@@ -424,7 +424,7 @@ function CreateShop()
 	_shopBalanceEmsLabel2=_shopForm:addLabel(10,2,"")
 	_shopBalanceEmsLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
-	SetBalanceView(20.4)
+	SetBalanceView(_playerEms)
 	
 	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,35,"6")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
@@ -445,9 +445,11 @@ function CreateShop()
 		local cost = _shopList.items[_shopList.index].price*count
 		if(cost<=_playerEms) then
 			shop.GetItems(_shopList.items[_shopList.index],count)
-			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true) -- тут проверка на бабки
+			_playerEms=_playerEms-cost
+			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
+			SetBalanceView(_playerEms)
 		else
-			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) -- тут проверка на бабки
+			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
 		end
 	end) 
 	buyButton.color=0x5C9A47
@@ -526,19 +528,19 @@ function CreateShopSell()
 	_shopSellList.selColor=0x2E7183
 	_shopSellList.sfColor=0xffffff 
 	
-	local label = _shopSellForm:addLabel(4,3,"Сложите вещи на продажу в левый сундук")
+	local label = _shopSellForm:addLabel(4,5,"Сложите вещи на продажу в левый сундук")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
 
-	local label = _shopSellForm:addLabel(4,4,"и выберите товар на продажу из списка, при")
+	local label = _shopSellForm:addLabel(4,6,"и выберите товар на продажу из списка")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
 
-	local label = _shopSellForm:addLabel(4,5,"необходимости нажмите кнопку “обновить”")
+	local label = _shopSellForm:addLabel(4,7,"если нужно нажмите кнопку “обновить”")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -565,7 +567,7 @@ function CreateShopSell()
 	_shopBalanceEmsSellLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsSellLabel2.fontColor = 0x7DFF50 
 	
-	SetBalanceSellView(20.4) 
+	
 	
 	_shopWantSellGoodLabel=_shopSellForm:addLabel(xStart,16,"6") 
 	_shopWantSellGoodLabel.color = _mainBackgroundColor
@@ -584,6 +586,8 @@ function CreateShopSell()
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+			_playerEms=_playerEms+soldCount
+			SetBalanceSellView(_playerEms) 
 		else
 			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
 		end
@@ -592,9 +596,9 @@ function CreateShopSell()
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=20
-	buyButton.H=3
+	buyButton.H=3-->
 
-	buyButton= _shopSellForm:addButton(56,24,"Продать всё что есть",function()  -->
+	buyButton= _shopSellForm:addButton(56,24,"Продать всё что есть",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -623,7 +627,9 @@ function CreateShopSell()
 	buyButton.color=0x9A9247
 	buyButton.W=20
 	buyButton.H=3
-		
+	
+	SetBalanceSellView(_playerEms) 
+
 	SetShopSellList()
 end
 
