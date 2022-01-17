@@ -527,18 +527,24 @@ function CreateShopSell()
 	_shopSellList.selColor=0x2E7183
 	_shopSellList.sfColor=0xffffff 
 	
-	local label = _shopSellForm:addLabel(3,6,"Сложите вещи на продажу в левый сундук\nи выберите товар на продажу из списка, при\nнеобходимости нажмите кнопку “обновить”")
+	local label = _shopSellForm:addLabel(4,3,"Сложите вещи на продажу в левый сундук")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
 
-	local label = _shopSellForm:addLabel(xStart-1,17,"Наберите кол-во товара")
+	local label = _shopSellForm:addLabel(4,4,"и выберите товар на продажу из списка, при")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
-	
+
+	local label = _shopSellForm:addLabel(4,5,"необходимости нажмите кнопку “обновить”")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
 	_shopSelectedSellGoodLabel=_shopSellForm:addLabel(xStart,8,"1")
 	_shopSelectedSellGoodLabel.color=0x009999
 	_shopSelectedSellGoodLabel.fontColor=0xffd875
@@ -562,43 +568,64 @@ function CreateShopSell()
 	
 	SetBalanceSellView(20.4) 
 	
-	_shopWantSellGoodLabel=_shopSellForm:addLabel(xStart,35,"6") 
+	_shopWantSellGoodLabel=_shopSellForm:addLabel(xStart,16,"6") 
 	_shopWantSellGoodLabel.color = _mainBackgroundColor
 	_shopWantSellGoodLabel.centered = true
 	_shopWantSellGoodLabel.autoSize  = false
 	_shopWantSellGoodLabel.W=40
 	
-	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,36,"7")
+	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,17,"7")
 	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
 	_shopCountWantSellGoodLabel.centered = true
 	_shopCountWantSellGoodLabel.autoSize  = false
 	_shopCountWantSellGoodLabel.W=40 
 	
-	buyButton= _shopSellForm:addButton(56,38,"Продать",function()  -->
+	buyButton= _shopSellForm:addButton(56,19,"Продать",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
-
-
-
-
 		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали товар на сумму"..(soldCount*_shopSellList.items[_shopSellList.index].price),true) -- тут проверка на бабки
+			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
 		else
-			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) -- тут проверка на бабки
+			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
 		end
+
+		UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=20
 	buyButton.H=3
+
+	buyButton= _shopSellForm:addButton(56,24,"Продать всё что есть",function()  -->
+
+		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
+		if soldCount>0 then
+			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+		else
+			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
+		end
+
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=20
+	buyButton.H=3
+
+	buyButton= _shopSellForm:addButton(56,29,"Обновить",function()  
+
+		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
+		if soldCount>0 then
+			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+		else
+			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
+		end
+
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x9A9247
+	buyButton.W=20
+	buyButton.H=3
 		
 	SetShopSellList()
-	-------------------------------------
-	_shopEditField=_shopSellForm:addEdit(5,38,ListSearch,ListSearchQuick)
-	_shopEditField.W=40
-	_shopEditField.h=3
-	_shopEditField.border=0
-	_shopEditField.color=0x42414D
-	--_shopSelectedGoodLabel:hide()
 end
 
 function AcrivateShopBuyBoughtMenu()
