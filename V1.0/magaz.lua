@@ -265,7 +265,7 @@ function ShopShowImage()
 	gpu.fill(47,10,16,8," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 47,16,16,16) --debug картиночки
+	graffiti.draw(pic, 47,18,16,16) --debug картиночки
 end
 
 function ShopShowImageSell()
@@ -358,7 +358,7 @@ end
 
 function CreateShop()
 	local xStart=48
-	local xShift=16
+	local xShift=17
 	
 	_shopForm=forms.addForm()
 	_shopForm.W=90
@@ -396,7 +396,7 @@ function CreateShop()
 	label.autoSize  = false
 	label.W=40
 
-	local label = _shopForm:addLabel(xStart-1,17,"Наберите кол-во товара")
+	local label = _shopForm:addLabel(xStart-1,19,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -410,14 +410,14 @@ function CreateShop()
 	_shopSelectedGoodLabel.autoSize  = false
 	_shopSelectedGoodLabel.W=40
 	
-	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+xShift,10,"2")
+	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+xShift,11,"2")
 	_shopAvailableGoodLabel.color = _mainBackgroundColor
 		
-	_shopPriceGoodLabel=_shopForm:addLabel(xStart+xShift,12,"3")
+	_shopPriceGoodLabel=_shopForm:addLabel(xStart+xShift,13,"3")
 	_shopPriceGoodLabel.color = _mainBackgroundColor
 
 	
-	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,14,"4")
+	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,15,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
 	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"")
@@ -428,19 +428,19 @@ function CreateShop()
 	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
 	SetBalanceView(_playerEms)
 	
-	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,35,"6")
+	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,37,"6")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopWantBuyGoodLabel.centered = true
 	_shopWantBuyGoodLabel.autoSize  = false
 	_shopWantBuyGoodLabel.W=40
 	
-	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,36,"7")
+	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,38,"7")
 	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopCountWantBuyGoodLabel.centered = true
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	buyButton= _shopForm:addButton(56,38,"Купить",function() 
+	buyButton= _shopForm:addButton(56,40,"Купить",function() 
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
 
@@ -463,7 +463,7 @@ function CreateShop()
 		local toWrite=keyboard[i]
 		local xSpace=8
 		local ySpace=7
-		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*4,toWrite,function() 
+		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),21+math.floor((i-1)/3)*4,toWrite,function() 
 			local j=i
 			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
 			if i==10 then _shopSelectedCount=""end
