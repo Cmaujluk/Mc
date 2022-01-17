@@ -260,10 +260,10 @@ end
 
 function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(48,10,16,8," ")
+	gpu.fill(48,10,14,7," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 48,18,15,15) --debug картиночки
+	graffiti.draw(pic, 48,18,14,14) --debug картиночки
 end
 
 function UpdateShopGoodInfo(check)
