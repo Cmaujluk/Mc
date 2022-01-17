@@ -265,7 +265,7 @@ function ShopShowImage()
 	gpu.fill(47,10,16,9," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 47,21,16,16) --debug картиночки
+	graffiti.draw(pic, 47,21,15,15) --debug картиночки
 end
 
 function ShopShowImageSell()
