@@ -262,7 +262,7 @@ end
 
 function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,10,16,8," ")
+	gpu.fill(47,10,17,8," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
