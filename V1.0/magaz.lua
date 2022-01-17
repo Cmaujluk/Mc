@@ -282,7 +282,7 @@ function UpdateShopGoodInfo(check)
 	gpu.fill(51,10,12,6," ")
 
 	
-	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
+	pic=graffiti.load("/home/"_shopList.items[_shopList.index].localId..".png") --debug
 	graffiti.draw(pic, 51,19,12,12) --debug картиночки
 end
 
