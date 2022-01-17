@@ -1,4 +1,4 @@
-local component = require("component")  
+Ôªølocal component = require("component")  
 local internet = require("internet")
 local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
 local chest = component.crystal
@@ -46,12 +46,12 @@ function GetSellItemsData()
 	end
 
 	for i=1,#_itemsSaleData do
-		if _itemsSaleData[i].id=="customnpcs:npcMoney" then _itemsSaleData[i].label="ƒÂÌ¸„Ë" _itemsSaleData[i].price=i end
-		if _itemsSaleData[i].id=="mcs_addons:item.cashback_item_2" then _itemsSaleData[i].label="œ˚Î¸" _itemsSaleData[i].price=i end
-		if _itemsSaleData[i].id=="customnpcs:npcAmethyst" then _itemsSaleData[i].label="ƒÂÌ¸„Ë"..i _itemsSaleData[i].price=i end
-		if _itemsSaleData[i].id=="customnpcs:npcRuby" then _itemsSaleData[i].label="ƒÂÌ¸„Ë"..i _itemsSaleData[i].price=i end
-		if _itemsSaleData[i].id=="customnpcs:npcSaphire" then _itemsSaleData[i].label="ƒÂÌ¸„Ë"..i _itemsSaleData[i].price=i end
-		if _itemsSaleData[i].id=="OpenComputers:print" then _itemsSaleData[i].label="ƒÂÌ¸„Ë"..i _itemsSaleData[i].price=i end
+		if _itemsSaleData[i].id=="customnpcs:npcMoney" then _itemsSaleData[i].label="–î–µ–Ω—å–≥–∏" _itemsSaleData[i].price=0.13 end
+		if _itemsSaleData[i].id=="mcs_addons:item.cashback_item_2" then _itemsSaleData[i].label="–ú–æ—Ä—Å–∫–∞—è –ø—ã–ª—å" _itemsSaleData[i].price=1 end
+		if _itemsSaleData[i].id=="customnpcs:npcAmethyst" then _itemsSaleData[i].label="–ê–º–µ—Ç–∏—Å" _itemsSaleData[i].price=100 end
+		if _itemsSaleData[i].id=="customnpcs:npcRuby" then _itemsSaleData[i].label="–†—É–±–∏–Ω" _itemsSaleData[i].price=20 end
+		if _itemsSaleData[i].id=="customnpcs:npcSaphire" then _itemsSaleData[i].label="–°–∞–ø—Ñ–∏—Ä" _itemsSaleData[i].price=2 end
+		if _itemsSaleData[i].id=="OpenComputers:print" then _itemsSaleData[i].label="1 —ç–º (–ø–æ–∫—É–ø–∞–µ—Ç—Å—è –≤ —Å—É–Ω–¥—É–∫–µ —Å–ª–µ–≤–∞) " _itemsSaleData[i].price=1 end
 	end
 
 	return _itemsSaleData
@@ -76,6 +76,7 @@ function ParseItemsToSale()
 end
 
 function shop.GetItemSellCount(itemToCheck)
+	GetSellItemsData()
 	local items = chest.getAllStacks()
 	local count=0
 	for _,item in pairs(items) do
@@ -127,7 +128,6 @@ function shop.Init()
 	GetItemsFromBD()
 	GetItemsFromME()
 	ParseItemsToSale()
-	GetSellItemsData()
 end
 
 return shop
