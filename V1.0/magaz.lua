@@ -258,6 +258,14 @@ function SetShopSellList()
 	_shopSellList:redraw()
 end
 
+function ShopShowImage()
+	gpu.setBackground(0x3E3D47)
+	gpu.fill(48,10,16,8," ")
+
+	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
+	graffiti.draw(pic, 48,18,15,15) --debug картиночки
+end
+
 function UpdateShopGoodInfo(check)
 	if check then
 		if _shopList.index~=nil or _shopList.inde~=0 then return end
@@ -277,13 +285,7 @@ function UpdateShopGoodInfo(check)
 	_shopEnoughEmsLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
-
-	gpu.setBackground(0x3E3D47)
-	gpu.fill(51,10,12,6," ")
-
-	
-	pic=graffiti.load("/home/"_shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 51,19,12,12) --debug картиночки
+	ShopShowImage()
 end
 
 function UpdateShopSellGoodInfo()
