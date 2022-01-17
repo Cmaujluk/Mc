@@ -128,6 +128,7 @@ function shop.Init()
 	GetItemsFromBD()
 	GetItemsFromME()
 	ParseItemsToSale()
+	GetSellItemsData()
 end
 
 return shop

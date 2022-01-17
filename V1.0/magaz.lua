@@ -341,7 +341,7 @@ function SetBalanceView(count)
 	_shopBalanceEmsLabel2:redraw()
 end
 
-function SetBalanceCellView(count)
+function SetBalanceSellView(count)
 	local str=tostring(count)
 	local add=""
 	for i=1, #str do
@@ -550,7 +550,7 @@ function CreateShopSell()
 	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
 		
 	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"3")
-	_shopPriceSellGoodLabel.color = _mainBackgroundColor -->
+	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
 
 	_shopBalanceEmsSellLabel=_shopSellForm:addLabel(2,2,"")
 	_shopBalanceEmsSellLabel.color = _mainBackgroundColor
@@ -559,7 +559,7 @@ function CreateShopSell()
 	_shopBalanceEmsSellLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsSellLabel2.fontColor = 0x7DFF50 
 	
-	SetBalanceCellView(20.4)
+	SetBalanceSellView(20.4) 
 	
 	_shopWantSellGoodLabel=_shopSellForm:addLabel(xStart,35,"6") 
 	_shopWantSellGoodLabel.color = _mainBackgroundColor
@@ -588,37 +588,7 @@ function CreateShopSell()
 	buyButton.color=0x5C9A47
 	buyButton.W=20
 	buyButton.H=3
-	
-	
-	for i=1, 12 do
-		local toWrite=keyboard[i]
-		local xSpace=8
-		local ySpace=7
-		button=_shopSellForm:addButton(56+((i-1)*xSpace%(xSpace*3)),19+math.floor((i-1)/3)*4,toWrite,function() 
-			local j=i
-			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
-			if i==10 then _shopSelectedCount=""end
-			if i==11 then _shopSelectedCount=_shopSelectedCount.."0"end
-			if i==12 then
-				if(unicode.len(_shopSelectedCount)>0) then
-					_shopSelectedCount = _shopSelectedCount:sub(1, -2)
-				else
-					_shopSelectedCount = ""
-				end
-			end
-			ShopUpdateSelectedGoodsCount()
-		end) 
-		if i==10 or i==12 then
-			button.color=0x42AECB
-		else
-			button.color=0xD26262 
-		end
 		
-		button.H=3
-		button.W=6
-		button.border=0
-	end
-	
 	SetShopSellList()
 	-------------------------------------
 	_shopEditField=_shopSellForm:addEdit(5,38,ListSearch,ListSearchQuick)
