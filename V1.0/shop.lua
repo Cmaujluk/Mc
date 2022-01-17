@@ -71,19 +71,20 @@ end
 
 function shop.GetItemSellCount(item)
 	local items = chest.getAllStacks()
+	local count=0
 	for _,item in pairs(items) do
 		itemData=item.all()
 		if itemData.nbt_hash~=nil then
 			if item.hash==itemData.nbt_hash then
-				return itemData.qty
+				count=count+itemData.qty
 			end
 		else
 			if item.name==itemData.id and item.damage==itemData.dmg  then
-				return itemData.qty
+				count=count+ itemData.qty
 			end
 		end
 	end
-	return 0
+	return count
 end
 
 
