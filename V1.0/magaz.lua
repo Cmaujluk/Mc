@@ -265,7 +265,7 @@ function ShopShowImage()
 	gpu.fill(47,10,16,8," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 47,18,16,16) --debug картиночки
+	graffiti.draw(pic, 47,20,16,16) --debug картиночки
 end
 
 function ShopShowImageSell()
@@ -314,7 +314,7 @@ function UpdateShopSellGoodInfo()
 	
 
 
-	_shopAvailableSellGoodLabel.caption="У вас есть "..shop.GetItemSellCount(_shopSellList.items[_shopSellList.index].."  шт")
+	_shopAvailableSellGoodLabel.caption="У вас есть "..shop.GetItemSellCount(_shopSellList.items[_shopSellList.index]).."  шт"
 	_shopAvailableSellGoodLabel:redraw()
 
 	ShopShowImageSell()
@@ -389,6 +389,7 @@ function CreateShop()
 	_shopList.color=0x42414D
 	_shopList.selColor=0x2E7183
 	_shopList.sfColor=0xffffff
+	_shopList.border=1
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
 	label.color = _mainBackgroundColor
@@ -523,7 +524,7 @@ function CreateShopSell()
 	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor
 	
-	_shopSellList=_shopSellForm:addList(5,8,UpdateShopSellGoodInfo)  --обработка клика в скролле
+	_shopSellList=_shopSellForm:addList(5,10,UpdateShopSellGoodInfo)  --обработка клика в скролле
 	_shopSellList.W=40
 	_shopSellList.H=29
 	_shopSellList.color=0x42414D
@@ -587,7 +588,7 @@ function CreateShopSell()
 	_shopCountWantSellGoodLabel.autoSize  = false
 	_shopCountWantSellGoodLabel.W=40 
 	
-	buyButton= _shopSellForm:addButton(56,19,"Продать",function()  
+	buyButton= _shopSellForm:addButton(56,25,"Продать",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -601,10 +602,10 @@ function CreateShopSell()
 		UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x5C9A47
-	buyButton.W=20
+	buyButton.W=23
 	buyButton.H=3-->
 
-	buyButton= _shopSellForm:addButton(56,24,"Продать всё что есть",function()  
+	buyButton= _shopSellForm:addButton(56,30,"Продать всё что есть",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -616,10 +617,10 @@ function CreateShopSell()
 		UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x5C9A47
-	buyButton.W=20
+	buyButton.W=23
 	buyButton.H=3
 
-	buyButton= _shopSellForm:addButton(56,29,"Обновить",function()  
+	buyButton= _shopSellForm:addButton(56,35,"Обновить",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -631,7 +632,7 @@ function CreateShopSell()
 		UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x9A9247
-	buyButton.W=20
+	buyButton.W=23
 	buyButton.H=3
 	
 	SetBalanceSellView(_playerEms) 
