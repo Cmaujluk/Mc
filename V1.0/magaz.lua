@@ -262,7 +262,7 @@ end
 
 function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,10,17,8," ")
+	gpu.fill(47,10,16,9," ")
 
 	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
@@ -359,6 +359,7 @@ end
 function CreateShop()
 	local xStart=48
 	local xShift=17
+	local yStart=1
 	
 	_shopForm=forms.addForm()
 	_shopForm.W=90
@@ -397,7 +398,7 @@ function CreateShop()
 	label.autoSize  = false
 	label.W=40
 
-	local label = _shopForm:addLabel(xStart-1,19,"Наберите кол-во товара")
+	local label = _shopForm:addLabel(xStart-1,yStart+19,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -429,19 +430,19 @@ function CreateShop()
 	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
 	SetBalanceView(_playerEms)
 	
-	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,37,"6")
+	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,yStart+37,"6")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopWantBuyGoodLabel.centered = true
 	_shopWantBuyGoodLabel.autoSize  = false
 	_shopWantBuyGoodLabel.W=40
 	
-	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,38,"7")
+	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,yStart+38,"7")
 	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopCountWantBuyGoodLabel.centered = true
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	buyButton= _shopForm:addButton(56,40,"Купить",function() 
+	buyButton= _shopForm:addButton(56,yStart+40,"Купить",function() 
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
 
@@ -464,7 +465,7 @@ function CreateShop()
 		local toWrite=keyboard[i]
 		local xSpace=8
 		local ySpace=7
-		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),21+math.floor((i-1)/3)*4,toWrite,function() 
+		button=_shopForm:addButton(56+((i-1)*xSpace%(xSpace*3)),yStart+21+math.floor((i-1)/3)*4,toWrite,function() 
 			local j=i
 			if(i<10) then _shopSelectedCount=_shopSelectedCount..j.."" end
 			if i==10 then _shopSelectedCount=""end
