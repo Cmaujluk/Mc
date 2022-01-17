@@ -304,7 +304,7 @@ function UpdateShopSellGoodInfo()
 	
 
 
-	_shopAvailableSellGoodLabel.caption="Доступно: ".."0"--дебаг
+	_shopAvailableSellGoodLabel.caption="Доступно: "..shop.GetItemSellCount(_shopSellList.items[_shopSellList.index])
 	_shopAvailableSellGoodLabel:redraw()
 
 	
