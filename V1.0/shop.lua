@@ -1,8 +1,8 @@
 ﻿local component = require("component")  
 local internet = require("internet")
 local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
-local chest = component.crystal
 local chestToSale = component.chest
+local chest = component.crystal
 
 local _itemsBD={}
 local _itemsSaleData={}
@@ -88,7 +88,19 @@ function shop.GetItemSellCount(itemToCheck)
 	return count
 end
 
-
+function shop.BuyItem(itemToSell)
+	local count= shop.GetItemSellCount(itemToSell)
+	
+	local items = chest.getAllStacks()
+	local count=0
+	for k,item in pairs(items) do
+		itemData=item.all()
+		if itemToSell.id==itemData.id and itemToSell.dmg==itemData.dmg  and itemToSell.nbt_hash == itemData.nbt_hash then
+			chest.pushItem(1,k)
+		end
+	end
+	return count
+end
 
 function shop.GetItemDetails(fingerprint)
 	return interface.getItemDetail(fingerprint).all()

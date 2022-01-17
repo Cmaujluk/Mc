@@ -574,15 +574,16 @@ function CreateShopSell()
 	_shopCountWantSellGoodLabel.W=40 
 	
 	buyButton= _shopSellForm:addButton(56,38,"Продать",function()  -->
-		local count = tonumber(_shopSelectedCount)
-		if count==nil or count ==0 then return end
 
-		local cost = _shopList.items[_shopList.index].price*count
-		if(cost<=_playerEms) then
-			shop.GetItems(_shopList.items[_shopList.index],count)
-			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true) -- тут проверка на бабки
+		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
+
+
+
+
+		if soldCount>0 then
+			ShowShopBuyDialog("Вы успешно продали "..count.." ".._shopSellList.items[_shopSellList.index].label,true) -- тут проверка на бабки
 		else
-			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) -- тут проверка на бабки
+			ShowShopBuyDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) -- тут проверка на бабки
 		end
 	end) 
 	buyButton.color=0x5C9A47
