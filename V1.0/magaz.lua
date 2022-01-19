@@ -309,9 +309,6 @@ function UpdateShopSellGoodInfo()
 	_shopSelectedSellGoodLabel.centered =true
 	_shopSelectedSellGoodLabel:redraw()
 	
-	
-
-		
 	_shopPriceSellGoodLabel.caption="Цена продажи: ".._shopSellList.items[_shopSellList.index].price.." эм"
 	_shopPriceSellGoodLabel:redraw()
 
@@ -323,14 +320,11 @@ function UpdateShopSellGoodInfo()
 
 	if itemsCount>0 then
 		_shopWantSellGoodLabel.caption="Я хочу продать "..itemsCount.." шт"
-		_shopWantSellGoodLabel.fontColor=0x92DEA3
+		_shopCountWantSellGoodLabel.caption="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм"
 
-	
-		_shopCountWantSellGoodLabel="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм"
-		_shopCountWantSellGoodLabel.fontColor=0x92DEA3
 	else
 		_shopWantSellGoodLabel.caption=""
-		_shopCountWantSellGoodLabel=""
+		_shopCountWantSellGoodLabel.caption=""
 	end
 
 	_shopCountWantSellGoodLabel:redraw()
@@ -602,14 +596,14 @@ function CreateShopSell()
 	_shopWantSellGoodLabel.centered = true
 	_shopWantSellGoodLabel.autoSize  = false
 	_shopWantSellGoodLabel.W=40
-	_shopWantSellGoodLabel.fontColor=0x92DEA3
+	_shopWantSellGoodLabel.fontColor=0xff3333
 	
 	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,21,"За 0 эм")
 	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
 	_shopCountWantSellGoodLabel.centered = true
 	_shopCountWantSellGoodLabel.autoSize  = false
 	_shopCountWantSellGoodLabel.W=40 
-	_shopCountWantSellGoodLabel.fontColor=0x92DEA3
+	_shopCountWantSellGoodLabel.fontColor=0xff3333
 	
 	buyButton= _shopSellForm:addButton(56,24,"Продать",function()  
 
@@ -634,7 +628,7 @@ function CreateShopSell()
 		local priceAll=0
 		for i=1, #_shopSellList.items do
 			soldCount=soldCount+shop.BuyItem(_shopSellList.items[_shopSellList.index])
-			priceAll=shop.BuyItem(_shopSellList.items[_shopSellList.index])*soldCount*_shopSellList.items[_shopSellList.index].price
+			priceAll=priceAll+shop.BuyItem(_shopSellList.items[_shopSellList.index])*soldCount*_shopSellList.items[_shopSellList.index].price
 		end
 		
 		if soldCount>0 then
