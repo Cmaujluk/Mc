@@ -272,10 +272,10 @@ end
 
 function ShopShowImageSell()
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,10,16,8," ")
+	gpu.fill(47,10,16,9," ")
 
-	--pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
-	--graffiti.draw(pic, 48,16,14,14) --debug картиночки
+	pic=graffiti.load("/home/sell_".._shopSellList.items[_shopSellList.index].localId..".png") --debug
+	graffiti.draw(pic, 47,21,15,15) --debug картиночки
 end
 
 function UpdateShopGoodInfo(check)
