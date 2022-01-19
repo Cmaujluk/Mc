@@ -596,14 +596,14 @@ function CreateShopSell()
 	_shopWantSellGoodLabel.centered = true
 	_shopWantSellGoodLabel.autoSize  = false
 	_shopWantSellGoodLabel.W=40
-	_shopWantSellGoodLabel.fontColor=0xff3333
+	_shopWantSellGoodLabel.fontColor=0x33ff66
 	
 	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,21,"За 0 эм")
 	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
 	_shopCountWantSellGoodLabel.centered = true
 	_shopCountWantSellGoodLabel.autoSize  = false
 	_shopCountWantSellGoodLabel.W=40 
-	_shopCountWantSellGoodLabel.fontColor=0xff3333
+	_shopCountWantSellGoodLabel.fontColor=0x33ff66
 	
 	buyButton= _shopSellForm:addButton(56,24,"Продать",function()  
 
@@ -627,8 +627,9 @@ function CreateShopSell()
 		local soldCount=0
 		local priceAll=0
 		for i=1, #_shopSellList.items do
-			soldCount=soldCount+shop.BuyItem(_shopSellList.items[_shopSellList.index])
-			priceAll=priceAll+shop.BuyItem(_shopSellList.items[_shopSellList.index])*soldCount*_shopSellList.items[_shopSellList.index].price
+			local iterationCount=shop.BuyItem(_shopSellList.items[i])
+			soldCount=soldCount+iterationCount
+			priceAll=priceAll+iterationCount*_shopSellList.items[i].price
 		end
 		
 		if soldCount>0 then
