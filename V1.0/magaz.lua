@@ -136,6 +136,7 @@ function ActivateShop()
 	gpu.setResolution(90,45)
 	_shopForm:setActive()
 	SetBalanceView(_playerEms)
+	UpdateShopGoodInfo(true)
 end
 
 function ActivateSellShop()
@@ -249,6 +250,7 @@ function SetShopList()
 	for i=1, #_items do
 		_shopList:insert(_items[i].label,_items[i])
 	end
+	_shopList.index=1
 	_shopList:redraw()
 end
 
@@ -278,7 +280,7 @@ end
 
 function UpdateShopGoodInfo(check)
 	if check then
-		if _shopList.index~=nil or _shopList.inde~=0 then return end
+		if #_shopList.items==0 then return end
 	end
 
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
@@ -373,7 +375,7 @@ function CreateShop()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor    
 
-	frame=_shopForm:addFrame(36,1,1) 
+	frame=_shopForm:addFrame(32,1,1) 
 	frame.W=24
 	frame.H=3 
 	frame.color= _mainBackgroundColor
@@ -391,6 +393,7 @@ function CreateShop()
 	_shopList.selColor=0x2E7183
 	_shopList.sfColor=0xffffff
 	_shopList.border=1
+	
 	
 	local label = _shopForm:addLabel(5,6,"Выберите товар")
 	label.color = _mainBackgroundColor
@@ -516,7 +519,7 @@ function CreateShopSell()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor    
 
-	frame=_shopSellForm:addFrame(36,1,1) 
+	frame=_shopSellForm:addFrame(32,1,1) 
 	frame.W=24
 	frame.H=3 
 	frame.color= _mainBackgroundColor
@@ -558,14 +561,14 @@ function CreateShopSell()
 	_shopSelectedSellGoodLabel.autoSize  = false
 	_shopSelectedSellGoodLabel.W=40  
 
-	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,10,"3")
+	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"3")
 	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
 	
-	_shopAvailableSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"2")
+	_shopAvailableSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,14,"2")
 	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
 		
 	
-	local label=_shopSellForm:addLabel(xStart+xShift,13,"(в левом сундуке)")
+	local label=_shopSellForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
 	label.color = _mainBackgroundColor 
 
 	_shopBalanceEmsSellLabel=_shopSellForm:addLabel(2,2,"")
@@ -577,13 +580,13 @@ function CreateShopSell()
 	
 	
 	
-	_shopWantSellGoodLabel=_shopSellForm:addLabel(xStart,16,"6") 
+	_shopWantSellGoodLabel=_shopSellForm:addLabel(xStart,20,"Я хочу продать 0 шт") 
 	_shopWantSellGoodLabel.color = _mainBackgroundColor
 	_shopWantSellGoodLabel.centered = true
 	_shopWantSellGoodLabel.autoSize  = false
 	_shopWantSellGoodLabel.W=40
 	
-	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,17,"7")
+	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,21,"За 0 эм")
 	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
 	_shopCountWantSellGoodLabel.centered = true
 	_shopCountWantSellGoodLabel.autoSize  = false
@@ -606,7 +609,7 @@ function CreateShopSell()
 	buyButton.W=23
 	buyButton.H=3-->
 
-	buyButton= _shopSellForm:addButton(56,30,"Продать всё что есть",function()  
+	buyButton= _shopSellForm:addButton(56,31,"Продать всё что есть",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -621,7 +624,7 @@ function CreateShopSell()
 	buyButton.W=23
 	buyButton.H=3
 
-	buyButton= _shopSellForm:addButton(56,35,"Обновить",function()  
+	buyButton= _shopSellForm:addButton(56,37,"Обновить",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
