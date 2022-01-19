@@ -44,18 +44,18 @@ function GetSellItemsData()
 		_itemsSaleData[i]=item.all()
 		i=i+1
 	end
-	local res={}
+
 
 	for i=1,#_itemsSaleData do
-		if _itemsSaleData[i].id=="OpenComputers:print" then _itemsSaleData[i].label="1 эм (покупается в сундуке слева)" _itemsSaleData[i].price=1 _itemsSaleData[i].img = "sell_1" res[1] = _itemsSaleData[i]end
-		if _itemsSaleData[i].id=="customnpcs:npcMoney" then _itemsSaleData[i].label="Деньги" _itemsSaleData[i].price=0.13 _itemsSaleData[i].img = "sell_3"  res[2] = _itemsSaleData[i]end
-		if _itemsSaleData[i].id=="mcs_addons:item.cashback_item_2" then _itemsSaleData[i].label="Морская пыль" _itemsSaleData[i].price=1 _itemsSaleData[i].img = "sell_2"  res[6] = _itemsSaleData[i]  end
-		if _itemsSaleData[i].id=="customnpcs:npcAmethyst" then _itemsSaleData[i].label="Аметис" _itemsSaleData[i].price=100 _itemsSaleData[i].img = "sell_6"  res[5] = _itemsSaleData[i] end
-		if _itemsSaleData[i].id=="customnpcs:npcRuby" then _itemsSaleData[i].label="Рубин" _itemsSaleData[i].price=20 _itemsSaleData[i].img = "sell_5"  res[4] = _itemsSaleData[i] end
-		if _itemsSaleData[i].id=="customnpcs:npcSaphire" then _itemsSaleData[i].label="Сапфир" _itemsSaleData[i].price=2 _itemsSaleData[i].img = "sell_4"  res[3] = _itemsSaleData[i]  end
+		if _itemsSaleData[i].id=="OpenComputers:print" then _itemsSaleData[i].label="1 эм (покупается в сундуке слева)" _itemsSaleData[i].price=1 _itemsSaleData[i].img = "sell_1"end
+		if _itemsSaleData[i].id=="customnpcs:npcMoney" then _itemsSaleData[i].label="Деньги" _itemsSaleData[i].price=0.13 _itemsSaleData[i].img = "sell_3"  end
+		if _itemsSaleData[i].id=="mcs_addons:item.cashback_item_2" then _itemsSaleData[i].label="Морская пыль" _itemsSaleData[i].price=1 _itemsSaleData[i].img = "sell_2"    end
+		if _itemsSaleData[i].id=="customnpcs:npcAmethyst" then _itemsSaleData[i].label="Аметис" _itemsSaleData[i].price=100 _itemsSaleData[i].img = "sell_6"   end
+		if _itemsSaleData[i].id=="customnpcs:npcRuby" then _itemsSaleData[i].label="Рубин" _itemsSaleData[i].price=20 _itemsSaleData[i].img = "sell_5"   end
+		if _itemsSaleData[i].id=="customnpcs:npcSaphire" then _itemsSaleData[i].label="Сапфир" _itemsSaleData[i].price=2 _itemsSaleData[i].img = "sell_4"    end
 	end
 
-	_itemsSaleData=res
+
 
 	return _itemsSaleData
 end

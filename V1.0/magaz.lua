@@ -609,7 +609,7 @@ function CreateShopSell()
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали"..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
 			_playerEms=_playerEms+soldCount
 			SetBalanceSellView(_playerEms) 
 		else
