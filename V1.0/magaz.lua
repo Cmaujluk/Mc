@@ -326,11 +326,11 @@ function UpdateShopSellGoodInfo()
 		_shopWantSellGoodLabel.fontColor=0x92DEA3
 
 	
-		_shopCountWantSellGoodLabel="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм")
+		_shopCountWantSellGoodLabel="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм"
 		_shopCountWantSellGoodLabel.fontColor=0x92DEA3
 	else
 		_shopWantSellGoodLabel.caption=""
-		_shopCountWantSellGoodLabel="")
+		_shopCountWantSellGoodLabel=""
 	end
 
 	_shopCountWantSellGoodLabel:redraw()
