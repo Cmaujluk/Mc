@@ -136,6 +136,7 @@ function ActivateShop()
 	gpu.setResolution(90,45)
 	_shopForm:setActive()
 	SetBalanceView(_playerEms)
+	_shopList.index=1
 	UpdateShopGoodInfo(true)
 end
 
@@ -143,6 +144,8 @@ function ActivateSellShop()
 	gpu.setResolution(90,45)
 	_shopSellForm:setActive()
 	SetBalanceSellView(_playerEms)
+	_shopSellList.index=1
+	UpdateShopSellGoodInfo()
 end
 
 function ActivateWandCharger()
@@ -250,7 +253,6 @@ function SetShopList()
 	for i=1, #_items do
 		_shopList:insert(_items[i].label,_items[i])
 	end
-	_shopList.index=1
 	_shopList:redraw()
 end
 
@@ -280,7 +282,7 @@ end
 
 function UpdateShopGoodInfo(check)
 	if check then
-		if #_shopList.items==0 then return end
+		if #_shopList.items==0 or _shopList.index==nil then return end
 	end
 
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
@@ -314,10 +316,25 @@ function UpdateShopSellGoodInfo()
 	_shopPriceSellGoodLabel:redraw()
 
 	
+	local itemsCount=shop.GetItemSellCount(_shopSellList.items[_shopSellList.index])
 
-
-	_shopAvailableSellGoodLabel.caption="У вас есть "..shop.GetItemSellCount(_shopSellList.items[_shopSellList.index]).."  шт"
+	_shopAvailableSellGoodLabel.caption="У вас есть "..itemsCount.." шт"
 	_shopAvailableSellGoodLabel:redraw()
+
+	if itemsCount>0 then
+		_shopWantSellGoodLabel.caption="Я хочу продать "..itemsCount.." шт"
+		_shopWantSellGoodLabel.fontColor=0x92DEA3
+
+	
+		_shopCountWantSellGoodLabel="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм")
+		_shopCountWantSellGoodLabel.fontColor=0x92DEA3
+	else
+		_shopWantSellGoodLabel.caption=""
+		_shopCountWantSellGoodLabel="")
+	end
+
+	_shopCountWantSellGoodLabel:redraw()
+	_shopWantSellGoodLabel:redraw()
 
 	ShopShowImageSell()
 	
@@ -585,18 +602,20 @@ function CreateShopSell()
 	_shopWantSellGoodLabel.centered = true
 	_shopWantSellGoodLabel.autoSize  = false
 	_shopWantSellGoodLabel.W=40
+	_shopWantSellGoodLabel.fontColor=0x92DEA3
 	
 	_shopCountWantSellGoodLabel=_shopSellForm:addLabel(xStart,21,"За 0 эм")
 	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
 	_shopCountWantSellGoodLabel.centered = true
 	_shopCountWantSellGoodLabel.autoSize  = false
 	_shopCountWantSellGoodLabel.W=40 
+	_shopCountWantSellGoodLabel.fontColor=0x92DEA3
 	
-	buyButton= _shopSellForm:addButton(56,25,"Продать",function()  
+	buyButton= _shopSellForm:addButton(56,24,"Продать",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+			ShowShopSellDialog("Вы успешно продали"..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
 			_playerEms=_playerEms+soldCount
 			SetBalanceSellView(_playerEms) 
 		else
@@ -609,13 +628,19 @@ function CreateShopSell()
 	buyButton.W=23
 	buyButton.H=3-->
 
-	buyButton= _shopSellForm:addButton(56,31,"Продать всё что есть",function()  
+	buyButton= _shopSellForm:addButton(56,30,"Продать всё что есть",function()  
 
-		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
+		local soldCount=0
+		local priceAll=0
+		for i=1, #_shopSellList.items do
+			soldCount=soldCount+shop.BuyItem(_shopSellList.items[_shopSellList.index])
+			priceAll=shop.BuyItem(_shopSellList.items[_shopSellList.index])*soldCount*_shopSellList.items[_shopSellList.index].price
+		end
+		
 		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
 		else
-			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
+			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
 		end
 
 		UpdateShopSellGoodInfo()
@@ -624,15 +649,7 @@ function CreateShopSell()
 	buyButton.W=23
 	buyButton.H=3
 
-	buyButton= _shopSellForm:addButton(56,37,"Обновить",function()  
-
-		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
-		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
-		else
-			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
-		end
-
+	buyButton= _shopSellForm:addButton(56,36,"Обновить",function()  
 		UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x9A9247
