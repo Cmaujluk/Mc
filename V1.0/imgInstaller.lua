@@ -32,3 +32,8 @@ for i=1,#product/8 do
 	shell.execute("wget -f "..prefix..product[id+1]..".png /home/"..product[id+1]..".png")
 end
 
+for i=1,6 do
+	local id = (i-1)*8
+	shell.execute("wget -f "..prefix.."sell_"..i..".png /home/".."sell_"..i..".png")
+end
+
