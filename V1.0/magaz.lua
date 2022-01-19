@@ -274,7 +274,7 @@ function ShopShowImageSell()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(47,10,16,9," ")
 
-	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index]..img) --debug
+	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
 	graffiti.draw(pic, 47,21,15,15) --debug картиночки
 end
 
