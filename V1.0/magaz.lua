@@ -124,11 +124,11 @@ function CreateEnterButton()
 	_btnEnter.W=20
 	_btnEnter.H=3
 
-	label = _mainForm:addLabel(10,5,"Приветствуем на /warp smart")
+	label = _mainForm:addLabel(1,5,"Приветствуем на /warp smart")
 	label.color=_mainBackgroundColor   
 	label.autoSize=false    
 	label.centered=true    
-	label.W=20
+	label.W=40
 	label.H=3
 end
 
@@ -172,19 +172,22 @@ function CreateMainMenu()
 
 	local labels={}	
 	labels[1]="Магазин"	
-	labels[2]="Обмен ресурсов"	
-	labels[3]="Зарядка жезлов"	
-	labels[4]="Билеты казино"	
-	labels[5]="Лотерея"	labels[6]="Мехи"
+	labels[2]="Омбен руд 1 на 2 слитка"	
+	labels[3]="Обмен ресурсы на ресурсы без эмов"	
+	labels[4]="Зарядка жезлов таумкрафт"	
+	labels[5]="Купить билеты в казино"	
+	labels[6]="Лотерея"	
+	labels[7]="Мехи"
 	local methods={} 
 	methods[1]=AcrivateShopBuyBoughtMenu 
 	methods[2]=ActivateShop 
-	methods[3]=ActivateWandCharger	
-	methods[4]=ActivateShop	
+	methods[3]=ActivateShop	
+	methods[4]=ActivateWandCharger	
 	methods[5]=ActivateShop	
 	methods[6]=ActivateShop
+	methods[7]=ActivateShop
 
-	local shift=5
+	local shift=2
 	for i=1, #labels do
 		CreateButton(_menuForm,20,4+shift*i,3, 40,labels[i],methods[i])
 	end
