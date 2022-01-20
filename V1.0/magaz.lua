@@ -144,8 +144,8 @@ function ActivateSellShop()
 	gpu.setResolution(90,45)
 	_shopSellForm:setActive()
 	SetBalanceSellView(_playerEms)
-	_shopSellList.index=1
-	UpdateShopSellGoodInfo()
+	--_shopSellList.index=1
+	--UpdateShopSellGoodInfo()
 end
 
 function ActivateWandCharger()
