@@ -117,10 +117,19 @@ function OpenMainMenu(obj,userName)
 end
 
 function CreateEnterButton()
-	_btnEnter =_mainForm:addButton(17,10,"Войти",OpenMainMenu) 
-	_btnEnter.color=0x4e7640    
+	_btnEnter =_mainForm:addButton(10,10,"Войти",OpenMainMenu) 
+	_btnEnter.color=0x626262   
 	_btnEnter.autoSize=false    
 	_btnEnter.centered=true    
+	_btnEnter.W=20
+	_btnEnter.H=3
+
+	label = _mainForm:addLabel(10,5,"Приветствуем на /warp smart")
+	label.color=_mainBackgroundColor   
+	label.autoSize=false    
+	label.centered=true    
+	label.W=20
+	label.H=3
 end
 
 function CreateButton(form,x,y,h,w,label,foo)
@@ -129,7 +138,7 @@ function CreateButton(form,x,y,h,w,label,foo)
 	BtnShop.centered=true
 	BtnShop.H=h
 	BtnShop.W=w
-	BtnShop.color=0x4e7640      
+	BtnShop.color=0x626262    
 end
 
 function ActivateShop()
@@ -137,6 +146,7 @@ function ActivateShop()
 	_shopForm:setActive()
 	SetBalanceView(_playerEms)
 	_shopList.index=1
+	_shopList:redraw()
 	UpdateShopGoodInfo(true)
 end
 
@@ -145,6 +155,7 @@ function ActivateSellShop()
 	_shopSellForm:setActive()
 	SetBalanceSellView(_playerEms)
 	_shopSellList.index=1
+	_shopSellList:redraw()
 	UpdateShopSellGoodInfo()
 end
 
@@ -387,7 +398,7 @@ function CreateShop()
 	backToMain.color=_mainBackgroundColor    
 
 	frame=_shopForm:addFrame(32,1,1) 
-	frame.W=24
+	frame.W=25
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
@@ -531,7 +542,7 @@ function CreateShopSell()
 	backToMain.color=_mainBackgroundColor    
 
 	frame=_shopSellForm:addFrame(32,1,1) 
-	frame.W=24
+	frame.W=25
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
