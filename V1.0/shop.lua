@@ -38,22 +38,10 @@ function GetItemsFromBD()
 end
 
 function GetSellItemsData()
-	[[local items = chestToSale.getAllStacks()
-	local i=1
-	for _,item in pairs(items) do
-		_itemsSaleData[i]=item.all()
-		i=i+1
-	end]]
-
-	for i=1,5 do
-	for index,item in pairs(bd.get(i)) do
-		_itemsSaleData[i]={
-			id = item.name 
-			damage = item.damage}
+	for i=1,6 do
+		local item = bd.get(i)
+		_itemsSaleData[i]= {id = item.name, dmg = item.damage}
 	end
-
-end
-
 
 	for i=1,#_itemsSaleData do
 		if _itemsSaleData[i].id=="OpenComputers:print" then _itemsSaleData[i].label="1 эм (покупается в сундуке слева)" _itemsSaleData[i].price=1 _itemsSaleData[i].img = "sell_1"end
@@ -80,7 +68,7 @@ function ParseItemsToSale()
 	for index,item in pairs(_itemsBD) do
 		for meIndex,meItem in pairs(_itemsME) do 
 			if(item.name==meItem.fingerprint.id and item.damage==meItem.fingerprint.dmg) then
-				_itemsToSale[i]	= {fingerprint=meItem.fingerprint, price = item.price, label = item.label, stackSize=64,count=10, localId=item.localId}
+				_itemsToSale[i]	= {fingerprint=meItem.fingerprint, price = item.price, label = item.label, stackSize=64, localId=item.localId}
 				i=i+1
 			end
 		end
@@ -88,7 +76,6 @@ function ParseItemsToSale()
 end
 
 function shop.GetItemSellCount(itemToCheck)
-	GetSellItemsData()
 	local items = chest.getAllStacks()
 	local count=0
 	for _,item in pairs(items) do
@@ -114,9 +101,18 @@ function shop.BuyItem(itemToSell)
 	local count=0
 	for k,item in pairs(items) do
 		itemData=item.all()
-		if itemToSell.id==itemData.id and itemToSell.dmg==itemData.dmg  and itemToSell.nbt_hash == itemData.nbt_hash then
-			chest.pushItem(1,k)
-			count=count+itemData.qty
+		local f=true
+		if itemToSell.id==itemData.id and itemToSell.dmg==itemData.dmg then
+			if tostring(itemData.nbt_hash)~=nil then
+				if tostring(itemData.nbt_hash)~="ee301c7839c41b237451f9fbbb6b237b" and tostring(itemData.nbt_hash)~="d3cd7ef0c447e90b294fe32b35d6b235" then
+					f=false
+				end
+			end
+
+			if f then
+				chest.pushItem(1,k)
+				count=count+itemData.qty
+			end
 		end
 	end
 	return count
