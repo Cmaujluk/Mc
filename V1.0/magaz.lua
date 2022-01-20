@@ -187,14 +187,22 @@ function CreateMainMenu()
 	methods[6]=ActivateShop
 	methods[7]=ActivateShop
 
-	local shift=2
+	local shift=5
 	for i=1, #labels do
-		CreateButton(_menuForm,20,4+shift*i,3, 40,labels[i],methods[i])
+		CreateButton(_menuForm,20,2+shift*i,3, 40,labels[i],methods[i])
 	end
 	
 	_playerNameLabel=_menuForm:addLabel(1,3,_playerName)
-	
-	CreateButton(_menuForm,4,2,1,10,"Назад",OpenEnterMenu)
+	_playerNameLabel=_menuForm:addLabel(1,5,"баланс")
+	_playerNameLabel=_menuForm:addLabel(1,6,_playerEms.." Эм")
+	_playerNameLabel=_menuForm:addLabel(1,7,"0 коинов") -->
+
+	backToEnterMenu=_menuForm:addButton(5,37,"← Назад",OpenEnterMenu) 
+	backToEnterMenu.autoSize=false
+	backToEnterMenu.centered=true
+	backToEnterMenu.H=1
+	backToEnterMenu.W=10
+	backToEnterMenu.color=_mainBackgroundColor    
 end
 
 
