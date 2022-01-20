@@ -1,7 +1,7 @@
 local component = require("component")  
 local internet = require("internet")
 local interface = component.proxy("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
-local chestToSale = component.chest
+local bd = component.database
 local chest = component.crystal
 
 local _itemsBD={}
@@ -38,12 +38,21 @@ function GetItemsFromBD()
 end
 
 function GetSellItemsData()
-	local items = chestToSale.getAllStacks()
+	[[local items = chestToSale.getAllStacks()
 	local i=1
 	for _,item in pairs(items) do
 		_itemsSaleData[i]=item.all()
 		i=i+1
+	end]]
+
+	for i=1,5 do
+	for index,item in pairs(bd.get(i)) do
+		_itemsSaleData[i]={
+			id = item.name 
+			damage = item.damage}
 	end
+
+end
 
 
 	for i=1,#_itemsSaleData do
@@ -84,8 +93,17 @@ function shop.GetItemSellCount(itemToCheck)
 	local count=0
 	for _,item in pairs(items) do
 		itemData=item.all()
-		if itemToCheck.id==itemData.id and itemToCheck.dmg==itemData.dmg  and itemToCheck.nbt_hash == itemData.nbt_hash then
-			count=count+itemData.qty
+		local f=true
+		if itemToCheck.id==itemData.id and itemToCheck.dmg==itemData.dmg then
+			if tostring(itemData.nbt_hash)~=nil then
+				if tostring(itemData.nbt_hash)~="ee301c7839c41b237451f9fbbb6b237b" and tostring(itemData.nbt_hash)~="d3cd7ef0c447e90b294fe32b35d6b235" then
+					f=false
+				end
+			end
+
+			if f then
+				count=count+itemData.qty
+			end
 		end
 	end
 	return count

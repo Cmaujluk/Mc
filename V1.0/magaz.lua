@@ -634,6 +634,8 @@ function CreateShopSell()
 		
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
+			_playerEms=_playerEms+priceAll
+			SetBalanceSellView(_playerEms) 
 		else
 			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
 		end
