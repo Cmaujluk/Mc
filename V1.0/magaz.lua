@@ -850,7 +850,7 @@ function CreateShopBuyBought()
 	toShopButton= _ShopBuyBoughtForm:addButton(20,15,"Купить",function() 
 		ActivateShop()		
 	end) 
-	toShopButton.color=.color=0x626262 
+	toShopButton.color=0x626262 
 	toShopButton.W=40
 	toShopButton.H=3
 
