@@ -306,6 +306,7 @@ function SetOrechangerList()
 	local data = changer.GetDataItems()
 
 	for i,j in pairs(_itemsOrechanger) do
+		data[i][10]=j
 		_orechangerList:insert(data[i][3],data[i])
 	end
 
@@ -336,10 +337,10 @@ function ShowImageOrechanger()
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
 
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,30,16,9," ")
+	gpu.fill(47,20,16,9," ")
 
 	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
-	graffiti.draw(pic, 47,41,16,16) --debug картиночки
+	graffiti.draw(pic, 47,45,16,16) --debug картиночки
 end
 
 function UpdateShopGoodInfo(check)
@@ -399,30 +400,32 @@ end
 function UpdateOrechangerGoodInfo()-->
 
 
-	_shopSelectedSellGoodLabel.caption =_shopSellList.items[_shopSellList.index].label
-	_shopSelectedSellGoodLabel.centered =true
-	_shopSelectedSellGoodLabel:redraw()
-	
-	_shopPriceSellGoodLabel.caption="Цена продажи: ".._shopSellList.items[_shopSellList.index].price.." эм"
-	_shopPriceSellGoodLabel:redraw()
+	--_shopSelectedSellGoodLabel.caption =_shopSellList.items[_shopSellList.index].label
+	--_shopSelectedSellGoodLabel.centered =true
+	--_shopSelectedSellGoodLabel:redraw()
+	--
+	--_shopPriceSellGoodLabel.caption="Цена продажи: ".._shopSellList.items[_shopSellList.index].price.." эм"
+	--_shopPriceSellGoodLabel:redraw()
+	--
+	--
+	--local itemsCount=shop.GetItemSellCount(_shopSellList.items[_shopSellList.index])
+	--
+	--_shopAvailableSellGoodLabel.caption="У вас есть "..itemsCount.." шт"
+	--_shopAvailableSellGoodLabel:redraw()
+	--
+	--if itemsCount>0 then
+	--	_shopWantSellGoodLabel.caption="Я хочу продать "..itemsCount.." шт"
+	--	_shopCountWantSellGoodLabel.caption="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм"
+	--
+	--else
+	--	_shopWantSellGoodLabel.caption=""
+	--	_shopCountWantSellGoodLabel.caption=""
+	--end
+	--
+	--_shopCountWantSellGoodLabel:redraw()
+	--_shopWantSellGoodLabel:redraw()
 
-	
-	local itemsCount=shop.GetItemSellCount(_shopSellList.items[_shopSellList.index])
-
-	_shopAvailableSellGoodLabel.caption="У вас есть "..itemsCount.." шт"
-	_shopAvailableSellGoodLabel:redraw()
-
-	if itemsCount>0 then
-		_shopWantSellGoodLabel.caption="Я хочу продать "..itemsCount.." шт"
-		_shopCountWantSellGoodLabel.caption="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм"
-
-	else
-		_shopWantSellGoodLabel.caption=""
-		_shopCountWantSellGoodLabel.caption=""
-	end
-
-	_shopCountWantSellGoodLabel:redraw()
-	_shopWantSellGoodLabel:redraw()
+	_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
 
 	ShowImageOrechanger()
 	
