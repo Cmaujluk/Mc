@@ -5,7 +5,7 @@ local component = require("component")
 local gpu = component.gpu
 local unicode = require("unicode")
 local shop = require("shop")
-localchanger=require("orechanger")
+local changer=require("orechanger")
 
 
 -------------FORMS------------------
@@ -298,6 +298,14 @@ function SetShopSellList()
 	_shopSellList:redraw()
 end
 
+function SetOrechangerList()
+	_orechangerList:clear()
+	for i=1, #_itemsOrechanger do
+		_orechangerList:insert(_itemsOrechanger[i][3],_itemsOrechanger[i])
+	end
+	_orechangerList:redraw()
+end
+
 function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(47,10,16,9," ")
@@ -375,6 +383,10 @@ end
 
 function InitSaleShop()
 	_itemsSaleData=shop.GetItemsSaleData()
+end
+
+function InitOrechanger()
+	_itemsOrechanger=changer.GetDataItems()
 end
 
 function SetBalanceView(count)
@@ -783,7 +795,7 @@ function CreateOrechanger()
 	_shopCountWantSellGoodLabel.W=40 
 	_shopCountWantSellGoodLabel.fontColor=0x33ff66
 	
-	buyButton= _orechangerForm:addButton(56,24,"Продать",function()  
+	buyButton= _orechangerForm:addButton(56,30,"Обменять",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -800,30 +812,6 @@ function CreateOrechanger()
 	buyButton.W=23
 	buyButton.H=3-->
 
-	buyButton= _orechangerForm:addButton(56,30,"Продать всё что есть",function()  
-
-		local soldCount=0
-		local priceAll=0
-		for i=1, #_shopSellList.items do
-			local iterationCount=shop.BuyItem(_shopSellList.items[i])
-			soldCount=soldCount+iterationCount
-			priceAll=priceAll+iterationCount*_shopSellList.items[i].price
-		end
-		
-		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
-			_playerEms=_playerEms+priceAll
-			SetBalanceSellView(_playerEms) 
-		else
-			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
-		end
-
-		UpdateShopSellGoodInfo()
-	end) 
-	buyButton.color=0x5C9A47
-	buyButton.W=23
-	buyButton.H=3
-
 	buyButton= _orechangerForm:addButton(56,36,"Обновить",function()  
 		UpdateShopSellGoodInfo()
 	end) 
@@ -831,9 +819,9 @@ function CreateOrechanger()
 	buyButton.W=23
 	buyButton.H=3
 	
-	SetBalanceSellView(_playerEms) 
+	--SetBalanceSellView(_playerEms) 
 
-	SetShopSellList()
+	SetOrechangerList()
 end
 
 function AcrivateShopBuyBoughtMenu()
@@ -966,6 +954,7 @@ end
 Init()
 shop.Init()-->сделать ввод ид мехов
 changer.Init("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
+InitOrechanger()
 CreateOrechanger()
 InitCharger()
 CreateShopBuyBought()	
