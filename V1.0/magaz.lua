@@ -303,7 +303,7 @@ end
 
 function SetOrechangerList()
 	_orechangerList:clear()
-
+	InitOrechanger()
 	local data = changer.GetDataItems()
 
 	for i,j in pairs(_itemsOrechanger) do

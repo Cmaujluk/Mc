@@ -70,14 +70,14 @@ function changer.Change(index,count)
 
 		local amount=fingerprint.qty
 		if fingerprint.id==_list[index][1] and fingerprint.dmg==_list[index][2] then 
-			print("Want to get ".._list[index][3].." x"..toGet)
+			--print("Want to get ".._list[index][3].." x"..toGet)
 			if(amount<toGet) then
 				chest.pushItem(1,k,amount,1)
-				print("get k-"..amount)
+				--print("get k-"..amount)
 				toGet=toGet-amount
 			else
 				chest.pushItem(1,k,toGet,1)
-				print("get toGet-"..toGet)
+				--print("get toGet-"..toGet)
 				toGet=toGet-toGet
 			end
 			if toGet==0 then break end
