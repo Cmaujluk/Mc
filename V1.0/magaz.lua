@@ -857,7 +857,7 @@ function CreateShopBuyBought()
 	toSellButton= _ShopBuyBoughtForm:addButton(20,20,"Пополнить счёт",function() 
 		ActivateSellShop()		
 	end) 
-	toSellButton.color=.color=0x626262 
+	toSellButton.color=0x626262 
 	toSellButton.W=40
 	toSellButton.H=3
 
