@@ -40,6 +40,7 @@ local _shopBalanceEmsLabel2=nil
 local _shopWantBuyGoodLabel=nil
 local _shopCountWantBuyGoodLabel=nil
 local _shopSelectedSellGoodLabel=nil
+local _orechangerSelectedGoodLabel=nil
 local _shopDialogLabel = nil
 local _shopDialogSellLabel = nil
 local _shopCountWantSellGoodLabel = nil
@@ -47,6 +48,7 @@ local _shopWantSellGoodLabel = nil
 local _shopBalanceEmsSellLabel = nil
 local _shopBalanceEmsSellLabel2 = nil
 local _shopPriceSellGoodLabel = nil
+local _orechangerAvailableGoodLabel = nil
 local _shopAvailableSellGoodLabel = nil
 -------------LISTS---------------
 local _shopList=nil
@@ -326,6 +328,20 @@ function ShopShowImageSell()
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
 end
 
+function ShowImageOrechanger()
+	gpu.setBackground(0x3E3D47)
+	gpu.fill(47,10,16,9," ")
+
+	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
+	graffiti.draw(pic, 47,21,16,16) --debug картиночки
+
+	gpu.setBackground(0x3E3D47)
+	gpu.fill(47,30,16,9," ")
+
+	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
+	graffiti.draw(pic, 47,41,16,16) --debug картиночки
+end
+
 function UpdateShopGoodInfo(check)
 	if check then
 		if #_shopList.items==0 or _shopList.index==nil then return end
@@ -408,7 +424,7 @@ function UpdateOrechangerGoodInfo()-->
 	_shopCountWantSellGoodLabel:redraw()
 	_shopWantSellGoodLabel:redraw()
 
-	ShopShowImageSell()
+	ShowImageOrechanger()
 	
 end
 
@@ -790,48 +806,40 @@ function CreateOrechanger()
 	label.autoSize  = false
 	label.W=40-->
 
-	_shopSelectedSellGoodLabel=_orechangerForm:addLabel(xStart,8,"1")
-	_shopSelectedSellGoodLabel.color=0x009999
-	_shopSelectedSellGoodLabel.fontColor=0xffd875
-	_shopSelectedSellGoodLabel.color = _mainBackgroundColor
-	_shopSelectedSellGoodLabel.centered = true
-	_shopSelectedSellGoodLabel.autoSize  = false
-	_shopSelectedSellGoodLabel.W=40  
+	_orechangerSelectedGoodLabel=_orechangerForm:addLabel(xStart,8,"1")
+	_orechangerSelectedGoodLabel.color=0x009999
+	_orechangerSelectedGoodLabel.fontColor=0xffd875
+	_orechangerSelectedGoodLabel.color = _mainBackgroundColor
+	_orechangerSelectedGoodLabel.centered = true
+	_orechangerSelectedGoodLabel.autoSize  = false
+	_orechangerSelectedGoodLabel.W=40  
 
-	_shopPriceSellGoodLabel=_orechangerForm:addLabel(xStart+xShift,12,"3")
-	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
+	_orechangerAvailableGoodLabel=_orechangerForm:addLabel(xStart+xShift,13,"У вас есть 10 шт")
+	_orechangerAvailableGoodLabel.color = _mainBackgroundColor 
 	
-	_shopAvailableSellGoodLabel=_orechangerForm:addLabel(xStart+xShift,14,"2")
-	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
+	--_shopAvailableSellGoodLabel=_orechangerForm:addLabel(xStart+xShift,14,"2")
+	--_shopAvailableSellGoodLabel.color = _mainBackgroundColor
 		
 	
 	local label=_orechangerForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
 	label.color = _mainBackgroundColor 
-
-	_shopBalanceEmsSellLabel=_orechangerForm:addLabel(2,2,"")
-	_shopBalanceEmsSellLabel.color = _mainBackgroundColor
-	_shopBalanceEmsSellLabel.fontColor = 0xFFB950
-	_shopBalanceEmsSellLabel2=_orechangerForm:addLabel(10,2,"")
-	_shopBalanceEmsSellLabel2.color = _mainBackgroundColor
-	_shopBalanceEmsSellLabel2.fontColor = 0x7DFF50 
 	
 	
+	--_shopWantSellGoodLabel=_orechangerForm:addLabel(xStart,20,"Я хочу продать 0 шт") 
+	--_shopWantSellGoodLabel.color = _mainBackgroundColor
+	--_shopWantSellGoodLabel.centered = true
+	--_shopWantSellGoodLabel.autoSize  = false
+	--_shopWantSellGoodLabel.W=40
+	--_shopWantSellGoodLabel.fontColor=0x33ff66
+	--
+	--_shopCountWantSellGoodLabel=_orechangerForm:addLabel(xStart,21,"За 0 эм")
+	--_shopCountWantSellGoodLabel.color = _mainBackgroundColor
+	--_shopCountWantSellGoodLabel.centered = true
+	--_shopCountWantSellGoodLabel.autoSize  = false
+	--_shopCountWantSellGoodLabel.W=40 
+	--_shopCountWantSellGoodLabel.fontColor=0x33ff66
 	
-	_shopWantSellGoodLabel=_orechangerForm:addLabel(xStart,20,"Я хочу продать 0 шт") 
-	_shopWantSellGoodLabel.color = _mainBackgroundColor
-	_shopWantSellGoodLabel.centered = true
-	_shopWantSellGoodLabel.autoSize  = false
-	_shopWantSellGoodLabel.W=40
-	_shopWantSellGoodLabel.fontColor=0x33ff66
-	
-	_shopCountWantSellGoodLabel=_orechangerForm:addLabel(xStart,21,"За 0 эм")
-	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
-	_shopCountWantSellGoodLabel.centered = true
-	_shopCountWantSellGoodLabel.autoSize  = false
-	_shopCountWantSellGoodLabel.W=40 
-	_shopCountWantSellGoodLabel.fontColor=0x33ff66
-	
-	buyButton= _orechangerForm:addButton(56,30,"Обменять",function()  
+	buyButton= _orechangerForm:addButton(56,36,"Обменять",function()  
 
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
@@ -848,14 +856,13 @@ function CreateOrechanger()
 	buyButton.W=23
 	buyButton.H=3-->
 
-	buyButton= _orechangerForm:addButton(56,36,"Обновить",function()  
+	buyButton= _orechangerForm:addButton(56,42,"Обновить",function()  
 		--UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x9A9247
 	buyButton.W=23
 	buyButton.H=3
-	
-	--SetBalanceSellView(_playerEms) 
+
 
 	SetOrechangerList()
 end
