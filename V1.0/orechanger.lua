@@ -1,4 +1,4 @@
-﻿local component = require("component")
+local component = require("component")
 local gpu = component.gpu
 local chest = component.crystal
 local os = require("os")  
