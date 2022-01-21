@@ -43,6 +43,7 @@ local _shopSelectedSellGoodLabel=nil
 local _orechangerSelectedGoodLabel=nil
 local _shopDialogLabel = nil
 local _shopDialogSellLabel = nil
+local _orechangerDialogLabel = nil
 local _shopCountWantSellGoodLabel = nil
 local _shopWantSellGoodLabel = nil
 local _shopBalanceEmsSellLabel = nil
@@ -171,6 +172,7 @@ function ActivateOreChanger()
 	_orechangerForm:setActive()
 	SetBalanceSellView(_playerEms)
 	_orechangerList.index=0
+	SetOrechangerList()
 	--UpdateOrechangerGoodInfo()
 end
 
@@ -192,20 +194,20 @@ function CreateMainMenu()
 	labels[3]="Обмен ресурсы на ресурсы без эмов"	
 	labels[4]="Зарядка жезлов таумкрафт"	
 	labels[5]="Купить билеты в казино"	
-	labels[6]="Лотерея"	
-	labels[7]="Мехи"
+	--labels[6]="Лотерея"	
+	--labels[7]="Мехи"
 	local methods={} 
 	methods[1]=AcrivateShopBuyBoughtMenu 
 	methods[2]=ActivateOreChanger 
 	methods[3]=ActivateShop	
 	methods[4]=ActivateWandCharger	
 	methods[5]=ActivateShop	
-	methods[6]=ActivateShop
-	methods[7]=ActivateShop
+	--methods[6]=ActivateShop
+	--methods[7]=ActivateShop
 
 	local shift=4
 	for i=1, #labels do
-		CreateButton(_menuForm,20,2+shift*i,3, 40,labels[i],methods[i])
+		CreateButton(_menuForm,20,12+shift*i,3, 40,labels[i],methods[i])
 	end
 	
 	_playerNameLabel=_menuForm:addLabel(3,2,_playerName)
@@ -339,7 +341,7 @@ function ShowImageOrechanger()
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
 
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,25,16,9," ")
+	gpu.fill(47,23,16,9," ")
 
 	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
 	graffiti.draw(pic, 47,45,16,16) --debug картиночки
@@ -839,21 +841,6 @@ function CreateOrechanger()
 	local label=_orechangerForm:addLabel(xStart+xShift,25,"Вы получите:")
 	label.color = _mainBackgroundColor 
 	
-	
-	--_shopWantSellGoodLabel=_orechangerForm:addLabel(xStart,20,"Я хочу продать 0 шт") 
-	--_shopWantSellGoodLabel.color = _mainBackgroundColor
-	--_shopWantSellGoodLabel.centered = true
-	--_shopWantSellGoodLabel.autoSize  = false
-	--_shopWantSellGoodLabel.W=40
-	--_shopWantSellGoodLabel.fontColor=0x33ff66
-	--
-	--_shopCountWantSellGoodLabel=_orechangerForm:addLabel(xStart,21,"За 0 эм")
-	--_shopCountWantSellGoodLabel.color = _mainBackgroundColor
-	--_shopCountWantSellGoodLabel.centered = true
-	--_shopCountWantSellGoodLabel.autoSize  = false
-	--_shopCountWantSellGoodLabel.W=40 
-	--_shopCountWantSellGoodLabel.fontColor=0x33ff66
-	
 	buyButton= _orechangerForm:addButton(56,36,"Обменять",function()  
 
 		
@@ -861,20 +848,21 @@ function CreateOrechanger()
 		if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
 
 			local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
-				if soldCount>0 then
-					ShowShopSellDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
-				end
+			if soldCount>0 then
+				ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+			end
 		else
-			ShowShopSellDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
+			ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
 		end
 		SetOrechangerList()
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=23
-	buyButton.H=3-->
+	buyButton.H=3
 
 	buyButton= _orechangerForm:addButton(56,42,"Обновить",function()  
 		SetOrechangerList()
+		_orechangerList.index=0
 	end) 
 	buyButton.color=0x9A9247
 	buyButton.W=23
@@ -971,6 +959,29 @@ function CreateDialogWindowSellShopForm()
 	dialogSellForm.color=0x333145
 end
 
+
+
+function CreateDialogWindowOrechangerForm()
+	dialogOrechangerForm=forms.addForm()       
+	dialogOrechangerForm.border=1
+	dialogOrechangerForm.W=70
+	dialogOrechangerForm.H=7
+	dialogOrechangerForm.left=math.floor(10)
+	dialogOrechangerForm.top =math.floor(19)
+	_orechangerDialogLabel=dialogOrechangerForm:addLabel(3,3,"")
+	_orechangerDialogLabel.autoSize=false
+	_orechangerDialogLabel.centered=true
+	_orechangerDialogLabel.W=64
+	_orechangerDialogLabel.fontColor=0x92DEA3
+	_orechangerDialogLabel.color=0x333145
+	btn=dialogOrechangerForm:addButton(30,5,"Ок",function() 
+		_orechangerForm:setActive() 
+		--UpdateShopGoodInfo(false)	 -->Просчет остатка в на продажу
+	end)
+	btn.color=0xC1C1C1
+	dialogSellForm.color=0x333145
+end
+
 function ShowShopSellDialog(string,enough)
 
 	dialogSellForm:setActive()
@@ -981,6 +992,17 @@ function ShowShopSellDialog(string,enough)
 		_shopDialogSellLabel.fontColor=0xdb7093
 	end
 	_shopDialogSellLabel:redraw()
+end
+
+function ShowOrechangerDialog(string,enough)
+	dialogOrechangerForm:setActive()
+	_orechangerDialogLabel.caption=string
+	if enough then
+		_orechangerDialogLabel.fontColor=0x92DEA3
+	else
+		_orechangerDialogLabel.fontColor=0xdb7093
+	end
+	_orechangerDialogLabel:redraw()
 end
 
 
