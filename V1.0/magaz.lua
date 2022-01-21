@@ -50,6 +50,7 @@ local _shopBalanceEmsSellLabel2 = nil
 local _shopPriceSellGoodLabel = nil
 local _orechangerAvailableGoodLabel = nil
 local _shopAvailableSellGoodLabel = nil
+local _orechangerTradeGoodLabel = nil
 -------------LISTS---------------
 local _shopList=nil
 local _shopSellList=nil
@@ -425,7 +426,14 @@ function UpdateOrechangerGoodInfo()-->
 	--_shopCountWantSellGoodLabel:redraw()
 	--_shopWantSellGoodLabel:redraw()
 
+	_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
+	_orechangerTradeGoodLabel:redraw()
+
+	_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
+	_orechangerSelectedGoodLabel:redraw()
+
 	_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
+	_orechangerAvailableGoodLabel:redraw()
 
 	ShowImageOrechanger()
 	
@@ -820,11 +828,14 @@ function CreateOrechanger()
 	_orechangerAvailableGoodLabel=_orechangerForm:addLabel(xStart+xShift,13,"У вас есть 10 шт")
 	_orechangerAvailableGoodLabel.color = _mainBackgroundColor 
 	
-	--_shopAvailableSellGoodLabel=_orechangerForm:addLabel(xStart+xShift,14,"2")
-	--_shopAvailableSellGoodLabel.color = _mainBackgroundColor
+	_orechangerTradeGoodLabel=_orechangerForm:addLabel(xStart+xShift,22,"")
+	_orechangerTradeGoodLabel.color = _mainBackgroundColor
 		
 	
 	local label=_orechangerForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
+	label.color = _mainBackgroundColor 
+
+	local label=_orechangerForm:addLabel(xStart+xShift,21,"Вы получите:")
 	label.color = _mainBackgroundColor 
 	
 	
