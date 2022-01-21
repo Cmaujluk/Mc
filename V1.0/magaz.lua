@@ -338,7 +338,7 @@ function ShowImageOrechanger()
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
 
 	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,20,16,9," ")
+	gpu.fill(47,25,16,9," ")
 
 	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
 	graffiti.draw(pic, 47,45,16,16) --debug картиночки
@@ -825,17 +825,17 @@ function CreateOrechanger()
 	_orechangerSelectedGoodLabel.autoSize  = false
 	_orechangerSelectedGoodLabel.W=40  
 
-	_orechangerAvailableGoodLabel=_orechangerForm:addLabel(xStart+xShift,13,"У вас есть 10 шт")
+	_orechangerAvailableGoodLabel=_orechangerForm:addLabel(xStart+xShift,14,"У вас есть 10 шт")
 	_orechangerAvailableGoodLabel.color = _mainBackgroundColor 
 	
-	_orechangerTradeGoodLabel=_orechangerForm:addLabel(xStart+xShift,22,"")
+	_orechangerTradeGoodLabel=_orechangerForm:addLabel(xStart+xShift,26,"")
 	_orechangerTradeGoodLabel.color = _mainBackgroundColor
 		
 	
 	local label=_orechangerForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
 	label.color = _mainBackgroundColor 
 
-	local label=_orechangerForm:addLabel(xStart+xShift,21,"Вы получите:")
+	local label=_orechangerForm:addLabel(xStart+xShift,25,"Вы получите:")
 	label.color = _mainBackgroundColor 
 	
 	
@@ -855,23 +855,25 @@ function CreateOrechanger()
 	
 	buyButton= _orechangerForm:addButton(56,36,"Обменять",function()  
 
-		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
-		if soldCount>0 then
-			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
-			_playerEms=_playerEms+soldCount
-			SetBalanceSellView(_playerEms) 
-		else
-			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
-		end
+		
+	
+		if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
 
-		--UpdateShopSellGoodInfo()
+			local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
+				if soldCount>0 then
+					ShowShopSellDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+				end
+		else
+			ShowShopSellDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
+		end
+		SetOrechangerList()
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=23
 	buyButton.H=3-->
 
 	buyButton= _orechangerForm:addButton(56,42,"Обновить",function()  
-		--UpdateShopSellGoodInfo()
+		SetOrechangerList()
 	end) 
 	buyButton.color=0x9A9247
 	buyButton.W=23
