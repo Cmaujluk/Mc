@@ -300,9 +300,13 @@ end
 
 function SetOrechangerList()
 	_orechangerList:clear()
-	for i=1, #_itemsOrechanger do
-		_orechangerList:insert(_itemsOrechanger[i][3],_itemsOrechanger[i])
+
+	local data = changer.GetDataItems()
+
+	for i,j in pairs(_itemsOrechanger) do
+		_orechangerList:insert(data[i][3],data[i])
 	end
+
 	_orechangerList:redraw()
 end
 
@@ -418,7 +422,7 @@ function InitSaleShop()
 end
 
 function InitOrechanger()
-	_itemsOrechanger=changer.GetDataItems()
+	_itemsOrechanger=changer.GetAvailableItems()
 end
 
 function SetBalanceView(count)
