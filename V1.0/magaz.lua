@@ -173,7 +173,7 @@ function ActivateOreChanger()
 	SetBalanceSellView(_playerEms)
 	_orechangerList.index=0
 	SetOrechangerList()
-	--UpdateOrechangerGoodInfo()
+	UpdateOrechangerGoodInfo()
 end
 
 
@@ -334,17 +334,21 @@ function ShopShowImageSell()
 end
 
 function ShowImageOrechanger()
-	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,10,16,9," ")
+	if(#_orechangerList>0) then
+		gpu.setBackground(0x3E3D47)
+		gpu.fill(47,10,16,9," ")
 
-	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
-	graffiti.draw(pic, 47,21,16,16) --debug картиночки
+		pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
+		graffiti.draw(pic, 47,21,16,16) --debug картиночки
 
-	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,23,16,9," ")
+		gpu.setBackground(0x3E3D47)
+		gpu.fill(47,22,16,9," ")
 
-	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
-	graffiti.draw(pic, 47,45,16,16) --debug картиночки
+		pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
+		graffiti.draw(pic, 47,45,16,16) --debug картиночки
+	else
+		_orechangerForm:redraw()
+	end
 end
 
 function UpdateShopGoodInfo(check)
@@ -429,13 +433,18 @@ function UpdateOrechangerGoodInfo()-->
 	--_shopCountWantSellGoodLabel:redraw()
 	--_shopWantSellGoodLabel:redraw()
 
-	_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
+	if(#_orechangerList>0) then
+		_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
+		_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
+		_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
+	else
+		_orechangerTradeGoodLabel.caption=""
+		_orechangerSelectedGoodLabel.caption=""
+		_orechangerAvailableGoodLabel.caption=""
+	end
+
 	_orechangerTradeGoodLabel:redraw()
-
-	_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
 	_orechangerSelectedGoodLabel:redraw()
-
-	_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
 	_orechangerAvailableGoodLabel:redraw()
 
 	ShowImageOrechanger()
@@ -863,6 +872,7 @@ function CreateOrechanger()
 	buyButton= _orechangerForm:addButton(56,42,"Обновить",function()  
 		SetOrechangerList()
 		_orechangerList.index=0
+		UpdateOrechangerGoodInfo()
 	end) 
 	buyButton.color=0x9A9247
 	buyButton.W=23
@@ -1042,6 +1052,7 @@ InitCharger()
 CreateShopBuyBought()	
 CreateDialogWindowBuyShopForm()
 CreateDialogWindowSellShopForm()
+CreateDialogWindowOrechangerForm()
 InitShop()
 InitSaleShop()
 CreateButtonExit()
