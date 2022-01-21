@@ -1,7 +1,7 @@
 local shell = require("shell")
 local fs = require("filesystem")
 local prefix = "https://raw.githubusercontent.com/Cmaujluk/Mc/master/V1.0/"
-local files = {"/y.lua","/forms.lua"}
+local files = {"/magaz.lua","/forms.lua","/shop.lua","/orechanger.lua"}
 
 
 for _,v in pairs(files) do

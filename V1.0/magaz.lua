@@ -5,6 +5,8 @@ local component = require("component")
 local gpu = component.gpu
 local unicode = require("unicode")
 local shop = require("shop")
+localchanger=require("orechanger")
+
 
 -------------FORMS------------------
 local _mainForm = nil
@@ -12,6 +14,7 @@ local _menuForm = nil
 local _shopForm = nil
 local _wandChargerForm = nil
 local _shopSellForm = nil
+local _orechangerForm = nil
 local _mainBackgroundColor = nil
 
 local _ShopBuyBoughtForm = nil
@@ -48,6 +51,7 @@ local _shopAvailableSellGoodLabel = nil
 -------------LISTS---------------
 local _shopList=nil
 local _shopSellList=nil
+local _orechangerList=nil
 ------------EDITS----------------
 local _shopEditField = nil
 ----------GLOBALVARS-------------
@@ -159,6 +163,14 @@ function ActivateSellShop()
 	UpdateShopSellGoodInfo()
 end
 
+function ActivateOreChanger()
+	gpu.setResolution(90,45)
+	_orechangerForm:setActive()
+	SetBalanceSellView(_playerEms)
+	--UpdateShopSellGoodInfo()-->
+end
+
+
 function ActivateWandCharger()
 	gpu.setResolution(90,45)
 	_wandChargerForm:setActive()
@@ -180,7 +192,7 @@ function CreateMainMenu()
 	labels[7]="Мехи"
 	local methods={} 
 	methods[1]=AcrivateShopBuyBoughtMenu 
-	methods[2]=ActivateShop 
+	methods[2]=ActivateOreChanger 
 	methods[3]=ActivateShop	
 	methods[4]=ActivateWandCharger	
 	methods[5]=ActivateShop	
@@ -680,6 +692,150 @@ function CreateShopSell()
 	SetShopSellList()
 end
 
+function CreateOrechanger()
+	local xStart=48
+	local xShift=17
+	
+	_orechangerForm=forms.addForm()
+	_orechangerForm.W=90
+	_orechangerForm.H=45
+	_orechangerForm.color=_mainBackgroundColor
+	
+	backToMain=_orechangerForm:addButton(5,43,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+
+	frame=_orechangerForm:addFrame(32,1,1) 
+	frame.W=25
+	frame.H=3 
+	frame.color= _mainBackgroundColor
+
+	label=_orechangerForm:addLabel(37,2,"Обмен руд") 
+	label.fontColor =0xFFE600
+	label.color=_mainBackgroundColor
+	
+	_orechangerList=_orechangerForm:addList(5,10,UpdateShopSellGoodInfo) --> --обработка клика в скролле
+	_orechangerList.W=40
+	_orechangerList.H=29
+	_orechangerList.color=0x42414D
+	_orechangerList.selColor=0x2E7183
+	_orechangerList.sfColor=0xffffff 
+	
+	local label = _orechangerForm:addLabel(4,5,"Сложите руды на обмен в левый сундук")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _orechangerForm:addLabel(4,6,"и выберите их в списке для обмена")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _orechangerForm:addLabel(4,7,"если нужно нажмите кнопку “обновить”")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40-->
+
+	_shopSelectedSellGoodLabel=_orechangerForm:addLabel(xStart,8,"1")
+	_shopSelectedSellGoodLabel.color=0x009999
+	_shopSelectedSellGoodLabel.fontColor=0xffd875
+	_shopSelectedSellGoodLabel.color = _mainBackgroundColor
+	_shopSelectedSellGoodLabel.centered = true
+	_shopSelectedSellGoodLabel.autoSize  = false
+	_shopSelectedSellGoodLabel.W=40  
+
+	_shopPriceSellGoodLabel=_orechangerForm:addLabel(xStart+xShift,12,"3")
+	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
+	
+	_shopAvailableSellGoodLabel=_orechangerForm:addLabel(xStart+xShift,14,"2")
+	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
+		
+	
+	local label=_orechangerForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
+	label.color = _mainBackgroundColor 
+
+	_shopBalanceEmsSellLabel=_orechangerForm:addLabel(2,2,"")
+	_shopBalanceEmsSellLabel.color = _mainBackgroundColor
+	_shopBalanceEmsSellLabel.fontColor = 0xFFB950
+	_shopBalanceEmsSellLabel2=_orechangerForm:addLabel(10,2,"")
+	_shopBalanceEmsSellLabel2.color = _mainBackgroundColor
+	_shopBalanceEmsSellLabel2.fontColor = 0x7DFF50 
+	
+	
+	
+	_shopWantSellGoodLabel=_orechangerForm:addLabel(xStart,20,"Я хочу продать 0 шт") 
+	_shopWantSellGoodLabel.color = _mainBackgroundColor
+	_shopWantSellGoodLabel.centered = true
+	_shopWantSellGoodLabel.autoSize  = false
+	_shopWantSellGoodLabel.W=40
+	_shopWantSellGoodLabel.fontColor=0x33ff66
+	
+	_shopCountWantSellGoodLabel=_orechangerForm:addLabel(xStart,21,"За 0 эм")
+	_shopCountWantSellGoodLabel.color = _mainBackgroundColor
+	_shopCountWantSellGoodLabel.centered = true
+	_shopCountWantSellGoodLabel.autoSize  = false
+	_shopCountWantSellGoodLabel.W=40 
+	_shopCountWantSellGoodLabel.fontColor=0x33ff66
+	
+	buyButton= _orechangerForm:addButton(56,24,"Продать",function()  
+
+		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
+		if soldCount>0 then
+			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+			_playerEms=_playerEms+soldCount
+			SetBalanceSellView(_playerEms) 
+		else
+			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
+		end
+
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=23
+	buyButton.H=3-->
+
+	buyButton= _orechangerForm:addButton(56,30,"Продать всё что есть",function()  
+
+		local soldCount=0
+		local priceAll=0
+		for i=1, #_shopSellList.items do
+			local iterationCount=shop.BuyItem(_shopSellList.items[i])
+			soldCount=soldCount+iterationCount
+			priceAll=priceAll+iterationCount*_shopSellList.items[i].price
+		end
+		
+		if soldCount>0 then
+			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
+			_playerEms=_playerEms+priceAll
+			SetBalanceSellView(_playerEms) 
+		else
+			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
+		end
+
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=23
+	buyButton.H=3
+
+	buyButton= _orechangerForm:addButton(56,36,"Обновить",function()  
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x9A9247
+	buyButton.W=23
+	buyButton.H=3
+	
+	SetBalanceSellView(_playerEms) 
+
+	SetShopSellList()
+end
+
 function AcrivateShopBuyBoughtMenu()
 	gpu.setResolution(80,40)
 	_ShopBuyBoughtForm:setActive()
@@ -808,7 +964,9 @@ end
 
 ------------------------------------
 Init()
-shop.Init()
+shop.Init()-->сделать ввод ид мехов
+changer.Init("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
+CreateOrechanger()
 InitCharger()
 CreateShopBuyBought()	
 CreateDialogWindowBuyShopForm()

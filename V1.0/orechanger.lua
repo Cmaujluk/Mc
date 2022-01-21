@@ -58,44 +58,46 @@ function changer.Change(index,count)
 	for k,v in pairs(loot) do
 		local fingerprint = v.basic()
 
+		local amount=fingerprint.qty
 		if fingerprint.id==_list[index][1] and fingerprint.dmg==_list[index][2] then 
 			print("Want to get ".._list[index][3].." x"..toGet)
-			if(k-toGet<0) then
-				chest.pushItem(1,k)
-				print("get "..k)
+			if(amount<toGet) then
+				chest.pushItem(1,k,amount,1)
+				print("get k-"..amount)
+				toGet=toGet-amount
 			else
-				chest.pushItem(1,toGet)
-				print("get "..toGet)
+				chest.pushItem(1,k,toGet,1)
+				print("get toGet-"..toGet)
+				toGet=toGet-toGet
 			end
-
-			toGet=toGet-k
-
 			if toGet==0 then break end
 		end
 	end
 
-	--local resultCount = (count-toGet)*_list[index][7]
-	--
-	--local itemsME=interface_getter.getAvailableItems()
-	--for meIndex,meItem in pairs(itemsME) do
-	--	if(_list[index][4]==meItem.fingerprint.all().id and _list[index][5]==meItem.fingerprint.all().dmg) then
-	--		fingerprint= meItem.fingerprint.all()
-	--		break
-	--	end
-	--end
-	--
-	--local resourchesToGive=resultCount
-	--while resourchesToGive>0 do
-	--	if resourchesToGive>64 then 
-	--		interface_getter.exportItem(fingerprint,2,64)
-	--		resourchesToGive=resourchesToGive-64
-	--	else
-	--		interface_getter.exportItem(fingerprint,2,resourchesToGive)
-	--		resourchesToGive=0
-	--	end
-	--end
-	--
-	--return resultCount
+	local resultCount = (count-toGet)*_list[index][7]
+	
+	local itemsME=interface_getter.getAvailableItems()
+
+	for meIndex,meItem in pairs(itemsME) do
+		if(_list[index][4]==meItem.fingerprint.id and _list[index][5]==meItem.fingerprint.dmg) then
+			local data = interface_getter.getItemDetail(meItem.fingerprint)
+			fingerprint = data.all()
+			break
+		end
+	end
+	
+	local resourchesToGive=resultCount
+	while resourchesToGive>0 do
+		if resourchesToGive>64 then 
+			interface_getter.exportItem(fingerprint,2,64)
+			resourchesToGive=resourchesToGive-64
+		else
+			interface_getter.exportItem(fingerprint,2,resourchesToGive)
+			resourchesToGive=0
+		end
+	end
+	
+	return resultCount
 end
 
 return changer
