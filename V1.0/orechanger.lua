@@ -13,7 +13,7 @@ local _list = {
 	{"exnihilo:iron_dust",0,"Железная Пыльная руда","minecraft:iron_ingot",0,"Железный слиток",2,4},
 	{"IC2:blockOreCopper",0,"Медная руда","ThermalFoundation:material",64,"Медный слиток",2,5},
 	{"exnihilo:copper_gravel",0,"Медная Гравиевая руда","ThermalFoundation:material",64,"Медный слиток",2,6},
-	{"exnihilo:copper_sand",0<"Медная Песчаная руда","ThermalFoundation:material",64,"Медный слиток",2,7},
+	{"exnihilo:copper_sand",0,"Медная Песчаная руда","ThermalFoundation:material",64,"Медный слиток",2,7},
 	{"copper_dust",0,"Медная Пыльная руда","ThermalFoundation:material",64,"Медный слиток",2,8},
 	{"IC2:blockOreTin",0,"Оловянная руда","ThermalFoundation:material",65,"Оловянный слиток",2,9},
 	{"exnihilo:tin_gravel",0,"Оловянная Гравиевая руда","ThermalFoundation:material",65,"Оловянный слиток",2,10},
