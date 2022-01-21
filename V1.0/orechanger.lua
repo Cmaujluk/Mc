@@ -1,4 +1,4 @@
-local component = require("component")
+п»їlocal component = require("component")
 local gpu = component.gpu
 local chest = component.crystal
 local os = require("os")  
@@ -7,18 +7,18 @@ local interface_getter = nil
 local changer={}
 
 local _list = {
-	{"minecraft:iron_ore",0,"Железная руда","minecraft:iron_ingot",0,"Железный слиток",2,1},
-	{"exnihilo:iron_gravel",0,"Железная Гравиевая руда","minecraft:iron_ingot",0,"Железный слиток",2,2},
-	{"exnihilo:iron_sand",0,"Железная Песчаная руда","minecraft:iron_ingot",0,"Железный слиток",2,3},
-	{"exnihilo:iron_dust",0,"Железная Пыльная руда","minecraft:iron_ingot",0,"Железный слиток",2,4},
-	{"IC2:blockOreCopper",0,"Медная руда","ThermalFoundation:material",64,"Медный слиток",2,5},
-	{"exnihilo:copper_gravel",0,"Медная Гравиевая руда","ThermalFoundation:material",64,"Медный слиток",2,6},
-	{"exnihilo:copper_sand",0,"Медная Песчаная руда","ThermalFoundation:material",64,"Медный слиток",2,7},
-	{"copper_dust",0,"Медная Пыльная руда","ThermalFoundation:material",64,"Медный слиток",2,8},
-	{"IC2:blockOreTin",0,"Оловянная руда","ThermalFoundation:material",65,"Оловянный слиток",2,9},
-	{"exnihilo:tin_gravel",0,"Оловянная Гравиевая руда","ThermalFoundation:material",65,"Оловянный слиток",2,10},
-	{"exnihilo:tin_sand",0,"Оловянная Песчаная руда","ThermalFoundation:material",65,"Оловянный слиток",2,11},
-	{"exnihilo:tin_dust",0,"Оловянная Пыльная руда","ThermalFoundation:material",65,"Оловянный слиток",2,12}, 
+	{"minecraft:iron_ore",0,"Р–РµР»РµР·РЅР°СЏ СЂСѓРґР°","minecraft:iron_ingot",0,"Р–РµР»РµР·РЅС‹Р№ СЃР»РёС‚РѕРє",2,1},
+	{"exnihilo:iron_gravel",0,"Р–РµР»РµР·РЅР°СЏ Р“СЂР°РІРёРµРІР°СЏ СЂСѓРґР°","minecraft:iron_ingot",0,"Р–РµР»РµР·РЅС‹Р№ СЃР»РёС‚РѕРє",2,2},
+	{"exnihilo:iron_sand",0,"Р–РµР»РµР·РЅР°СЏ РџРµСЃС‡Р°РЅР°СЏ СЂСѓРґР°","minecraft:iron_ingot",0,"Р–РµР»РµР·РЅС‹Р№ СЃР»РёС‚РѕРє",2,3},
+	{"exnihilo:iron_dust",0,"Р–РµР»РµР·РЅР°СЏ РџС‹Р»СЊРЅР°СЏ СЂСѓРґР°","minecraft:iron_ingot",0,"Р–РµР»РµР·РЅС‹Р№ СЃР»РёС‚РѕРє",2,4},
+	{"IC2:blockOreCopper",0,"РњРµРґРЅР°СЏ СЂСѓРґР°","ThermalFoundation:material",64,"РњРµРґРЅС‹Р№ СЃР»РёС‚РѕРє",2,5},
+	{"exnihilo:copper_gravel",0,"РњРµРґРЅР°СЏ Р“СЂР°РІРёРµРІР°СЏ СЂСѓРґР°","ThermalFoundation:material",64,"РњРµРґРЅС‹Р№ СЃР»РёС‚РѕРє",2,6},
+	{"exnihilo:copper_sand",0,"РњРµРґРЅР°СЏ РџРµСЃС‡Р°РЅР°СЏ СЂСѓРґР°","ThermalFoundation:material",64,"РњРµРґРЅС‹Р№ СЃР»РёС‚РѕРє",2,7},
+	{"copper_dust",0,"РњРµРґРЅР°СЏ РџС‹Р»СЊРЅР°СЏ СЂСѓРґР°","ThermalFoundation:material",64,"РњРµРґРЅС‹Р№ СЃР»РёС‚РѕРє",2,8},
+	{"IC2:blockOreTin",0,"РћР»РѕРІСЏРЅРЅР°СЏ СЂСѓРґР°","ThermalFoundation:material",65,"РћР»РѕРІСЏРЅРЅС‹Р№ СЃР»РёС‚РѕРє",2,9},
+	{"exnihilo:tin_gravel",0,"РћР»РѕРІСЏРЅРЅР°СЏ Р“СЂР°РІРёРµРІР°СЏ СЂСѓРґР°","ThermalFoundation:material",65,"РћР»РѕРІСЏРЅРЅС‹Р№ СЃР»РёС‚РѕРє",2,10},
+	{"exnihilo:tin_sand",0,"РћР»РѕРІСЏРЅРЅР°СЏ РџРµСЃС‡Р°РЅР°СЏ СЂСѓРґР°","ThermalFoundation:material",65,"РћР»РѕРІСЏРЅРЅС‹Р№ СЃР»РёС‚РѕРє",2,11},
+	{"exnihilo:tin_dust",0,"РћР»РѕРІСЏРЅРЅР°СЏ РџС‹Р»СЊРЅР°СЏ СЂСѓРґР°","ThermalFoundation:material",65,"РћР»РѕРІСЏРЅРЅС‹Р№ СЃР»РёС‚РѕРє",2,12}, 
 }
 
 
