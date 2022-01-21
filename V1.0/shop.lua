@@ -125,7 +125,7 @@ end
 function shop.GetItemCount(fingerprint)
 	local data = interface.getItemDetail(fingerprint)
 	if data == nil then return 0 end
-	local count = interface.getItemDetail(fingerprint).all().qty
+	local count = data.all().qty
 	if count ==nil then count = 0 end
 	return count
 end

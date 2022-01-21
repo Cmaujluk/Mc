@@ -187,17 +187,17 @@ function CreateMainMenu()
 	methods[6]=ActivateShop
 	methods[7]=ActivateShop
 
-	local shift=5
+	local shift=4
 	for i=1, #labels do
 		CreateButton(_menuForm,20,2+shift*i,3, 40,labels[i],methods[i])
 	end
 	
-	_playerNameLabel=_menuForm:addLabel(1,3,_playerName)
-	_playerNameLabel=_menuForm:addLabel(1,5,"баланс")
-	_playerNameLabel=_menuForm:addLabel(1,6,_playerEms.." Эм")
-	_playerNameLabel=_menuForm:addLabel(1,7,"0 коинов") -->
+	_playerNameLabel=_menuForm:addLabel(3,2,_playerName)
+	_playerNameLabel=_menuForm:addLabel(3,4,"Баланс")
+	_playerNameLabel=_menuForm:addLabel(3,5,_playerEms.." Эм")
+	_playerNameLabel=_menuForm:addLabel(3,6,"0 коинов") -->
 
-	backToEnterMenu=_menuForm:addButton(5,37,"← Назад",OpenEnterMenu) 
+	backToEnterMenu=_menuForm:addButton(3,38,"← Назад",OpenEnterMenu) 
 	backToEnterMenu.autoSize=false
 	backToEnterMenu.centered=true
 	backToEnterMenu.H=1
@@ -691,18 +691,18 @@ function CreateShopBuyBought()
 	_ShopBuyBoughtForm.H=40
 	_ShopBuyBoughtForm.color=_mainBackgroundColor
 
-	toShopButton= _ShopBuyBoughtForm:addButton(30,14,"Купить",function() 
+	toShopButton= _ShopBuyBoughtForm:addButton(20,15,"Купить",function() 
 		ActivateShop()		
 	end) 
-	toShopButton.color=0x5C9A47
-	toShopButton.W=20
+	toShopButton.color=.color=0x626262 
+	toShopButton.W=40
 	toShopButton.H=3
 
-	toSellButton= _ShopBuyBoughtForm:addButton(30,26,"Пополнить счёт",function() 
+	toSellButton= _ShopBuyBoughtForm:addButton(20,20,"Пополнить счёт",function() 
 		ActivateSellShop()		
 	end) 
-	toSellButton.color=0x5C9A47
-	toSellButton.W=20
+	toSellButton.color=.color=0x626262 
+	toSellButton.W=40
 	toSellButton.H=3
 
 	backToMain=_ShopBuyBoughtForm:addButton(5,38,"← Назад",OpenMainMenu) 
