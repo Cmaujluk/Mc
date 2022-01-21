@@ -170,6 +170,7 @@ function ActivateOreChanger()
 	gpu.setResolution(90,45)
 	_orechangerForm:setActive()
 	SetBalanceSellView(_playerEms)
+	_orechangerList.index=0
 	--UpdateOrechangerGoodInfo()
 end
 
