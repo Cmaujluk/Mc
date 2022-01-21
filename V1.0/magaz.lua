@@ -167,7 +167,7 @@ function ActivateOreChanger()
 	gpu.setResolution(90,45)
 	_orechangerForm:setActive()
 	SetBalanceSellView(_playerEms)
-	--UpdateShopSellGoodInfo()-->
+	UpdateOrechangerGoodInfo()
 end
 
 
@@ -345,6 +345,38 @@ function UpdateShopGoodInfo(check)
 end
 
 function UpdateShopSellGoodInfo()
+
+
+	_shopSelectedSellGoodLabel.caption =_shopSellList.items[_shopSellList.index].label
+	_shopSelectedSellGoodLabel.centered =true
+	_shopSelectedSellGoodLabel:redraw()
+	
+	_shopPriceSellGoodLabel.caption="Цена продажи: ".._shopSellList.items[_shopSellList.index].price.." эм"
+	_shopPriceSellGoodLabel:redraw()
+
+	
+	local itemsCount=shop.GetItemSellCount(_shopSellList.items[_shopSellList.index])
+
+	_shopAvailableSellGoodLabel.caption="У вас есть "..itemsCount.." шт"
+	_shopAvailableSellGoodLabel:redraw()
+
+	if itemsCount>0 then
+		_shopWantSellGoodLabel.caption="Я хочу продать "..itemsCount.." шт"
+		_shopCountWantSellGoodLabel.caption="За "..(itemsCount*_shopSellList.items[_shopSellList.index].price).." эм"
+
+	else
+		_shopWantSellGoodLabel.caption=""
+		_shopCountWantSellGoodLabel.caption=""
+	end
+
+	_shopCountWantSellGoodLabel:redraw()
+	_shopWantSellGoodLabel:redraw()
+
+	ShopShowImageSell()
+	
+end
+
+function UpdateOrechangerGoodInfo()-->
 
 
 	_shopSelectedSellGoodLabel.caption =_shopSellList.items[_shopSellList.index].label
@@ -729,7 +761,7 @@ function CreateOrechanger()
 	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor
 	
-	_orechangerList=_orechangerForm:addList(5,10,UpdateShopSellGoodInfo) --> --обработка клика в скролле
+	_orechangerList=_orechangerForm:addList(5,10,UpdateOrechangerGoodInfo) --> --обработка клика в скролле
 	_orechangerList.W=40
 	_orechangerList.H=29
 	_orechangerList.color=0x42414D
@@ -806,14 +838,14 @@ function CreateOrechanger()
 			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
 		end
 
-		UpdateShopSellGoodInfo()
+		--UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=23
 	buyButton.H=3-->
 
 	buyButton= _orechangerForm:addButton(56,36,"Обновить",function()  
-		UpdateShopSellGoodInfo()
+		--UpdateShopSellGoodInfo()
 	end) 
 	buyButton.color=0x9A9247
 	buyButton.W=23
