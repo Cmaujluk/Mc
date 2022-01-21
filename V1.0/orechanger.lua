@@ -8,7 +8,17 @@ local changer={}
 
 local _list = {
 	{"minecraft:iron_ore",0,"Железная руда","minecraft:iron_ingot",0,"Железный слиток",2,1},
-	{"exnihilo:iron_sand",0,"Железная песчаная руда","minecraft:iron_ingot",0,"Железный слиток",2,2}
+	{"exnihilo:iron_gravel",0,"Железная Гравиевая руда","minecraft:iron_ingot",0,"Железный слиток",2,2},
+	{"exnihilo:iron_sand",0,"Железная Песчаная руда","minecraft:iron_ingot",0,"Железный слиток",2,3},
+	{"exnihilo:iron_dust",0,"Железная Пыльная руда","minecraft:iron_ingot",0,"Железный слиток",2,4},
+	{"IC2:blockOreCopper",0,"Медная руда","ThermalFoundation:material",64,"Медный слиток",2,5},
+	{"exnihilo:copper_gravel",0,"Медная Гравиевая руда","ThermalFoundation:material",64,"Медный слиток",2,6},
+	{"exnihilo:copper_sand",0<"Медная Песчаная руда","ThermalFoundation:material",64,"Медный слиток",2,7},
+	{"copper_dust",0,"Медная Пыльная руда","ThermalFoundation:material",64,"Медный слиток",2,8},
+	{"IC2:blockOreTin",0,"Оловянная руда","ThermalFoundation:material",65,"Оловянный слиток",2,9},
+	{"exnihilo:tin_gravel",0,"Оловянная Гравиевая руда","ThermalFoundation:material",65,"Оловянный слиток",2,10},
+	{"exnihilo:tin_sand",0,"Оловянная Песчаная руда","ThermalFoundation:material",65,"Оловянный слиток",2,11},
+	{"exnihilo:tin_dust",0,"Оловянная Пыльная руда","ThermalFoundation:material",65,"Оловянный слиток",2,12}, 
 }
 
 
