@@ -120,6 +120,8 @@ end
 
 function OpenMainMenu(obj,userName)
 	_playerName=userName
+	_playerNameLabel.caption=_playerName
+	_playerNameLabel:redraw()
 	SetState("main_menu")
 	AcrivateMainMenu()
 end
