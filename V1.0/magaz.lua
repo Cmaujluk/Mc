@@ -1025,7 +1025,7 @@ function CreateWandCharger()
 	_wandChargerForm.H=45
 	_wandChargerForm.color=_mainBackgroundColor
 	
-	backToMain=_ShopBuyBoughtForm:addButton(5,38,"← Назад",OpenMainMenu) 
+	backToMain=_wandChargerForm:addButton(5,38,"← Назад",OpenMainMenu) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
@@ -1038,50 +1038,50 @@ function CreateWandCharger()
 	
 	_chargingLabel=_wandChargerForm:addLabel(39,30,"") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
 
-	local label=_wandChargerForm:addLabel(25,10,"Зарядка стоит 15 эм вне зависимости от жезла") 
+	local label=_wandChargerForm:addLabel(15,10,"Зарядка стоит 15 эм вне зависимости от жезла") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
-	label.W=40  
+	label.W=60 
 
-	label=_wandChargerForm:addLabel(25,12,"1. Положите жезл в левый сундук") 
+	label=_wandChargerForm:addLabel(15,12,"1. Положите жезл в левый сундук") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
-	label.W=40  
+	label.W=60  
 
-	label=_wandChargerForm:addLabel(25,13,"2. Нажмите кнопку 'Зарядить мою палку'") 
+	label=_wandChargerForm:addLabel(15,13,"2. Нажмите кнопку 'Зарядить мою палку'") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
-	label.W=40  
+	label.W=60  
 
-	label=_wandChargerForm:addLabel(25,14,"3. Дождитесь зарядки, экран покажет когда") 
+	label=_wandChargerForm:addLabel(15,14,"3. Дождитесь зарядки, экран покажет когда") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
-	label.W=40  
+	label.W=60  
 
-	label=_wandChargerForm:addLabel(25,15,"4. Заберите заряженный жезл в правом сундуке") 
+	label=_wandChargerForm:addLabel(15,15,"4. Заберите заряженный жезл в правом сундуке") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
-	label.W=40  
+	label.W=60  
 
-	label=_wandChargerForm:addLabel(25,17,"Если не хватает эмов, пополните через кнопку сверху") 
+	label=_wandChargerForm:addLabel(15,17,"Если не хватает эмов, пополните через кнопку сверху") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
-	label.W=40  
+	label.W=60  
 
-	backToMain=_ShopBuyBoughtForm:addButton(35,2,"Пополнить",ActivateSellShop) 
+	backToMain=_wandChargerForm:addButton(35,2,"Пополнить",ActivateSellShop) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor  
 	
-	CreateButton(_wandChargerForm,20,40,3,50,"Зарядить мою палку",function()ShowChargingStatus("Charging") ShowChargingStatus(charger.StartChargingWand()) end)--
+	CreateButton(_wandChargerForm,20,40,3,50,"Зарядить мою палку",function()ShowChargingStatus("Зарядка жезла...") ShowChargingStatus(charger.StartChargingWand()) end)--
 end
 ------------------------------------
 function RunForm()
