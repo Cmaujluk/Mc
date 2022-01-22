@@ -138,7 +138,7 @@ function Login(name)
 		result = string.gsub(result , "\n", "")
 		result = string.gsub(result , " ", "")
 		if result ~= "error" then
-			_playerEms=result
+			_playerEms=tonumber(result)
 			_playerName = loginName
 			_playerLoggined=true
 		else
@@ -605,8 +605,8 @@ function ActivateBuyWindow(obj,name)
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
 
-		local cost = _shopList.items[_shopList.index].price*count
-		if(cost<=_playerEms) then
+		local cost = tonumber(_shopList.items[_shopList.index].price)*count
+		if price>tonumber(_playerEms) then
 			if ChangeBDValue(name,_playerEms-cost,cost) then
 				_playerEms=_playerEms-cost
 				shop.GetItems(_shopList.items[_shopList.index],count)
