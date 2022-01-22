@@ -48,6 +48,8 @@ local _shopCountWantSellGoodLabel = nil
 local _shopWantSellGoodLabel = nil
 local _shopBalanceEmsSellLabel = nil
 local _shopBalanceEmsSellLabel2 = nil
+local _shopBalanceEmsChangerLabel = nil
+local _shopBalanceEmsChangerLabel2 = nil
 local _shopPriceSellGoodLabel = nil
 local _orechangerAvailableGoodLabel = nil
 local _shopAvailableSellGoodLabel = nil
@@ -488,6 +490,19 @@ function SetBalanceSellView(count)
 	_shopBalanceEmsSellLabel2:redraw()
 end
 
+function SetBalanceChangerView(count)
+	local str=tostring(count)
+	local add=""
+	for i=1, #str do
+		add=add.." "
+	end
+
+	_shopBalanceEmsChangerLabel.caption="Баланс: "..add.." эм ♦"
+	_shopBalanceEmsChangerLabel2.caption=str
+	_shopBalanceEmsChangerLabel:redraw()
+	_shopBalanceEmsChangerLabel2:redraw()
+end
+
 function CreateShop()
 	local xStart=48
 	local xShift=17
@@ -730,7 +745,7 @@ function CreateShopSell()
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
 			_playerEms=_playerEms+soldCount
-			SetBalanceSellView(_playerEms) 
+			SetBalanceSellView(_playerEms)  
 		else
 			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
 		end
@@ -1025,7 +1040,7 @@ function CreateWandCharger()
 	_wandChargerForm.H=45
 	_wandChargerForm.color=_mainBackgroundColor
 	
-	backToMain=_wandChargerForm:addButton(5,38,"← Назад",OpenMainMenu) 
+	backToMain=_wandChargerForm:addButton(5,43,"← Назад",OpenMainMenu) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
@@ -1074,14 +1089,28 @@ function CreateWandCharger()
 	label.autoSize  = false
 	label.W=60  
 
-	backToMain=_wandChargerForm:addButton(35,2,"Пополнить",ActivateSellShop) 
+	backToMain=_wandChargerForm:addButton(80,2,"Пополнить",ActivateSellShop) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor  
+
+	_shopBalanceEmsChangerLabel=_shopSellForm:addLabel(2,2,"")
+	_shopBalanceEmsChangerLabel.color = _mainBackgroundColor
+	_shopBalanceEmsChangerLabel.fontColor = 0xFFB950
+	_shopBalanceEmsChangerLabel2=_shopSellForm:addLabel(10,2,"")
+	_shopBalanceEmsChangerLabel2.color = _mainBackgroundColor
+	_shopBalanceEmsChangerLabel2.fontColor = 0x7DFF50 
+
+	SetBalanceChangerView(_playerEms)
 	
-	CreateButton(_wandChargerForm,20,40,3,50,"Зарядить мою палку",function()ShowChargingStatus("Зарядка жезла...") ShowChargingStatus(charger.StartChargingWand()) end)--
+	charge=_wandChargerForm:addButton(20,40,"Зарядить мою палку",function()ShowChargingStatus("Зарядка жезла...") ShowChargingStatus(charger.StartChargingWand()) end) 
+	charge.autoSize=false
+	charge.centered=true
+	charge.H=3
+	charge.W=50
+	charge.color=0x92DEA3
 end
 ------------------------------------
 function RunForm()
