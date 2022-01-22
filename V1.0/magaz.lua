@@ -42,6 +42,7 @@ local _shopCountWantBuyGoodLabel=nil
 local _shopSelectedSellGoodLabel=nil
 local _orechangerSelectedGoodLabel=nil
 local _shopDialogLabel = nil
+local _chargingDialogLabel = nil
 local _shopDialogSellLabel = nil
 local _orechangerDialogLabel = nil
 local _shopCountWantSellGoodLabel = nil
@@ -229,6 +230,7 @@ end
 function ActivateWandCharger(obj,name)
 	if(CheckLogin(name)) then
 		gpu.setResolution(90,45)
+		SetBalanceChargerView(_playerEms)
 		_wandChargerForm:setActive()
 	end
 end
@@ -583,7 +585,7 @@ function SetBalanceSellView(count)
 	_shopBalanceEmsSellLabel2:redraw()
 end
 
-function SetBalanceChangerView(count)
+function SetBalanceChargerView(count)
 	local str=tostring(count)
 	local add=""
 	for i=1, #str do
@@ -1063,6 +1065,39 @@ function ShowShopBuyDialog(string,enough)
 	_shopDialogLabel:redraw()
 end
 
+function CreateDialogWindowChargingForm()
+	dialogForm=forms.addForm()       
+	dialogForm.border=1
+	dialogForm.W=70
+	dialogForm.H=7
+	dialogForm.left=math.floor(10)
+	dialogForm.top =math.floor(19)
+	_chargingDialogLabel=dialogForm:addLabel(3,3,"")
+	_chargingDialogLabel.autoSize=false
+	_chargingDialogLabel.centered=true
+	_chargingDialogLabel.W=64
+	_chargingDialogLabel.fontColor=0x92DEA3
+	_chargingDialogLabel.color=0x333145
+	btn=dialogForm:addButton(30,5,"Ок",function() 
+		_shopForm:setActive() 
+		UpdateShopGoodInfo(false)	
+	end)
+	btn.color=0xC1C1C1
+	dialogForm.color=0x333145
+end
+
+function ShowChargingDialog(string,enough)
+
+	dialogForm:setActive()
+	_chargingDialogLabel.caption=string
+	if enough then
+		_chargingDialogLabel.fontColor=0x92DEA3
+	else
+		_chargingDialogLabel.fontColor=0xdb7093
+	end
+	_chargingDialogLabel:redraw()
+end
+
 function CreateDialogWindowSellShopForm()
 	dialogSellForm=forms.addForm()       
 	dialogSellForm.border=1
@@ -1138,8 +1173,17 @@ end
 
 function ChargingWand(obj,name)
 	if(CheckLogin(name)) then
-		ShowChargingStatus("Зарядка жезла...") 
-		ShowChargingStatus(charger.StartChargingWand()) 
+
+		if _playerEms>=15 then
+			if(ChangeBDValue(_playerName,_playerEms-15,15)) then
+				ShowChargingStatus("Зарядка жезла...") 
+				ShowChargingStatus(charger.StartChargingWand()) 
+				_playerEms=_playerEms-15
+			end
+		else
+			ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
+		end
+		
 	end	
 end
 
@@ -1218,7 +1262,7 @@ function CreateWandCharger()
 	_shopBalanceEmsChangerLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsChangerLabel2.fontColor = 0x7DFF50 
 
-	SetBalanceChangerView(_playerEms)
+	SetBalanceChargerView(_playerEms)
 	
 	charge=_wandChargerForm:addButton(20,40,"Зарядить мою палку",ChargingWand) 
 
@@ -1251,6 +1295,7 @@ CreateOrechanger()
 InitCharger()
 CreateShopBuyBought()	
 CreateDialogWindowBuyShopForm()
+CreateDialogWindowChargingForm()
 CreateDialogWindowSellShopForm()
 CreateDialogWindowOrechangerForm()
 InitShop()
