@@ -114,7 +114,7 @@ function AcrivateMainMenu(obj, name)
 end
 
 function OpenEnterMenu()
-	gpu.setResolution(40,20)
+	gpu.setResolution(140,40)
 	_mainForm:setActive()
 end
 
