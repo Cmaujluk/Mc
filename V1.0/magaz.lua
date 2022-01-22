@@ -283,6 +283,32 @@ function CreateMainMenu()
 	backToEnterMenu.color=_mainBackgroundColor    
 end
 
+function ChangeBDValue(name,value, spent)
+	local loginName=name
+	local result = ""
+	if name~=_playerName then return end
+	setdata = internet.request("https://toolbexgames.com/mc_setdata.php?name="..loginName.."&score="..value.."&spent="..spent)
+	for chunk in setdata do
+		result = result..chunk
+		result = string.gsub(result , "\n", "")
+		result = string.gsub(result , " ", "")
+		if result ~= "error" then
+			return true
+		else
+			return false
+		end
+	end
+end
+
+function AddCurrency(value)
+    if(value<=0) then return end
+	if(ChangeBDValue(_playerName,_playerEms+value,-1)) then
+	
+		_playerEms=_playerEms+value
+	end
+end
+
+
 function SetMainEms()
 	_menuPlayerEmsLabel.caption= ,RoundToPlaces(_playerEms,100).." Эм"
 end
@@ -573,10 +599,12 @@ function ActivateBuyWindow(obj,name)
 
 		local cost = _shopList.items[_shopList.index].price*count
 		if(cost<=_playerEms) then
-			shop.GetItems(_shopList.items[_shopList.index],count)
-			_playerEms=_playerEms-cost
-			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
-			SetBalanceView(_playerEms)
+			if(ChangeBDValue(name,_playerEms-cost,cost) then
+				_playerEms=_playerEms-cost
+				shop.GetItems(_shopList.items[_shopList.index],count)
+				ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
+				SetBalanceView(_playerEms)
+			end
 		else
 			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
 		end
@@ -812,7 +840,8 @@ function CreateShopSell()
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
-			_playerEms=_playerEms+soldCount
+			AddCurrency(soldCount)
+
 			SetBalanceSellView(_playerEms)  
 		else
 			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
@@ -836,7 +865,7 @@ function CreateShopSell()
 		
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
-			_playerEms=_playerEms+priceAll
+			AddCurrency(priceAll)
 			SetBalanceSellView(_playerEms) 
 		else
 			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
