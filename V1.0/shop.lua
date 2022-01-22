@@ -83,8 +83,10 @@ function shop.GetItemSellCount(itemToCheck)
 		local f=true
 		if itemToCheck.id==itemData.id and itemToCheck.dmg==itemData.dmg then
 			if tostring(itemData.nbt_hash)~=nil then
-				if tostring(itemData.nbt_hash)~="ee301c7839c41b237451f9fbbb6b237b" and tostring(itemData.nbt_hash)~="d3cd7ef0c447e90b294fe32b35d6b235" then
-					f=false
+				if #tostring(itemData.nbt_hash)>1 then
+					if tostring(itemData.nbt_hash)~="ee301c7839c41b237451f9fbbb6b237b" and tostring(itemData.nbt_hash)~="d3cd7ef0c447e90b294fe32b35d6b235" then
+						f=false
+					end
 				end
 			end
 
