@@ -109,7 +109,7 @@ function CreateButtonExit()
 end
 
 function AcrivateMainMenu(obj, name)
-		gpu.setResolution(90,50)
+		gpu.setResolution(80,40)
 		_menuForm:setActive()
 end
 
@@ -513,6 +513,25 @@ function SetBalanceChangerView(count)
 	_shopBalanceEmsChangerLabel2:redraw()
 end
 
+function ActivateBuyWindow(obj,name)
+	if(CheckLogin(name)) then
+	
+		local count = tonumber(_shopSelectedCount)
+		if count==nil or count ==0 then return end
+
+		local cost = _shopList.items[_shopList.index].price*count
+		if(cost<=_playerEms) then
+			shop.GetItems(_shopList.items[_shopList.index],count)
+			_playerEms=_playerEms-cost
+			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
+			SetBalanceView(_playerEms)
+		else
+			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
+		end
+	end
+end
+
+
 function CreateShop()
 	local xStart=48
 	local xShift=17
@@ -600,23 +619,7 @@ function CreateShop()
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	buyButton= _shopForm:addButton(56,yStart+40,"Купить",function(obj,name)
-	if(CheckLogin(name)) then
-	
-		local count = tonumber(_shopSelectedCount)
-		if count==nil or count ==0 then return end
-
-		local cost = _shopList.items[_shopList.index].price*count
-		if(cost<=_playerEms) then
-			shop.GetItems(_shopList.items[_shopList.index],count)
-			_playerEms=_playerEms-cost
-			ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
-			SetBalanceView(_playerEms)
-		else
-			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
-		end
-	end
-	end) 
+	buyButton= _shopForm:addButton(56,yStart+40,"Купить",ActivateBuyWindow) 
 	buyButton.color=0x5C9A47
 	buyButton.W=20
 	buyButton.H=3
@@ -920,16 +923,12 @@ function CreateShopBuyBought()
 	_ShopBuyBoughtForm.H=40
 	_ShopBuyBoughtForm.color=_mainBackgroundColor
 
-	toShopButton= _ShopBuyBoughtForm:addButton(20,15,"Купить",function() 
-		ActivateShop()		
-	end) 
+	toShopButton= _ShopBuyBoughtForm:addButton(20,15,"Купить",	ActivateShop) 
 	toShopButton.color=0x626262 
 	toShopButton.W=40
 	toShopButton.H=3
 
-	toSellButton= _ShopBuyBoughtForm:addButton(20,20,"Пополнить счёт",function() 
-		ActivateSellShop()		
-	end) 
+	toSellButton= _ShopBuyBoughtForm:addButton(20,20,"Пополнить счёт",ActivateSellShop) 
 	toSellButton.color=0x626262 
 	toSellButton.W=40
 	toSellButton.H=3
