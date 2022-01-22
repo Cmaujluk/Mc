@@ -559,7 +559,10 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..RoundToPlaces(tonumber(add),100).." эм ♦"
+	local score=tonumber(add)
+	if score==nil then score=0 end
+
+	_shopBalanceEmsLabel.caption="Баланс: "..RoundToPlaces(score,100).." эм ♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -571,8 +574,10 @@ function SetBalanceSellView(count)
 	for i=1, #str do
 		add=add.." "
 	end
+	local score=tonumber(add)
+	if score==nil then score=0 end
 
-	_shopBalanceEmsSellLabel.caption="Баланс: "..RoundToPlaces(tonumber(add),100).." эм ♦"
+	_shopBalanceEmsSellLabel.caption="Баланс: "..RoundToPlaces(score,100).." эм ♦"
 	_shopBalanceEmsSellLabel2.caption=str
 	_shopBalanceEmsSellLabel:redraw()
 	_shopBalanceEmsSellLabel2:redraw()
