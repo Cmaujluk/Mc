@@ -310,7 +310,7 @@ end
 
 
 function SetMainEms()
-	_menuPlayerEmsLabel.caption= RoundToPlaces(_playerEms,100).." Эм"
+	_menuPlayerEmsLabel.caption= RoundToPlaces(_playerEms,_playerEms).." Эм"
 end
 
 function ShopUpdateSelectedGoodsCount()
@@ -333,7 +333,7 @@ function ShopUpdateSelectedGoodsCount()
 		_shopSelectedCount=tostring(count)
 		local price=count*tonumber(_shopList.items[_shopList.index].price)
 
-		if price>_playerEms then
+		if price>tonumber(_playerEms) then
 			_shopWantBuyGoodLabel.fontColor=0xff3333
 			_shopCountWantBuyGoodLabel.fontColor=0xff3333
 		else
