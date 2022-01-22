@@ -895,9 +895,11 @@ function CreateOrechanger()
 	SetOrechangerList()
 end
 
-function AcrivateShopBuyBoughtMenu()
-	gpu.setResolution(80,40)
-	_ShopBuyBoughtForm:setActive()
+function AcrivateShopBuyBoughtMenu(obj,name)
+	if(CheckLogin(name)) then
+		gpu.setResolution(80,40)
+		_ShopBuyBoughtForm:setActive()
+	end
 end
 
 function CreateShopBuyBought()	
@@ -1116,6 +1118,14 @@ end
 ------------------------------------
 function RunForm()
 	forms.run(_mainForm) 
+end
+
+function CheckLogin(name)
+	if(_playerName~=name) then 
+		_mainForm:setActive()
+		return false
+	end
+	return true
 end
 
 ------------------------------------
