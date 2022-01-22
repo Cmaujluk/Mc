@@ -1179,6 +1179,7 @@ function ChargingWand(obj,name)
 				ShowChargingStatus("Зарядка жезла...") 
 				ShowChargingStatus(charger.StartChargingWand()) 
 				_playerEms=_playerEms-15
+				SetBalanceChargerView(_playerEms)
 			end
 		else
 			ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
