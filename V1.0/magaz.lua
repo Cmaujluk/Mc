@@ -1065,7 +1065,12 @@ function CreateWandCharger()
 	
 	label=_wandChargerForm:addLabel(39,2,"Зарядка жезлов") label.fontColor =0xFFE600 label.color=_mainBackgroundColor
 	
-	_chargingLabel=_wandChargerForm:addLabel(39,30,"") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
+	_chargingLabel=_wandChargerForm:addLabel(20,30,"")
+	_chargingLabel.fontColor =0xFFE600 
+	_chargingLabel.color=_mainBackgroundColor
+	_chargingLabel.autoSize=false
+	_chargingLabel.centered=true
+	_chargingLabel.W=50
 
 	local label=_wandChargerForm:addLabel(15,10,"Зарядка стоит 15 эм вне зависимости от жезла") 
 	label.color=_mainBackgroundColor
