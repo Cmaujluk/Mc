@@ -1111,6 +1111,7 @@ function CreateWandCharger()
 	charge.H=3
 	charge.W=50
 	charge.color=0x92DEA3
+	charge.fontColor=0xFFE600
 end
 ------------------------------------
 function RunForm()
