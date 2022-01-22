@@ -108,6 +108,10 @@ function CreateButtonExit()
 	BtnExit.color=0x4e7640      
 end
 
+function RoundToPlaces(value, divisor)
+    return (value * divisor) / divisor
+end
+
 function AcrivateMainMenu(obj, name)
 		gpu.setResolution(80,40)
 		_menuForm:setActive()
@@ -264,9 +268,9 @@ function CreateMainMenu()
 	label=_menuForm:addLabel(3,4,"Баланс")
 	label.color=_mainBackgroundColor   
 	label.fontColor=0xFFE9BD  
-	label=_menuForm:addLabel(3,5,_playerEms.." Эм")
-	label.color=_mainBackgroundColor   
-	label.fontColor=0xFFE9BD  
+	_menuPlayerEmsLabel=_menuForm:addLabel(3,5,_playerEms.." Эм")
+	_menuPlayerEmsLabel.color=_mainBackgroundColor   
+	_menuPlayerEmsLabel.fontColor=0xFFE9BD  
 	label=_menuForm:addLabel(3,6,"20 коинов") -->
 	label.color=_mainBackgroundColor   
 	label.fontColor=0xFFE9BD  
@@ -279,7 +283,9 @@ function CreateMainMenu()
 	backToEnterMenu.color=_mainBackgroundColor    
 end
 
-
+function SetMainEms()
+	_menuPlayerEmsLabel.caption= ,RoundToPlaces(_playerEms,100).." Эм"
+end
 
 function ShopUpdateSelectedGoodsCount()
 	local count = tonumber(_shopSelectedCount)
@@ -299,7 +305,7 @@ function ShopUpdateSelectedGoodsCount()
 			count = shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
 		end
 		_shopSelectedCount=tostring(count)
-		local price=count*_shopList.items[_shopList.index].price
+		local price=count*tonumber(_shopList.items[_shopList.index].price)
 
 		if price>_playerEms then
 			_shopWantBuyGoodLabel.fontColor=0xff3333
@@ -527,7 +533,7 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм ♦"
+	_shopBalanceEmsLabel.caption="Баланс: "..RoundToPlaces(add,100).." эм ♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -540,7 +546,7 @@ function SetBalanceSellView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsSellLabel.caption="Баланс: "..add.." эм ♦"
+	_shopBalanceEmsSellLabel.caption="Баланс: "..RoundToPlaces(add,100).." эм ♦"
 	_shopBalanceEmsSellLabel2.caption=str
 	_shopBalanceEmsSellLabel:redraw()
 	_shopBalanceEmsSellLabel2:redraw()
@@ -553,7 +559,7 @@ function SetBalanceChangerView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsChangerLabel.caption="Баланс: "..add.." эм ♦"
+	_shopBalanceEmsChangerLabel.caption="Баланс: "..RoundToPlaces(add,100).." эм ♦"
 	_shopBalanceEmsChangerLabel2.caption=str
 	_shopBalanceEmsChangerLabel:redraw()
 	_shopBalanceEmsChangerLabel2:redraw()
