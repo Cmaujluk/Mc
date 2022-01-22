@@ -590,7 +590,10 @@ function SetBalanceChangerView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsChangerLabel.caption="Баланс: "..RoundToPlaces(tonumber(add),100).." эм ♦"
+	local score=tonumber(add)
+	if score==nil then score=0 end
+
+	_shopBalanceEmsChangerLabel.caption="Баланс: "..RoundToPlaces(score,100).." эм ♦"
 	_shopBalanceEmsChangerLabel2.caption=str
 	_shopBalanceEmsChangerLabel:redraw()
 	_shopBalanceEmsChangerLabel2:redraw()
