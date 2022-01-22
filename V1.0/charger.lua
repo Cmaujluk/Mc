@@ -99,8 +99,8 @@ end
 function charger.StartChargingWand()
 	GetWandToCharge()
 	ChargingProcess()
-	if(not wandFound) then return "Жезл необнаружен!" else
-	return "Жезл заряжен!" end
+	if(not wandFound) then return "Р–РµР·Р» РЅРµ РѕР±РЅР°СЂСѓР¶РµРЅ!" else
+	return "Р–РµР·Р» Р·Р°СЂСЏР¶РµРЅ!" end
 end
 
 
