@@ -118,11 +118,48 @@ function OpenEnterMenu()
 	_mainForm:setActive()
 end
 
+function Login(name)
+	local loginName=name
+	local result = ""
+	
+	--_mainGPU.setBackground(_backColor)
+	--_mainGPU.setForeground(0xffcc00) 
+	--_mainGPU.fill(1,1,w,1," ")
+	--_mainGPU.set(1,1,"Соединение с базой данных...")
+	
+	getdata = internet.request("https://toolbexgames.com/mc_getdata.php?name="..loginName)
+	
+	for chunk in getdata do
+		result = result..chunk
+		result = string.gsub(result , "\n", "")
+		result = string.gsub(result , " ", "")
+		if result ~= "error" then
+			_playerEms=result
+			_playerName = loginName
+			_playerLoggined=true
+		else
+			result = ""
+			setdata = internet.request("https://toolbexgames.com/mc_setdata.php?name="..loginName.."&score=0&spent=0")
+			for chunk in setdata do
+				result = result..chunk
+				result = string.gsub(result , "\n", "")
+				result = string.gsub(result , " ", "")
+				if result ~= "error" then
+					_playerEms=0
+					_playerLoggined=true
+					_playerName = loginName
+				end
+			end
+		end
+	end
+end
+
 function OpenMainMenu(obj,userName)
-	_playerName=userName
+	--_playerName=userName
+	SetState("main_menu")
+	Login(userName)
 	_playerNameLabel.caption=_playerName
 	_playerNameLabel:redraw()
-	SetState("main_menu")
 	AcrivateMainMenu()
 end
 
@@ -220,10 +257,19 @@ function CreateMainMenu()
 		CreateButton(_menuForm,20,8+shift*i,3, 40,labels[i],methods[i])
 	end
 	
-	_playerNameLabel=_menuForm:addLabel(3,3,_playerName)
+	_playerNameLabel=_menuForm:addLabel(3,2,_playerName)
+	_playerNameLabel.color=_mainBackgroundColor   
+	_playerNameLabel.fontColor=0xFFC34E   
+
 	label=_menuForm:addLabel(3,4,"Баланс")
+	label.color=_mainBackgroundColor   
+	label.fontColor=0xFFE9BD  
 	label=_menuForm:addLabel(3,5,_playerEms.." Эм")
+	label.color=_mainBackgroundColor   
+	label.fontColor=0xFFE9BD  
 	label=_menuForm:addLabel(3,6,"20 коинов") -->
+	label.color=_mainBackgroundColor   
+	label.fontColor=0xFFE9BD  
 
 	backToEnterMenu=_menuForm:addButton(3,38,"← Назад",OpenEnterMenu) 
 	backToEnterMenu.autoSize=false
@@ -1047,6 +1093,14 @@ function ShowChargingStatus(str)
 	_chargingLabel:redraw()
 end
 
+function ChargingWand(obj,name)
+	if(CheckLogin(name)) then
+		ShowChargingStatus("Зарядка жезла...") 
+		ShowChargingStatus(charger.StartChargingWand()) 
+	end	
+end
+
+
 function CreateWandCharger()
 	_wandChargerForm = forms.addForm()
 	_wandChargerForm.W=90
@@ -1123,19 +1177,14 @@ function CreateWandCharger()
 
 	SetBalanceChangerView(_playerEms)
 	
-	charge=_wandChargerForm:addButton(20,40,"Зарядить мою палку",function(obj,name)
-	if(CheckLogin(name)) then
-		ShowChargingStatus("Зарядка жезла...") 
-		ShowChargingStatus(charger.StartChargingWand()) 
-	end	
-	end) 
+	charge=_wandChargerForm:addButton(20,40,"Зарядить мою палку",ChargingWand) 
 
 	charge.autoSize=false
 	charge.centered=true
 	charge.H=3
 	charge.W=50
-	charge.color=0x92DEA3
-	charge.fontColor=0xFFE600
+	charge.color=0x5C9A47
+	
 end
 ------------------------------------
 function RunForm()
