@@ -1096,10 +1096,10 @@ function CreateWandCharger()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor  
 
-	_shopBalanceEmsChangerLabel=_shopSellForm:addLabel(2,2,"")
+	_shopBalanceEmsChangerLabel=_wandChargerForm:addLabel(2,2,"")
 	_shopBalanceEmsChangerLabel.color = _mainBackgroundColor
 	_shopBalanceEmsChangerLabel.fontColor = 0xFFB950
-	_shopBalanceEmsChangerLabel2=_shopSellForm:addLabel(10,2,"")
+	_shopBalanceEmsChangerLabel2=_wandChargerForm:addLabel(10,2,"")
 	_shopBalanceEmsChangerLabel2.color = _mainBackgroundColor
 	_shopBalanceEmsChangerLabel2.fontColor = 0x7DFF50 
 
