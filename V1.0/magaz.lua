@@ -109,10 +109,8 @@ function CreateButtonExit()
 end
 
 function AcrivateMainMenu(obj, name)
-	if(CheckLogin(name)) then
 		gpu.setResolution(80,40)
 		_menuForm:setActive()
-	end
 end
 
 function OpenEnterMenu()
