@@ -108,9 +108,11 @@ function CreateButtonExit()
 	BtnExit.color=0x4e7640      
 end
 
-function AcrivateMainMenu()
-	gpu.setResolution(80,40)
-	_menuForm:setActive()
+function AcrivateMainMenu(obj, name)
+	if(CheckLogin(name)) then
+		gpu.setResolution(80,40)
+		_menuForm:setActive()
+	end
 end
 
 function OpenEnterMenu()
@@ -149,37 +151,45 @@ function CreateButton(form,x,y,h,w,label,foo)
 	BtnShop.color=0x626262    
 end
 
-function ActivateShop()
-	gpu.setResolution(90,45)
-	_shopForm:setActive()
-	SetBalanceView(_playerEms)
-	_shopList.index=1
-	_shopList:redraw()
-	UpdateShopGoodInfo(true)
+function ActivateShop(obj,name)
+	if(CheckLogin(name)) then
+		gpu.setResolution(90,45)
+		_shopForm:setActive()
+		SetBalanceView(_playerEms)
+		_shopList.index=1
+		_shopList:redraw()
+		UpdateShopGoodInfo(true)
+	end
 end
 
-function ActivateSellShop()
-	gpu.setResolution(90,45)
-	_shopSellForm:setActive()
-	SetBalanceSellView(_playerEms)
-	_shopSellList.index=1
-	_shopSellList:redraw()
-	UpdateShopSellGoodInfo()
+function ActivateSellShop(obj,name)
+	if(CheckLogin(name)) then
+		gpu.setResolution(90,45)
+		_shopSellForm:setActive()
+		SetBalanceSellView(_playerEms)
+		_shopSellList.index=1
+		_shopSellList:redraw()
+		UpdateShopSellGoodInfo()
+	end
 end
 
-function ActivateOreChanger()
-	gpu.setResolution(90,45)
-	_orechangerForm:setActive()
-	SetBalanceSellView(_playerEms)
-	_orechangerList.index=0
-	SetOrechangerList()
-	UpdateOrechangerGoodInfo()
+function ActivateOreChanger(obj,name)
+	if(CheckLogin(name)) then
+		gpu.setResolution(90,45)
+		_orechangerForm:setActive()
+		SetBalanceSellView(_playerEms)
+		_orechangerList.index=0
+		SetOrechangerList()
+		UpdateOrechangerGoodInfo()
+	end
 end
 
 
-function ActivateWandCharger()
-	gpu.setResolution(90,45)
-	_wandChargerForm:setActive()
+function ActivateWandCharger(obj,name)
+	if(CheckLogin(name)) then
+		gpu.setResolution(90,45)
+		_wandChargerForm:setActive()
+	end
 end
 
 function CreateMainMenu()
@@ -210,10 +220,10 @@ function CreateMainMenu()
 		CreateButton(_menuForm,20,8+shift*i,3, 40,labels[i],methods[i])
 	end
 	
-	_playerNameLabel=_menuForm:addLabel(3,2,_playerName)
-	_playerNameLabel=_menuForm:addLabel(3,4,"Баланс")
-	_playerNameLabel=_menuForm:addLabel(3,5,_playerEms.." Эм")
-	_playerNameLabel=_menuForm:addLabel(3,6,"20 коинов") -->
+	_playerNameLabel=_menuForm:addLabel(3,3,_playerName)
+	label=_menuForm:addLabel(3,4,"Баланс")
+	label=_menuForm:addLabel(3,5,_playerEms.." Эм")
+	label=_menuForm:addLabel(3,6,"20 коинов") -->
 
 	backToEnterMenu=_menuForm:addButton(3,38,"← Назад",OpenEnterMenu) 
 	backToEnterMenu.autoSize=false
@@ -590,7 +600,9 @@ function CreateShop()
 	_shopCountWantBuyGoodLabel.autoSize  = false
 	_shopCountWantBuyGoodLabel.W=40
 	
-	buyButton= _shopForm:addButton(56,yStart+40,"Купить",function() 
+	buyButton= _shopForm:addButton(56,yStart+40,"Купить",function(obj,name)
+	if(CheckLogin(name)) then
+	
 		local count = tonumber(_shopSelectedCount)
 		if count==nil or count ==0 then return end
 
@@ -603,6 +615,7 @@ function CreateShop()
 		else
 			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
 		end
+	end
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=20
@@ -863,10 +876,8 @@ function CreateOrechanger()
 	local label=_orechangerForm:addLabel(xStart+xShift,25,"Вы получите:")
 	label.color = _mainBackgroundColor 
 	
-	buyButton= _orechangerForm:addButton(56,36,"Обменять",function()  
-
-		
-	
+	buyButton= _orechangerForm:addButton(56,36,"Обменять",function(obj,name)
+	if(CheckLogin(name)) then  
 		if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
 
 			local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
@@ -877,6 +888,7 @@ function CreateOrechanger()
 			ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
 		end
 		SetOrechangerList()
+	end
 	end) 
 	buyButton.color=0x5C9A47
 	buyButton.W=23
@@ -1107,7 +1119,13 @@ function CreateWandCharger()
 
 	SetBalanceChangerView(_playerEms)
 	
-	charge=_wandChargerForm:addButton(20,40,"Зарядить мою палку",function()ShowChargingStatus("Зарядка жезла...") ShowChargingStatus(charger.StartChargingWand()) end) 
+	charge=_wandChargerForm:addButton(20,40,"Зарядить мою палку",function(obj,name)
+	if(CheckLogin(name)) then
+		ShowChargingStatus("Зарядка жезла...") 
+		ShowChargingStatus(charger.StartChargingWand()) 
+	end	
+	end) 
+
 	charge.autoSize=false
 	charge.centered=true
 	charge.H=3
@@ -1122,7 +1140,7 @@ end
 
 function CheckLogin(name)
 	if(_playerName~=name) then 
-		_mainForm:setActive()
+		OpenEnterMenu()
 		return false
 	end
 	return true
