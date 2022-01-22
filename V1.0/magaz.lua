@@ -77,11 +77,11 @@ function SetState(state)
 end
 
 function Init()
-	gpu.setResolution(140,40)
+	gpu.setResolution(40,20)
 	_mainBackgroundColor=0x2B2A33
 	_mainForm=forms.addForm()       
-	_mainForm.W=80
-	_mainForm.H=40
+	_mainForm.W=90
+	_mainForm.H=50
 	_mainForm.color=_mainBackgroundColor
 
 	SetState("enter_menu")
@@ -109,7 +109,7 @@ function CreateButtonExit()
 end
 
 function AcrivateMainMenu(obj, name)
-		gpu.setResolution(80,40)
+		gpu.setResolution(90,50)
 		_menuForm:setActive()
 end
 
