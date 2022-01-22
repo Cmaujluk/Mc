@@ -606,7 +606,7 @@ function ActivateBuyWindow(obj,name)
 		if count==nil or count ==0 then return end
 
 		local cost = tonumber(_shopList.items[_shopList.index].price)*count
-		if price>tonumber(_playerEms) then
+		if cost>_playerEms then
 			if ChangeBDValue(name,_playerEms-cost,cost) then
 				_playerEms=_playerEms-cost
 				shop.GetItems(_shopList.items[_shopList.index],count)
