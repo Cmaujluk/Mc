@@ -109,8 +109,6 @@ end
 function AcrivateMainMenu()
 	gpu.setResolution(80,40)
 	_menuForm:setActive()
-	_playerNameLabel.caption=_playerName
-	_playerNameLabel:redraw()
 end
 
 function OpenEnterMenu()
@@ -207,13 +205,13 @@ function CreateMainMenu()
 
 	local shift=4
 	for i=1, #labels do
-		CreateButton(_menuForm,20,12+shift*i,3, 40,labels[i],methods[i])
+		CreateButton(_menuForm,20,8+shift*i,3, 40,labels[i],methods[i])
 	end
 	
 	_playerNameLabel=_menuForm:addLabel(3,2,_playerName)
 	_playerNameLabel=_menuForm:addLabel(3,4,"Баланс")
 	_playerNameLabel=_menuForm:addLabel(3,5,_playerEms.." Эм")
-	_playerNameLabel=_menuForm:addLabel(3,6,"0 коинов") -->
+	_playerNameLabel=_menuForm:addLabel(3,6,"20 коинов") -->
 
 	backToEnterMenu=_menuForm:addButton(3,38,"← Назад",OpenEnterMenu) 
 	backToEnterMenu.autoSize=false
@@ -334,7 +332,7 @@ function ShopShowImageSell()
 end
 
 function ShowImageOrechanger()
-	if(#_orechangerList>0) then
+	if(#_orechangerList.items>0) then
 		gpu.setBackground(0x3E3D47)
 		gpu.fill(47,10,16,9," ")
 
@@ -433,7 +431,7 @@ function UpdateOrechangerGoodInfo()-->
 	--_shopCountWantSellGoodLabel:redraw()
 	--_shopWantSellGoodLabel:redraw()
 
-	if(#_orechangerList>0) then
+	if(#_orechangerList.items>0) then
 		_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
 		_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
 		_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
@@ -1027,13 +1025,61 @@ function CreateWandCharger()
 	_wandChargerForm.H=45
 	_wandChargerForm.color=_mainBackgroundColor
 	
-	CreateButton(_wandChargerForm ,4,2,1,10,"Назад",OpenMainMenu)
+	backToMain=_ShopBuyBoughtForm:addButton(5,38,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor  
 	
 	frame=_wandChargerForm:addFrame(33,1,1) frame.W=22 frame.H=3 frame.color= _mainBackgroundColor
 	
 	label=_wandChargerForm:addLabel(39,2,"Зарядка жезлов") label.fontColor =0xFFE600 label.color=_mainBackgroundColor
 	
-	_chargingLabel=_wandChargerForm:addLabel(39,30,"Подготовка") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
+	_chargingLabel=_wandChargerForm:addLabel(39,30,"") _chargingLabel.fontColor =0xFFE600 _chargingLabel.color=_mainBackgroundColor
+
+	local label=_wandChargerForm:addLabel(25,10,"Зарядка стоит 15 эм вне зависимости от жезла") 
+	label.color=_mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40  
+
+	label=_wandChargerForm:addLabel(25,12,"1. Положите жезл в левый сундук") 
+	label.color=_mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40  
+
+	label=_wandChargerForm:addLabel(25,13,"2. Нажмите кнопку 'Зарядить мою палку'") 
+	label.color=_mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40  
+
+	label=_wandChargerForm:addLabel(25,14,"3. Дождитесь зарядки, экран покажет когда") 
+	label.color=_mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40  
+
+	label=_wandChargerForm:addLabel(25,15,"4. Заберите заряженный жезл в правом сундуке") 
+	label.color=_mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40  
+
+	label=_wandChargerForm:addLabel(25,17,"Если не хватает эмов, пополните через кнопку сверху") 
+	label.color=_mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40  
+
+	backToMain=_ShopBuyBoughtForm:addButton(35,2,"Пополнить",ActivateSellShop) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor  
 	
 	CreateButton(_wandChargerForm,20,40,3,50,"Зарядить мою палку",function()ShowChargingStatus("Charging") ShowChargingStatus(charger.StartChargingWand()) end)--
 end
