@@ -6,7 +6,7 @@ local gpu = component.gpu
 local unicode = require("unicode")
 local shop = require("shop")
 local changer=require("orechanger")
-
+local internet = require("internet")
 
 -------------FORMS------------------
 local _mainForm = nil
