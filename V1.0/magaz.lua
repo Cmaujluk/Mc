@@ -310,7 +310,7 @@ end
 
 
 function SetMainEms()
-	_menuPlayerEmsLabel.caption= ,RoundToPlaces(_playerEms,100).." Эм"
+	_menuPlayerEmsLabel.caption= RoundToPlaces(_playerEms,100).." Эм"
 end
 
 function ShopUpdateSelectedGoodsCount()
@@ -559,7 +559,7 @@ function SetBalanceView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..RoundToPlaces(add,100).." эм ♦"
+	_shopBalanceEmsLabel.caption="Баланс: "..RoundToPlaces(tonumber(add),100).." эм ♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -572,7 +572,7 @@ function SetBalanceSellView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsSellLabel.caption="Баланс: "..RoundToPlaces(add,100).." эм ♦"
+	_shopBalanceEmsSellLabel.caption="Баланс: "..RoundToPlaces(tonumber(add),100).." эм ♦"
 	_shopBalanceEmsSellLabel2.caption=str
 	_shopBalanceEmsSellLabel:redraw()
 	_shopBalanceEmsSellLabel2:redraw()
@@ -585,7 +585,7 @@ function SetBalanceChangerView(count)
 		add=add.." "
 	end
 
-	_shopBalanceEmsChangerLabel.caption="Баланс: "..RoundToPlaces(add,100).." эм ♦"
+	_shopBalanceEmsChangerLabel.caption="Баланс: "..RoundToPlaces(tonumber(add),100).." эм ♦"
 	_shopBalanceEmsChangerLabel2.caption=str
 	_shopBalanceEmsChangerLabel:redraw()
 	_shopBalanceEmsChangerLabel2:redraw()
@@ -599,7 +599,7 @@ function ActivateBuyWindow(obj,name)
 
 		local cost = _shopList.items[_shopList.index].price*count
 		if(cost<=_playerEms) then
-			if(ChangeBDValue(name,_playerEms-cost,cost) then
+			if ChangeBDValue(name,_playerEms-cost,cost) then
 				_playerEms=_playerEms-cost
 				shop.GetItems(_shopList.items[_shopList.index],count)
 				ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
