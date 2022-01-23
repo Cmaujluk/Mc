@@ -1279,7 +1279,7 @@ function CreateWandCharger()
 end
 
 function CheckMessages(_,_,_,_,_,message)
-	if message = "stop" or message = "shutdown" then
+	if message == "stop" or message == "shutdown" then
 		forms.stop()
 	end
 end
