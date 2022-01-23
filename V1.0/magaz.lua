@@ -7,7 +7,7 @@ local unicode = require("unicode")
 local shop = require("shop")
 local changer=require("orechanger")
 local internet = require("internet")
-local tape_magaz = component.proxy("28d31a2a-6192-4304-8ebb-7e89729b7cf8")
+local _tapeMagaz = component.proxy("28d31a2a-6192-4304-8ebb-7e89729b7cf8")
 
 -------------FORMS------------------
 local _mainForm = nil
@@ -68,18 +68,31 @@ local _playerEms=0
 local _items={}
 local _lastTextToSort=""
 
+local _tapeMagazLength=-1
+
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
 
 
 ---------------------------------
 function VoiceSay(message)
-	if message = "shop_buy" then
-		tape_magaz.seek(-9999999)
-		tape_magaz.play()
+	if message == "shop_buy" then
+		_tapeMagaz.seek(-9999999)
+		_tapeMagaz.play()
+		_tapeMagazLength=0
 	end
 end
 
+function CheckAudio()
+	if _tapeMagazLength<5 and _tapeMagazLength~=-1 then _tapeMagazLength=_tapeMagazLength+1
+	else 
+		if _tapeMagazLength>5 then 
+			_tapeMagazLength=-1 
+			_tapeMagaz.Stop()
+			_tapeMagaz.seek(-9999999)
+		end 
+	end
+end
 		
 function SetState(state)
 	_state=state
@@ -1075,28 +1088,28 @@ function ShowShopBuyDialog(string,enough)
 end
 
 function CreateDialogWindowChargingForm()
-	dialogForm=forms.addForm()       
-	dialogForm.border=1
-	dialogForm.W=70
-	dialogForm.H=7
-	dialogForm.left=math.floor(10)
-	dialogForm.top =math.floor(19)
-	_chargingDialogLabel=dialogForm:addLabel(3,3,"")
+	dialogChargingForm=forms.addForm()       
+	dialogChargingForm.border=1
+	dialogChargingForm.W=70
+	dialogChargingForm.H=7
+	dialogChargingForm.left=math.floor(10)
+	dialogChargingForm.top =math.floor(19)
+	_chargingDialogLabel=dialogChargingForm:addLabel(3,3,"")
 	_chargingDialogLabel.autoSize=false
 	_chargingDialogLabel.centered=true
 	_chargingDialogLabel.W=64
 	_chargingDialogLabel.fontColor=0x92DEA3
 	_chargingDialogLabel.color=0x333145
-	btn=dialogForm:addButton(30,5,"Ок",function() 
+	btn=dialogChargingForm:addButton(30,5,"Ок",function() 
 		_wandChargerForm:setActive() 
 	end)
 	btn.color=0xC1C1C1
-	dialogForm.color=0x333145
+	dialogChargingForm.color=0x333145
 end
 
 function ShowChargingDialog(string,enough)
 
-	dialogForm:setActive()
+	dialogChargingForm:setActive()
 	_chargingDialogLabel.caption=string
 	if enough then
 		_chargingDialogLabel.fontColor=0x92DEA3
@@ -1296,6 +1309,10 @@ end
 function InitRemoveControl()
 	Event1=_mainForm:addEvent("modem_message", CheckMessages)
 end
+
+function TapeOffers()
+	Timer1=_mainForm:addTimer(1, CheckAudio) -->Допилить вызов
+end
 ------------------------------------
 function RunForm()
 	forms.run(_mainForm) 
@@ -1330,4 +1347,5 @@ CreateShop()
 CreateShopSell()
 CreateWandCharger()
 InitRemoveControl()
+TapeOffers()
 RunForm()
