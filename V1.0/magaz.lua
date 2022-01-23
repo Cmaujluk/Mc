@@ -1276,7 +1276,16 @@ function CreateWandCharger()
 	charge.H=3
 	charge.W=50
 	charge.color=0x5C9A47
-	
+end
+
+function CheckMessages(_,_,_,_,_,message)
+	if message = "stop" or message = "shutdown" then
+		forms.stop()
+	end
+end
+
+function InitRemoveControl()
+	Event1=_mainForm:addEvent("modem_message", CheckMessages)
 end
 ------------------------------------
 function RunForm()
@@ -1311,4 +1320,5 @@ CreateMainMenu()
 CreateShop()
 CreateShopSell()
 CreateWandCharger()
+InitRemoveControl()
 RunForm()
