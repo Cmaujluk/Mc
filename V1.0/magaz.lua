@@ -243,7 +243,7 @@ function CreateMainMenu()
 
 	local labels={}	
 	labels[1]="Магазин"	
-	labels[2]="Омбен руд 1 на 2 слитка"	
+	labels[2]="Обмен руд 1 к 2"	
 	labels[3]="Обмен ресурсы на ресурсы без эмов"	
 	labels[4]="Зарядка жезлов таумкрафт"	
 	labels[5]="Купить билеты в казино"	
@@ -1173,7 +1173,7 @@ end
 function ChargingWand(obj,name)
 	if(CheckLogin(name)) then
 
-		if charger.HasWand()
+		if charger.HasWand() then
 			if _playerEms>=15 then
 				if(ChangeBDValue(_playerName,_playerEms-15,15)) then
 					ShowChargingStatus("Зарядка жезла...") 
