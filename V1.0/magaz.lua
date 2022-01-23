@@ -7,6 +7,7 @@ local unicode = require("unicode")
 local shop = require("shop")
 local changer=require("orechanger")
 local internet = require("internet")
+local tape_magaz = component.proxy("28d31a2a-6192-4304-8ebb-7e89729b7cf8")
 
 -------------FORMS------------------
 local _mainForm = nil
@@ -72,6 +73,13 @@ local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","�
 
 
 ---------------------------------
+function VoiceSay(message)
+	if message = "shop_buy" then
+		tape_magaz.seek(-9999999)
+		tape_magaz.play()
+	end
+end
+
 		
 function SetState(state)
 	_state=state
@@ -613,6 +621,7 @@ function ActivateBuyWindow(obj,name)
 				_playerEms=_playerEms-cost
 				shop.GetItems(_shopList.items[_shopList.index],count)
 				ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
+				VoiceSay("shop_buy")
 				SetBalanceView(_playerEms)
 			end
 		else
