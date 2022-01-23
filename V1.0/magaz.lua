@@ -67,8 +67,8 @@ local _shopSelectedCount = ""
 local _playerEms=0
 local _items={}
 local _lastTextToSort=""
-
 local _tapeMagazLength=-1
+local _tapeMagazMaxLength=3
 
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
@@ -84,9 +84,9 @@ function VoiceSay(message)
 end
 
 function CheckAudio()
-	if _tapeMagazLength<5 and _tapeMagazLength~=-1 then _tapeMagazLength=_tapeMagazLength+1
+	if _tapeMagazLength<_tapeMagazMaxLength and _tapeMagazLength~=-1 then _tapeMagazLength=_tapeMagazLength+1
 	else 
-		if _tapeMagazLength>5 then 
+		if _tapeMagazLength>=_tapeMagazMaxLength then 
 			_tapeMagazLength=-1 
 			_tapeMagaz.Stop()
 			_tapeMagaz.seek(-9999999)
@@ -1311,7 +1311,7 @@ function InitRemoveControl()
 end
 
 function TapeOffers()
-	Timer1=_mainForm:addTimer(1, CheckAudio) -->Допилить вызов
+	forms.SetTimer(1,CheckAudio)
 end
 ------------------------------------
 function RunForm()

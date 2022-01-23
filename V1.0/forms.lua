@@ -442,37 +442,6 @@ function TComponent:addEvent(eventName, onEvent)
   return obj
 end
 
-------------------Timer-----------------
-local TTimer=setmetatable({Enabled=true, type=function() return "Timer" end},TInvisible)
-TTimer.__index=TTimer
-
-function TTimer:run()
-  self.Enabled=nil
-  if self.onTime then
-    self.timerId=event.timer(self.interval,
-	function ()
-	  if self.Enabled and work then
-	    self.onTime(self)
-	  else
-		self:stop()
-	  end
-	end,
-	math.huge
-	)
-  end
-end
-function TTimer:stop()
-  self.Enabled=false
-  event.cancel(self.timerId)
-end
-
-function TComponent:addTimer(interval, onTime)
-  local obj={interval=interval, onTime=onTime}
-  self:makeChild(obj)
-  setmetatable(obj,TTimer)
-  obj:run()
-  return obj
-end
 
 -----------Обработчик событий-----------
 local listeners={}
@@ -513,6 +482,23 @@ end
 function forms.ignoreAll()
   listeners={}
 end
+
+----------------------------------------
+OnTimer = nil
+onTimerInterval = 1
+
+function CheckTimer()
+    if OnTimer == nil then return
+	local time = computer.uptime()
+    if time%onTimerInterval == 0 then
+        OnTimer()
+    end
+end
+
+function forms.SetTimer(seconds, callback)
+    OnTimer = callback
+    onTimerInterval = seconds
+end
 ----------------------------------------
 
 function forms.run(form)
@@ -529,6 +515,8 @@ function forms.run(form)
 	if listeners[""] then
 	  for i=1,#listeners[""] do listeners[""][i](ev,adr,x,y,btn,user) end
     end
+
+    CheckTimer()
   end
   gpu.setForeground(Fc)
   gpu.setBackground(Bc)
