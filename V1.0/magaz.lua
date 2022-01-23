@@ -1079,8 +1079,7 @@ function CreateDialogWindowChargingForm()
 	_chargingDialogLabel.fontColor=0x92DEA3
 	_chargingDialogLabel.color=0x333145
 	btn=dialogForm:addButton(30,5,"Ок",function() 
-		_shopForm:setActive() 
-		UpdateShopGoodInfo(false)	
+		_wandChargerForm:setActive() 
 	end)
 	btn.color=0xC1C1C1
 	dialogForm.color=0x333145
@@ -1174,15 +1173,20 @@ end
 function ChargingWand(obj,name)
 	if(CheckLogin(name)) then
 
-		if _playerEms>=15 then
-			if(ChangeBDValue(_playerName,_playerEms-15,15)) then
-				ShowChargingStatus("Зарядка жезла...") 
-				ShowChargingStatus(charger.StartChargingWand()) 
-				_playerEms=_playerEms-15
-				SetBalanceChargerView(_playerEms)
+		if charger.HasWand()
+			if _playerEms>=15 then
+				if(ChangeBDValue(_playerName,_playerEms-15,15)) then
+					ShowChargingStatus("Зарядка жезла...") 
+					_playerEms=_playerEms-15
+					SetBalanceChargerView(_playerEms)
+					local status = charger.StartChargingWand()
+					ShowChargingStatus(status) 
+				end
+			else
+				ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
 			end
 		else
-			ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
+			ShowChargingDialog("Жезл в левом сундуке не обнаружен",false) 
 		end
 		
 	end	

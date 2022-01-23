@@ -55,6 +55,20 @@ function GetWandToCharge()
 	end
 end
 
+function charger.HasWand()
+	local loot=chest.getAllStacks()
+	for k,v in pairs(loot) do
+		local fingerprint = v.basic()
+
+		if fingerprint.id=="Thaumcraft:WandCasting" then 
+			return true
+		end
+	end
+
+	return false
+end
+
+
 
 function ChargingProcess()
 	while charging do
