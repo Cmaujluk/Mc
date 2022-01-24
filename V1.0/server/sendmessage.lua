@@ -16,22 +16,21 @@ function DetectPlayers()
 	local playersInArea=0
 	if(playerNear~=nil) then
 		playersInArea=#playerNear
-		if(playersInArea==1) then
-			for i=1,#playerNear do
-				local playerName=playerNear[i].name
-				if(playerName~=nil) then
-					local player=sensor.getPlayerByName(playerName)
-					if(player~=nil) then
-						local playerPos=player.basic().position
-						local X=playerPos.x
-						local Z=playerPos.z
-						  
-						if(X<-4.277 and Z>-0.837 and Z<1.853) then
-							playersInArea=playersInArea-1
-						end
+		for i=1,#playerNear do
+			local playerName=playerNear[i].name
+			if(playerName~=nil) then
+				local player=sensor.getPlayerByName(playerName)
+				if(player~=nil) then
+					local playerPos=player.basic().position
+					local X=playerPos.x
+					local Y=playerPos.y
+					local Z=playerPos.z
+					  
+					if Y<=1.5 or X<-2 or Z<-1 or X>3 or Z>4.7 or (X>-0.45 and X<1.7 and Z>3.15 and #playerNear==1) then
+						playersInArea=playersInArea-1
 					end
-				end			
-			end
+				end
+			end			
 		end
 	end
 	_playersNear=playersInArea

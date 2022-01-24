@@ -69,6 +69,7 @@ local _playerEms=0
 local _playerCoins=0
 local _items={}
 local _lastTextToSort=""
+local _playersNear=0
 
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
@@ -191,6 +192,8 @@ function CreateEnterButton()
 	label.centered=true    
 	label.W=40
 	label.H=3
+
+
 end
 
 function CreateButton(form,x,y,h,w,label,foo)
@@ -203,46 +206,54 @@ function CreateButton(form,x,y,h,w,label,foo)
 end
 
 function ActivateShop(obj,name)
-	if(CheckLogin(name)) then
-		gpu.setResolution(90,45)
-		_shopForm:setActive()
-		SetBalanceView(_playerEms)
-		_shopList.index=1
-		_shopList:redraw()
-		UpdateShopGoodInfo(true)
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			_shopForm:setActive()
+			SetBalanceView(_playerEms)
+			_shopList.index=1
+			_shopList:redraw()
+			UpdateShopGoodInfo(true)
+		end
 	end
 end
 
 function ActivateSellShop(obj,name)
-	if(CheckLogin(name)) then
-		gpu.setResolution(90,45)
-		_shopSellForm:setActive()
-		SetBalanceSellView(_playerEms)
-		_shopSellList.index=1
-		_shopSellList:redraw()
-		UpdateShopSellGoodInfo()
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			_shopSellForm:setActive()
+			SetBalanceSellView(_playerEms)
+			_shopSellList.index=1
+			_shopSellList:redraw()
+			UpdateShopSellGoodInfo()
+		end
 	end
 end
 
 function ActivateOreChanger(obj,name)
-	if(CheckLogin(name)) then
-		gpu.setResolution(90,45)
-		_orechangerForm:setActive()
-		SetBalanceSellView(_playerEms)
-		_orechangerList.index=0
-		SetOrechangerList()
-		UpdateOrechangerGoodInfo()
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			_orechangerForm:setActive()
+			SetBalanceSellView(_playerEms)
+			_orechangerList.index=0
+			SetOrechangerList()
+			UpdateOrechangerGoodInfo()
+		end
 	end
 end
 
 
 function ActivateWandCharger(obj,name)
-	if(CheckLogin(name)) then
-		gpu.setResolution(90,45)
-		SetBalanceChargerView(_playerEms)
-		_wandChargerForm:setActive()
-		_chargingLabel.caption=""
-		_chargingLabel:redraw()
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			SetBalanceChargerView(_playerEms)
+			_wandChargerForm:setActive()
+			_chargingLabel.caption=""
+			_chargingLabel:redraw()
+		end
 	end
 end
 
@@ -618,23 +629,25 @@ function SetBalanceChargerView(count)
 end
 
 function ActivateBuyWindow(obj,name)
-	if(CheckLogin(name)) then
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
 	
-		local count = tonumber(_shopSelectedCount)
-		if count==nil or count ==0 then 
-			ShowShopBuyDialog("Выберите количество товара набрав сумму цифрами",true) 
-		else
-			local cost = tonumber(_shopList.items[_shopList.index].price)*count
-			if cost<=_playerEms then
-				if ChangeBDValue(name,_playerEms-cost,cost) then
-					_playerEms=_playerEms-cost
-					shop.GetItems(_shopList.items[_shopList.index],count)
-					ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
-					VoiceSay("shop_buy")
-					SetBalanceView(_playerEms)
-				end
+			local count = tonumber(_shopSelectedCount)
+			if count==nil or count ==0 then 
+				ShowShopBuyDialog("Выберите количество товара набрав сумму цифрами",true) 
 			else
-				ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
+				local cost = tonumber(_shopList.items[_shopList.index].price)*count
+				if cost<=_playerEms then
+					if ChangeBDValue(name,_playerEms-cost,cost) then
+						_playerEms=_playerEms-cost
+						shop.GetItems(_shopList.items[_shopList.index],count)
+						ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
+						VoiceSay("shop_buy")
+						SetBalanceView(_playerEms)
+					end
+				else
+					ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
+				end
 			end
 		end
 	end
@@ -992,20 +1005,22 @@ function CreateOrechanger()
 	_orechangerYouWillGetLabel:hide()
 	
 	buyButton= _orechangerForm:addButton(56,36,"Обменять",function(obj,name)
-	if(CheckLogin(name)) then  
-		if #_orechangerList.items>0 then
-			if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then  
+			if #_orechangerList.items>0 then
+				if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
 
-				local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
-				if soldCount>0 then
-					ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+					local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
+					if soldCount>0 then
+						ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+					end
+				else
+					ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
 				end
+				SetOrechangerList()
 			else
-				ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
+				ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
 			end
-			SetOrechangerList()
-		else
-			ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
 		end
 	end
 	end) 
@@ -1027,9 +1042,11 @@ function CreateOrechanger()
 end
 
 function AcrivateShopBuyBoughtMenu(obj,name)
-	if(CheckLogin(name)) then
-		gpu.setResolution(80,40)
-		_ShopBuyBoughtForm:setActive()
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(80,40)
+			_ShopBuyBoughtForm:setActive()
+		end
 	end
 end
 
@@ -1076,6 +1093,24 @@ function CreateDialogWindowBuyShopForm()
 	end)
 	btn.color=0xC1C1C1
 	dialogForm.color=0x333145
+end
+
+function CreateDialogWindowTooManyPlayers()
+	dialogFormTooManyPlayers=forms.addForm()       
+	dialogFormTooManyPlayers.border=1
+	dialogFormTooManyPlayers.W=70
+	dialogFormTooManyPlayers.H=7
+	dialogFormTooManyPlayers.left=math.floor(10)
+	dialogFormTooManyPlayers.top =math.floor(19)
+	local label=dialogFormTooManyPlayers:addLabel(3,3,"В комнате должен находиться один человек!")
+	label.autoSize=false
+	label.centered=true
+	label.W=64
+	label.fontColor=0xd9534f
+	label.color=0x333145
+	label=dialogFormTooManyPlayers:addButton(30,5,"Ок",_mainForm:setActive)
+	label.color=0xC1C1C1
+	dialogFormTooManyPlayers.color=0x333145
 end
 
 function ShowShopBuyDialog(string,enough)
@@ -1163,7 +1198,7 @@ function CreateDialogWindowOrechangerForm()
 		--UpdateShopGoodInfo(false)	 -->Просчет остатка в на продажу
 	end)
 	btn.color=0xC1C1C1
-	dialogSellForm.color=0x333145
+	dialogOrechangerForm.color=0x333145
 end
 
 function ShowShopSellDialog(string,enough)
@@ -1196,24 +1231,26 @@ function ShowChargingStatus(str)
 end
 
 function ChargingWand(obj,name)
-	if(CheckLogin(name)) then
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
 
-		if charger.HasWand() then
-			if _playerEms>=15 then
-				if(ChangeBDValue(_playerName,_playerEms-15,15)) then
-					ShowChargingStatus("Зарядка жезла...") 
-					_playerEms=_playerEms-15
-					SetBalanceChargerView(_playerEms)
-					local status = charger.StartChargingWand()
-					ShowChargingStatus(status) 
+			if charger.HasWand() then
+				if _playerEms>=15 then
+					if(ChangeBDValue(_playerName,_playerEms-15,15)) then
+						ShowChargingStatus("Зарядка жезла...") 
+						_playerEms=_playerEms-15
+						SetBalanceChargerView(_playerEms)
+						local status = charger.StartChargingWand()
+						ShowChargingStatus(status) 
+					end
+				else
+					ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
 				end
 			else
-				ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
+				ShowChargingDialog("Жезл в левом сундуке не обнаружен",false) 
 			end
-		else
-			ShowChargingDialog("Жезл в левом сундуке не обнаружен",false) 
-		end
 		
+		end	
 	end	
 end
 
@@ -1306,6 +1343,12 @@ end
 function CheckMessages(_,_,_,_,_,message)
 	if message == "stop" or message == "shutdown" then
 		forms.stop()
+	else
+		local mes=string.gsub(message, "players", "")
+
+			if #message~=#mes then
+				_playersNear=tonumber(mes)
+			end
 	end
 end
 
@@ -1327,6 +1370,10 @@ function CheckLogin(name)
 	return true
 end
 
+function OnlyOnePLayer()
+	if _playersNear>1 then dialogFormTooManyPlayers:setActive() end
+	return _playersNear==1
+end
 ------------------------------------
 Init()
 shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
@@ -1339,6 +1386,7 @@ CreateDialogWindowBuyShopForm()
 CreateDialogWindowChargingForm()
 CreateDialogWindowSellShopForm()
 CreateDialogWindowOrechangerForm()
+CreateDialogWindowTooManyPlayers()
 InitShop()
 InitSaleShop()
 CreateButtonExit()
