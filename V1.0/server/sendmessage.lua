@@ -6,9 +6,108 @@ local redstone = component.redstone
 local colors = require("colors")
 local computer = require("computer")
 
+local _lastTimer=-1
+
 local _tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
 local _tapeMagazLength=-1
-local _lastTimer=-1
+
+local _tapeEms = component.proxy("88509495-8410-485f-83ee-f8b7f3042572")
+local _tapeEmsLength=-1
+
+local _tapeOres = component.proxy("ef5782d0-f518-4e29-93a3-bed245f6da4d")
+local _tapeOresLength=-1
+
+local _tapeTrade = component.proxy("ad67551f-4f82-4dc1-be07-09972abee96d")
+local _tapeTradeLength=-1
+
+local _tapeWand = component.proxy("cbc8dfb1-918c-492b-a0ea-a230f24d0ff8")
+local _tapeWandLength=-1
+
+
+
+function SoundPlay(message,timer)
+	if message == "shop_buy" then
+		_tapeMagaz.seek(-9999999)
+		_tapeMagaz.play()
+		_tapeMagazLength=timer
+	end
+	
+	if message == "shop_ems" then
+		_tapeEms.seek(-9999999)
+		_tapeEms.play()
+		_tapeEmsLength=timer
+	end
+	
+	if message == "trade_ores" then
+		_tapeOres.seek(-9999999)
+		_tapeOres.play()
+		_tapeOresLength=timer
+	end
+	
+	if message == "trade_in" then
+		_tapeTrade.seek(-9999999)
+		_tapeTrade.play()
+		_tapeTradeLength=timer
+	end
+	
+	if message == "wand" then
+		_tapeWand.seek(-9999999)
+		_tapeWand.play()
+		_tapeWandLength=timer
+	end
+end
+
+function CheckAudio()
+	if _tapeMagazLength>0 and _tapeMagazLength~=-1 then 
+		_tapeMagazLength=_tapeMagazLength-1
+	else 
+		if _tapeMagazLength==0 then
+			_tapeMagazLength=-1 
+			_tapeMagaz.stop()
+			_tapeMagaz.seek(-9999999)
+		end
+	end
+	
+	if _tapeEmsLength>0 and _tapeEmsLength~=-1 then 
+		_tapeEmsLength=_tapeEmsLength-1
+	else 
+		if _tapeEmsLength==0 then
+			_tapeEmsLength=-1 
+			_tapeEms.stop()
+			_tapeEms.seek(-9999999)
+		end
+	end
+	
+	if _tapeOresLength>0 and _tapeOresLength~=-1 then 
+		_tapeOresLength=_tapeOresLength-1
+	else 
+		if _tapeOresLength==0 then
+			_tapeOresLength=-1 
+			_tapeOres.stop()
+			_tapeOres.seek(-9999999)
+		end
+	end
+	
+	if _tapeTradeLength>0 and _tapeTradeLength~=-1 then 
+		_tapeTradeLength=_tapeTradeLength-1
+	else 
+		if _tapeTradeLength==0 then
+			_tapeTradeLength=-1 
+			_tapeTrade.stop()
+			_tapeTrade.seek(-9999999)
+		end
+	end
+	
+	if _tapeWandLength>0 and _tapeWandLength~=-1 then 
+		_tapeWandLength=_tapeWandLength-1
+	else 
+		if _tapeWandLength==0 then
+			_tapeWandLength=-1 
+			_tapeWand.stop()
+			_tapeWand.seek(-9999999)
+		end
+	end
+end
 
 local _playersNear = 10
 function DetectPlayers()
@@ -34,27 +133,6 @@ function DetectPlayers()
 		end
 	end
 	_playersNear=playersInArea
-end
-
-function SoundPlay(message,timer)
-	if message == "shop_buy" then
-		_tapeMagaz.seek(-9999999)
-		_tapeMagaz.play()
-		_tapeMagazLength=timer
-	end
-end
-
-function CheckAudio()
-	if _tapeMagazLength>0 and _tapeMagazLength~=-1 then 
-		_tapeMagazLength=_tapeMagazLength-1
-	else 
-		if _tapeMagazLength==0 then
-			--print("stop")
-			_tapeMagazLength=-1 
-			_tapeMagaz.stop()
-			_tapeMagaz.seek(-9999999)
-		end
-	end
 end
 
 function Timer()

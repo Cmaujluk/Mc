@@ -883,6 +883,7 @@ function CreateShopSell()
 		local soldCount=shop.BuyItem(_shopSellList.items[_shopSellList.index])
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
+			VoiceSay("shop_ems")
 			AddCurrency(soldCount)
 
 			SetBalanceSellView(_playerEms)  
@@ -908,6 +909,7 @@ function CreateShopSell()
 		
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
+			VoiceSay("shop_ems")
 			AddCurrency(priceAll)
 			SetBalanceSellView(_playerEms) 
 		else
@@ -1014,6 +1016,7 @@ function CreateOrechanger()
 					local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
 					if soldCount>0 then
 						ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+						VoiceSay("trade_ores")
 					end
 				else
 					ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
@@ -1109,7 +1112,9 @@ function CreateDialogWindowTooManyPlayers()
 	label.W=64
 	label.fontColor=0xd9534f
 	label.color=0x333145
-	local button=dialogFormTooManyPlayers:addButton(30,5,"Ок",_menuPlayerEmsLabel)
+	local button=dialogFormTooManyPlayers:addButton(30,5,"Ок",function() 
+		_mainForm:setActive() 
+	end)
 	button.color=0xC1C1C1
 	dialogFormTooManyPlayers.color=0x333145
 end
@@ -1243,6 +1248,7 @@ function ChargingWand(obj,name)
 						SetBalanceChargerView(_playerEms)
 						local status = charger.StartChargingWand()
 						ShowChargingStatus(status) 
+						VoiceSay("wand")
 					end
 				else
 					ShowChargingDialog("Не хватает "..(15-_playerEms).." эм на зарядку жезла",false) 
