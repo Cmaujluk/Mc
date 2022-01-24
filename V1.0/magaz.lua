@@ -7,8 +7,8 @@ local unicode = require("unicode")
 local shop = require("shop")
 local changer=require("orechanger")
 local internet = require("internet")
-local _tapeMagaz = component.proxy("28d31a2a-6192-4304-8ebb-7e89729b7cf8")
-local timer = require("timer")
+
+local _tapeMagaz
 
 -------------FORMS------------------
 local _mainForm = nil
@@ -1315,7 +1315,8 @@ end
 
 ------------------------------------
 Init()
-shop.Init()-->сделать ввод ид мехов
+_tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
+shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
 changer.Init("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
 InitOrechanger()
 CreateOrechanger()
