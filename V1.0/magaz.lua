@@ -66,6 +66,7 @@ local _shopEditField = nil
 ----------GLOBALVARS-------------
 local _shopSelectedCount = ""
 local _playerEms=0
+local _playerCoins=0
 local _items={}
 local _lastTextToSort=""
 
@@ -123,6 +124,7 @@ end
 function AcrivateMainMenu(obj, name)
 		gpu.setResolution(80,40)
 		_menuForm:setActive()
+		SetMainEms()
 end
 
 function OpenEnterMenu()
@@ -279,12 +281,12 @@ function CreateMainMenu()
 	label=_menuForm:addLabel(3,4,"Баланс")
 	label.color=_mainBackgroundColor   
 	label.fontColor=0xFFE9BD  
-	_menuPlayerEmsLabel=_menuForm:addLabel(3,5,_playerEms.." Эм")
+	_menuPlayerEmsLabel=_menuForm:addLabel(3,5,_playerEms.." эм")
 	_menuPlayerEmsLabel.color=_mainBackgroundColor   
 	_menuPlayerEmsLabel.fontColor=0xFFE9BD  
-	label=_menuForm:addLabel(3,6,"20 коинов") -->
-	label.color=_mainBackgroundColor   
-	label.fontColor=0xFFE9BD  
+	_menuPlayerCoinsLabel=_menuForm:addLabel(3,6,_playerCoins.." коинов") -->
+	_menuPlayerCoinsLabel.color=_mainBackgroundColor   
+	_menuPlayerCoinsLabel.fontColor=0xFFE9BD  
 
 	backToEnterMenu=_menuForm:addButton(3,38,"← Назад",OpenEnterMenu) 
 	backToEnterMenu.autoSize=false
