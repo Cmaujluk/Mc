@@ -7,6 +7,8 @@ local colors = require("colors")
 local computer = require("computer")
 
 local _tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
+local _tapeMagazLength=-1
+local _lastTimer=-1
 
 local _playersNear = 10
 function DetectPlayers()
@@ -35,17 +37,35 @@ function DetectPlayers()
 	_playersNear=playersInArea
 end
 
-function SoundPlay(message)
+function SoundPlay(message,timer)
 	if message == "shop_buy" then
 		_tapeMagaz.seek(-9999999)
 		_tapeMagaz.play()
+		_tapeMagazLength=timer
+	end
+end
+
+function CheckAudio()
+	if _tapeMagazLength>0 then _tapeMagazLength=_tapeMagazLength-1
+	else 
+		_tapeMagazLength=-1 
+		_tapeMagaz.Stop()
+		_tapeMagaz.seek(-9999999)
+	end
+end
+
+function Timer()
+	local timer=computer.uptime()
+	
+	if timer%1 == 0 and timer~=_lastTimer then
+		_lastTimer=timer
+		CheckAudio()
 	end
 end
 
 function Work()
 	if(redstone.getBundledInput(4,colors.orange)~=0) then
 		modem.send("stop")
-		print("GG")
 	end
 	
 	DetectPlayers()
@@ -61,8 +81,10 @@ function Work()
 	local ev,adr,x,y,btn,user=computer.pullSignal(0.01)
 	
 	if ev=="modem_message" then
-		SoundPlay(user)
+		SoundPlay(user,timer)
 	end
+	
+	Timer()
 end
 
 while true do
