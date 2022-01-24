@@ -78,7 +78,7 @@ function ChargingProcess()
 		else
 			os.sleep(1)
 			if wand.nbt_hash ~= IWCS.getStackInSlot(WAND_SLOT).nbt_hash then
-        		wand = IWCS.getStackInSlot(WAND_SLOT)
+				wand = IWCS.getStackInSlot(WAND_SLOT)
 				--print("charging")
 				timeToCharge=TIME_CHECK_CHARGING
 			else
@@ -100,7 +100,7 @@ function ChargingProcess()
 				--print("check")
 				timeToCharge=timeToCharge-1
 			end
-       
+	   
 		end
 	end
 end

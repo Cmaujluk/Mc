@@ -1317,7 +1317,7 @@ end
 Init()
 _tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
 shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
-changer.Init("4396b0e4-7aab-4259-bb72-1cfd8384c59a")
+changer.Init("fdef5243-78b2-4bc8-ae95-3c4d20ed7a19","63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
 InitOrechanger()
 CreateOrechanger()
 InitCharger()
