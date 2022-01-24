@@ -483,23 +483,7 @@ function forms.ignoreAll()
   listeners={}
 end
 
-----------------------------------------
-OnTimer = nil
-onTimerInterval = 1
-lastSecs=-1
-function CheckTimer()
-    if OnTimer == nil then return end
-	local time = computer.uptime()
-    if time%onTimerInterval == 0 and time~=lastSecs then
-        lastSecs=time
-        OnTimer()
-    end
-end
 
-function forms.SetTimer(seconds, callback)
-    OnTimer = callback
-    onTimerInterval = seconds
-end
 ----------------------------------------
 
 function forms.run(form)
@@ -517,7 +501,7 @@ function forms.run(form)
 	  for i=1,#listeners[""] do listeners[""][i](ev,adr,x,y,btn,user) end
     end
 
-    CheckTimer()
+    
   end
   gpu.setForeground(Fc)
   gpu.setBackground(Bc)

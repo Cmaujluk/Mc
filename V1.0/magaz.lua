@@ -8,6 +8,7 @@ local shop = require("shop")
 local changer=require("orechanger")
 local internet = require("internet")
 local _tapeMagaz = component.proxy("28d31a2a-6192-4304-8ebb-7e89729b7cf8")
+local timer = require("timer")
 
 -------------FORMS------------------
 local _mainForm = nil
@@ -1311,7 +1312,7 @@ function InitRemoveControl()
 end
 
 function TapeOffers()
-	forms.SetTimer(3,CheckAudio)
+	timer.SetTimer(3,CheckAudio)
 end
 ------------------------------------
 function RunForm()
