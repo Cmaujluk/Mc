@@ -619,19 +619,21 @@ function ActivateBuyWindow(obj,name)
 	if(CheckLogin(name)) then
 	
 		local count = tonumber(_shopSelectedCount)
-		if count==nil or count ==0 then return end
-
-		local cost = tonumber(_shopList.items[_shopList.index].price)*count
-		if cost<=_playerEms then
-			if ChangeBDValue(name,_playerEms-cost,cost) then
-				_playerEms=_playerEms-cost
-				shop.GetItems(_shopList.items[_shopList.index],count)
-				ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
-				VoiceSay("shop_buy")
-				SetBalanceView(_playerEms)
-			end
+		if count==nil or count ==0 then 
+			ShowShopBuyDialog("Выберите количество товара набрав сумму цифрами",true) 
 		else
-			ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
+			local cost = tonumber(_shopList.items[_shopList.index].price)*count
+			if cost<=_playerEms then
+				if ChangeBDValue(name,_playerEms-cost,cost) then
+					_playerEms=_playerEms-cost
+					shop.GetItems(_shopList.items[_shopList.index],count)
+					ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
+					VoiceSay("shop_buy")
+					SetBalanceView(_playerEms)
+				end
+			else
+				ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
+			end
 		end
 	end
 end
