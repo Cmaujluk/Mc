@@ -242,6 +242,8 @@ function ActivateWandCharger(obj,name)
 		gpu.setResolution(90,45)
 		SetBalanceChargerView(_playerEms)
 		_wandChargerForm:setActive()
+		_chargingLabel.caption=""
+		_chargingLabel:redraw()
 	end
 end
 
@@ -537,10 +539,14 @@ function UpdateOrechangerGoodInfo()-->
 		_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
 		_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
 		_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
+		_orechangerLeftChestLabel:show()
+		_orechangerYouWillGetLabel:show()
 	else
 		_orechangerTradeGoodLabel.caption=""
 		_orechangerSelectedGoodLabel.caption=""
 		_orechangerAvailableGoodLabel.caption=""
+		_orechangerLeftChestLabel:hide()
+		_orechangerYouWillGetLabel:hide()
 	end
 
 	_orechangerTradeGoodLabel:redraw()
@@ -574,7 +580,7 @@ function SetBalanceView(count)
 	local score=tonumber(add)
 	if score==nil then score=0 end
 
-	_shopBalanceEmsLabel.caption="Баланс: "..RoundToPlaces(score,100).." эм ♦"
+	_shopBalanceEmsLabel.caption="Баланс: "..add.." эм ♦"
 	_shopBalanceEmsLabel2.caption=str
 	_shopBalanceEmsLabel:redraw()
 	_shopBalanceEmsLabel2:redraw()
@@ -589,7 +595,7 @@ function SetBalanceSellView(count)
 	local score=tonumber(add)
 	if score==nil then score=0 end
 
-	_shopBalanceEmsSellLabel.caption="Баланс: "..RoundToPlaces(score,100).." эм ♦"
+	_shopBalanceEmsSellLabel.caption="Баланс: "..add.." эм ♦"
 	_shopBalanceEmsSellLabel2.caption=str
 	_shopBalanceEmsSellLabel:redraw()
 	_shopBalanceEmsSellLabel2:redraw()
@@ -605,7 +611,7 @@ function SetBalanceChargerView(count)
 	local score=tonumber(add)
 	if score==nil then score=0 end
 
-	_shopBalanceEmsChangerLabel.caption="Баланс: "..RoundToPlaces(score,100).." эм ♦"
+	_shopBalanceEmsChangerLabel.caption="Баланс: "..add.." эм ♦"
 	_shopBalanceEmsChangerLabel2.caption=str
 	_shopBalanceEmsChangerLabel:redraw()
 	_shopBalanceEmsChangerLabel2:redraw()
@@ -830,7 +836,7 @@ function CreateShopSell()
 	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
 		
 	
-	local label=_shopSellForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
+	local label =_shopSellForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
 	label.color = _mainBackgroundColor 
 
 	_shopBalanceEmsSellLabel=_shopSellForm:addLabel(2,2,"")
@@ -975,11 +981,13 @@ function CreateOrechanger()
 	_orechangerTradeGoodLabel.color = _mainBackgroundColor
 		
 	
-	local label=_orechangerForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
-	label.color = _mainBackgroundColor 
+	_orechangerLeftChestLabel=_orechangerForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
+	_orechangerLeftChestLabel.color = _mainBackgroundColor 
+	_orechangerLeftChestLabel:hide()
 
-	local label=_orechangerForm:addLabel(xStart+xShift,25,"Вы получите:")
-	label.color = _mainBackgroundColor 
+	_orechangerYouWillGetLabel=_orechangerForm:addLabel(xStart+xShift,25,"Вы получите:")
+	_orechangerYouWillGetLabel.color = _mainBackgroundColor 
+	_orechangerYouWillGetLabel:hide()
 	
 	buyButton= _orechangerForm:addButton(56,36,"Обменять",function(obj,name)
 	if(CheckLogin(name)) then  
@@ -1246,7 +1254,7 @@ function CreateWandCharger()
 	label.autoSize  = false
 	label.W=60  
 
-	label=_wandChargerForm:addLabel(15,14,"3. Дождитесь зарядки, экран покажет когда") 
+	label=_wandChargerForm:addLabel(15,14,"3. Дождитесь зарядки, на экране отображен статус") 
 	label.color=_mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -1264,7 +1272,7 @@ function CreateWandCharger()
 	label.autoSize  = false
 	label.W=60  
 
-	backToMain=_wandChargerForm:addButton(80,2,"Пополнить",ActivateSellShop) 
+	backToMain=_wandChargerForm:addButton(2,4,"Пополнить",ActivateSellShop) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
