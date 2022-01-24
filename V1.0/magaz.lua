@@ -124,8 +124,8 @@ end
 
 function AcrivateMainMenu(obj, name)
 		gpu.setResolution(80,40)
-		_menuForm:setActive()
 		SetMainEms()
+		_menuForm:setActive()
 end
 
 function OpenEnterMenu()
@@ -335,6 +335,7 @@ end
 
 function SetMainEms()
 	_menuPlayerEmsLabel.caption= RoundToPlaces(_playerEms,_playerEms).." Эм"
+	_menuPlayerEmsLabel:redraw()
 end
 
 function ShopUpdateSelectedGoodsCount()
@@ -1108,7 +1109,7 @@ function CreateDialogWindowTooManyPlayers()
 	label.W=64
 	label.fontColor=0xd9534f
 	label.color=0x333145
-	local button=dialogFormTooManyPlayers:addButton(30,5,"Ок",_mainForm:setActive())
+	local button=dialogFormTooManyPlayers:addButton(30,5,"Ок",_menuPlayerEmsLabel)
 	button.color=0xC1C1C1
 	dialogFormTooManyPlayers.color=0x333145
 end
