@@ -989,16 +989,20 @@ function CreateOrechanger()
 	
 	buyButton= _orechangerForm:addButton(56,36,"Обменять",function(obj,name)
 	if(CheckLogin(name)) then  
-		if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
+		if #_orechangerList.items>0 then
+			if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
 
-			local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
-			if soldCount>0 then
-				ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+				local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
+				if soldCount>0 then
+					ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+				end
+			else
+				ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
 			end
+			SetOrechangerList()
 		else
-			ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
+			ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
 		end
-		SetOrechangerList()
 	end
 	end) 
 	buyButton.color=0x5C9A47
