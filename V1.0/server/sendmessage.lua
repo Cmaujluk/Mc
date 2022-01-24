@@ -46,19 +46,25 @@ function SoundPlay(message,timer)
 end
 
 function CheckAudio()
-	if _tapeMagazLength>0 then _tapeMagazLength=_tapeMagazLength-1
+	if _tapeMagazLength>0 and _tapeMagazLength~=-1 then 
+		_tapeMagazLength=_tapeMagazLength-1
 	else 
-		_tapeMagazLength=-1 
-		_tapeMagaz.Stop()
-		_tapeMagaz.seek(-9999999)
+		if _tapeMagazLength==0 then
+			--print("stop")
+			_tapeMagazLength=-1 
+			_tapeMagaz.stop()
+			_tapeMagaz.seek(-9999999)
+		end
 	end
 end
 
 function Timer()
 	local timer=computer.uptime()
-	
-	if timer%1 == 0 and timer~=_lastTimer then
-		_lastTimer=timer
+	--print("check "..timer.." "..timer%2)
+	local curTimer=math.floor(timer)
+	if _lastTimer~=curTimer then
+		_lastTimer=curTimer
+		--print("check audio "..curTimer)
 		CheckAudio()
 	end
 end
@@ -81,13 +87,12 @@ function Work()
 	local ev,adr,x,y,btn,user=computer.pullSignal(0.01)
 	
 	if ev=="modem_message" then
-		SoundPlay(user,timer)
+		SoundPlay(user,5)
 	end
 	
 	Timer()
 end
 
 while true do
-	--pcall(Work)
-	Work()
+	pcall(Work)
 end
