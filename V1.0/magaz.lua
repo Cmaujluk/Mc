@@ -1108,8 +1108,8 @@ function CreateDialogWindowTooManyPlayers()
 	label.W=64
 	label.fontColor=0xd9534f
 	label.color=0x333145
-	label=dialogFormTooManyPlayers:addButton(30,5,"Ок",_mainForm:setActive)
-	label.color=0xC1C1C1
+	local button=dialogFormTooManyPlayers:addButton(30,5,"Ок",_mainForm:setActive())
+	button.color=0xC1C1C1
 	dialogFormTooManyPlayers.color=0x333145
 end
 
