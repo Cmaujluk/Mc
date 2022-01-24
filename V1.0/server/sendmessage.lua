@@ -10,18 +10,23 @@ local _lastTimer=-1
 
 local _tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
 local _tapeMagazLength=-1
+_tapeMagaz.speed=2
 
 local _tapeEms = component.proxy("88509495-8410-485f-83ee-f8b7f3042572")
 local _tapeEmsLength=-1
+_tapeEms.speed=2
 
 local _tapeOres = component.proxy("ef5782d0-f518-4e29-93a3-bed245f6da4d")
 local _tapeOresLength=-1
+_tapeOres.speed=2
 
 local _tapeTrade = component.proxy("ad67551f-4f82-4dc1-be07-09972abee96d")
 local _tapeTradeLength=-1
+_tapeTrade.speed=2
 
 local _tapeWand = component.proxy("cbc8dfb1-918c-492b-a0ea-a230f24d0ff8")
 local _tapeWandLength=-1
+_tapeWand.speed=2
 
 
 
