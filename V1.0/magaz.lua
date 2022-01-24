@@ -68,8 +68,6 @@ local _shopSelectedCount = ""
 local _playerEms=0
 local _items={}
 local _lastTextToSort=""
-local _tapeMagazLength=-1
-local _tapeMagazMaxLength=3
 
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
@@ -80,20 +78,10 @@ function VoiceSay(message)
 	if message == "shop_buy" then
 		_tapeMagaz.seek(-9999999)
 		_tapeMagaz.play()
-		_tapeMagazLength=0
 	end
 end
 
-function CheckAudio()
-	if _tapeMagazLength<_tapeMagazMaxLength and _tapeMagazLength~=-1 then _tapeMagazLength=_tapeMagazLength+1
-	else 
-		if _tapeMagazLength>=_tapeMagazMaxLength then 
-			_tapeMagazLength=-1 
-			_tapeMagaz.Stop()
-			_tapeMagaz.seek(-9999999)
-		end 
-	end
-end
+
 		
 function SetState(state)
 	_state=state
@@ -1311,9 +1299,7 @@ function InitRemoveControl()
 	Event1=_mainForm:addEvent("modem_message", CheckMessages)
 end
 
-function TapeOffers()
-	timer.SetTimer(3,CheckAudio)
-end
+
 ------------------------------------
 function RunForm()
 	forms.run(_mainForm) 
@@ -1348,5 +1334,4 @@ CreateShop()
 CreateShopSell()
 CreateWandCharger()
 InitRemoveControl()
-TapeOffers()
 RunForm()
