@@ -99,8 +99,8 @@ function Init()
 end
 
 function InitCharger()
-	local chargerAddress="e1787a92-9c89-4537-b3ca-804a149473c4"
-	local getterAddress="4396b0e4-7aab-4259-bb72-1cfd8384c59a"
+	local chargerAddress="fdef5243-78b2-4bc8-ae95-3c4d20ed7a19"
+	local getterAddress="63dbdd6d-78a9-4fdd-aecd-22c0eb789bda"
 	charger.Init(chargerAddress,getterAddress)
 end
 
@@ -1317,7 +1317,7 @@ end
 Init()
 _tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
 shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
-changer.Init("fdef5243-78b2-4bc8-ae95-3c4d20ed7a19","63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
+changer.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
 InitOrechanger()
 CreateOrechanger()
 InitCharger()
