@@ -1311,7 +1311,7 @@ function InitRemoveControl()
 end
 
 function TapeOffers()
-	forms.SetTimer(1,CheckAudio)
+	forms.SetTimer(3,CheckAudio)
 end
 ------------------------------------
 function RunForm()

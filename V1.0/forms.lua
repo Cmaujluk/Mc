@@ -486,11 +486,12 @@ end
 ----------------------------------------
 OnTimer = nil
 onTimerInterval = 1
-
+lastSecs=-1
 function CheckTimer()
-    if OnTimer == nil then return
+    if OnTimer == nil then return end
 	local time = computer.uptime()
-    if time%onTimerInterval == 0 then
+    if time%onTimerInterval == 0 and time~=lastSecs then
+        lastSecs=time
         OnTimer()
     end
 end
