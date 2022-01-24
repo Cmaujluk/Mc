@@ -7,7 +7,7 @@ local unicode = require("unicode")
 local shop = require("shop")
 local changer=require("orechanger")
 local internet = require("internet")
-
+local modem = component.tunnel
 local _tapeMagaz
 
 -------------FORMS------------------
@@ -75,10 +75,7 @@ local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","�
 
 ---------------------------------
 function VoiceSay(message)
-	if message == "shop_buy" then
-		_tapeMagaz.seek(-9999999)
-		_tapeMagaz.play()
-	end
+	modem.send(message)
 end
 
 
@@ -536,6 +533,7 @@ function UpdateOrechangerGoodInfo()-->
 	--_shopWantSellGoodLabel:redraw()
 
 	if(#_orechangerList.items>0) then
+		if _orechangerList.index<1 then _orechangerList.index=1 end
 		_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
 		_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
 		_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
@@ -1323,7 +1321,6 @@ end
 
 ------------------------------------
 Init()
-_tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
 shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
 changer.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
 InitOrechanger()

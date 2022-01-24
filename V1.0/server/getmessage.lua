@@ -1,6 +1,6 @@
 local port = 1
 local component=require("component")
-local computer = require "computer"
+local computer = require ("computer")
 local tunnel = component.tunnel
 forms=require("forms")         -- подключаем библиотеку
 
