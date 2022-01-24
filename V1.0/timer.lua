@@ -7,12 +7,12 @@ local timer={}
 start=false
 function CheckTimer()
     if OnTimer == nil then return end
-    print("method ok")
+    --print("method ok")
 	local time = computer.uptime()
-    print("Time "..time)
+    --print("Time "..time)
     if time%onTimerInterval == 0 and time~=lastSecs then
-         print("its done"..time)
-         os.sleep(2)
+        -- print("its done"..time)
+        -- os.sleep(2)
         lastSecs=time
         OnTimer()
     end
