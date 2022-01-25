@@ -1107,7 +1107,7 @@ function CreateTrade()-->
 		button.border=0
 	end
 	
-	SetShopList()
+	--SetShopList()-->
 	-------------------------------------
 	_tradeEditField=_tradeForm:addEdit(5,41,ListSearch,ListSearchQuick)-->
 	_tradeEditField.W=40
