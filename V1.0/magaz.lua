@@ -976,6 +976,294 @@ function CreateShopSell()
 	SetShopSellList()
 end
 
+function CreateTrade()-->
+	local xStart=48
+	local xShift=17
+	local yStart=1
+	
+	_tradeForm=forms.addForm()
+	_tradeForm.W=90
+	_tradeForm.H=45
+	_tradeForm.color=_mainBackgroundColor
+	
+	backToMain=_tradeForm:addButton(80,2,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+
+	frame=_tradeForm:addFrame(32,1,1) 
+	frame.W=25
+	frame.H=3 
+	frame.color= _mainBackgroundColor
+
+
+	
+	label=_tradeForm:addLabel(42,2,"Обмен") 
+	label.fontColor =0xFFE600
+	label.color=_mainBackgroundColor
+	
+	_tradeList=_tradeForm:addList(5,8,function()UpdateShopGoodInfo(false) end) -->
+	_tradeList.W=40
+	_tradeList.H=29
+	_tradeList.color=0x42414D
+	_tradeList.selColor=0x2E7183
+	_tradeList.sfColor=0xffffff
+	_tradeList.border=1
+	
+	
+	local label = _tradeForm:addLabel(5,6,"Выберите товар")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	label = _tradeForm:addLabel(5,39,"Поиск предметов (ввод в окне ниже)")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _tradeForm:addLabel(xStart-1,yStart+19,"Наберите кол-во товара")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+	
+	_tradeSelectedGoodLabel=_tradeForm:addLabel(xStart,8,"1")-->
+	_tradeSelectedGoodLabel.color=0x009999
+	_tradeSelectedGoodLabel.fontColor=0xffd875
+	_tradeSelectedGoodLabel.color = _mainBackgroundColor
+	_tradeSelectedGoodLabel.centered = true
+	_tradeSelectedGoodLabel.autoSize  = false
+	_tradeSelectedGoodLabel.W=40
+	
+	_tradeAvailableGoodLabel=_tradeForm:addLabel(xStart+xShift,11,"2")
+	_tradeAvailableGoodLabel.color = _mainBackgroundColor
+		
+	_tradericeGoodLabel=_tradeForm:addLabel(xStart+xShift,13,"3")
+	_tradericeGoodLabel.color = _mainBackgroundColor
+
+	
+	_tradenoughCoinsLabel=_tradeForm:addLabel(xStart+xShift,15,"4")
+	_tradenoughCoinsLabel.color = _mainBackgroundColor
+
+	--_shopIDLabel=_shopForm:addLabel(xStart+xShift,17,"4")
+	--_shopIDLabel.color = _mainBackgroundColor
+
+	_tradeBalanceCoinsLabel=_tradeForm:addLabel(2,2,"")
+	_tradeBalanceCoinsLabel.color = _mainBackgroundColor
+	_tradeBalanceCoinsLabel.fontColor = 0xFFB950
+	_tradeBalanceCoinsLabel2=_tradeForm:addLabel(10,2,"")
+	_tradeBalanceCoinsLabel2.color = _mainBackgroundColor
+	_tradeBalanceCoinsLabel2.fontColor = 0x7DFF50
+	--SetBalanceView(_playerEms)-->
+	
+	_tradeWantBuyGoodLabel=_tradeForm:addLabel(xStart,yStart+37,"6")
+	_tradeWantBuyGoodLabel.color = _mainBackgroundColor
+	_tradeWantBuyGoodLabel.centered = true
+	_tradeWantBuyGoodLabel.autoSize  = false
+	_tradeWantBuyGoodLabel.W=40
+	
+	_tradeCountWantBuyGoodLabel=_tradeForm:addLabel(xStart,yStart+38,"7")
+	_tradeCountWantBuyGoodLabel.color = _mainBackgroundColor
+	_tradeCountWantBuyGoodLabel.centered = true
+	_tradeCountWantBuyGoodLabel.autoSize  = false
+	_tradeCountWantBuyGoodLabel.W=40
+	
+	buyButton= _tradeForm:addButton(56,yStart+40,"Купить",ActivateBuyWindow) 
+	buyButton.color=0x5C9A47
+	buyButton.W=20
+	buyButton.H=3
+	
+	
+	for i=1, 12 do
+		local toWrite=keyboard[i]
+		local xSpace=8
+		local ySpace=7
+		button=_tradeForm:addButton(56+((i-1)*xSpace%(xSpace*3)),yStart+21+math.floor((i-1)/3)*4,toWrite,function() 
+			local j=i
+			if(i<10) then _tradeSelectedCount=_tradeSelectedCount..j.."" end
+			if i==10 then _tradeSelectedCount=""end
+			if i==11 then _tradeSelectedCount=_tradeSelectedCount.."0"end
+			if i==12 then
+				if(unicode.len(_tradeSelectedCount)>0) then
+					_tradeSelectedCount = _tradeSelectedCount:sub(1, -2)
+				else
+					_tradeSelectedCount = ""
+				end
+			end
+			ShopUpdateSelectedGoodsCount()
+		end) 
+		if i==10 or i==12 then
+			button.color=0x42AECB
+		else
+			button.color=0xD26262 
+		end
+		
+		button.H=3
+		button.W=6
+		button.border=0
+	end
+	
+	SetShopList()
+	-------------------------------------
+	_tradeEditField=_tradeForm:addEdit(5,41,ListSearch,ListSearchQuick)-->
+	_tradeEditField.W=40
+	_tradeEditField.h=3
+	_tradeEditField.border=0
+	_tradeEditField.color=0x42414D
+	--_shopSelectedGoodLabel:hide()
+end
+
+function CreateTradeSell() -->
+	local xStart=48
+	local xShift=17
+	
+	_tradeSellForm=forms.addForm()
+	_tradeSellForm.W=90
+	_tradeSellForm.H=45
+	_tradeSellForm.color=_mainBackgroundColor
+	
+	backToMain=_tradeSellForm:addButton(5,43,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+
+	frame=_tradeSellForm:addFrame(32,1,1) 
+	frame.W=25
+	frame.H=3 
+	frame.color= _mainBackgroundColor
+
+	label=_tradeSellForm:addLabel(37,2,"Пополнение счета") 
+	label.fontColor =0xFFE600
+	label.color=_mainBackgroundColor
+	
+	_tradeSellList = _tradeSellForm:addList(5,10,UpdateShopSellGoodInfo)  -->
+	_tradeSellList.W=40
+	_tradeSellList.H=29
+	_tradeSellList.color=0x42414D
+	_tradeSellList.selColor=0x2E7183
+	_tradeSellList.sfColor=0xffffff 
+	
+	local label = _tradeSellForm:addLabel(4,5,"Сложите вещи на обмен в левый сундук")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _tradeSellForm:addLabel(4,6,"и выберите товар на обмен из списка")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _tradeSellForm:addLabel(4,7,"если нужно нажмите кнопку “обновить”")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	_tradeSelectedSellGoodLabel=_tradeSellForm:addLabel(xStart,8,"1")
+	_tradeSelectedSellGoodLabel.color=0x009999
+	_tradeSelectedSellGoodLabel.fontColor=0xffd875
+	_tradeSelectedSellGoodLabel.color = _mainBackgroundColor
+	_tradeSelectedSellGoodLabel.centered = true
+	_tradeSelectedSellGoodLabel.autoSize  = false
+	_tradeSelectedSellGoodLabel.W=40  
+
+	_tradericeSellGoodLabel=_tradeSellForm:addLabel(xStart+xShift,12,"3")
+	_tradericeSellGoodLabel.color = _mainBackgroundColor 
+	
+	_tradeAvailableSellGoodLabel=_tradeSellForm:addLabel(xStart+xShift,14,"2")
+	_tradeAvailableSellGoodLabel.color = _mainBackgroundColor
+		
+	
+	local label =_tradeSellForm:addLabel(xStart+xShift,15,"(в левом сундуке)")
+	label.color = _mainBackgroundColor 
+
+	_tradeBalanceCoinsSellLabel=_tradeSellForm:addLabel(2,2,"")
+	_tradeBalanceCoinsSellLabel.color = _mainBackgroundColor
+	_tradeBalanceCoinsSellLabel.fontColor = 0xFFB950
+	_tradeBalanceCoinsSellLabel2=_tradeSellForm:addLabel(10,2,"")
+	_tradeBalanceCoinsSellLabel2.color = _mainBackgroundColor
+	_tradeBalanceCoinsSellLabel2.fontColor = 0x7DFF50 
+	
+	
+	
+	_tradeWantSellGoodLabel=_tradeSellForm:addLabel(xStart,20,"Я хочу продать 0 шт") 
+	_tradeWantSellGoodLabel.color = _mainBackgroundColor
+	_tradeWantSellGoodLabel.centered = true
+	_tradeWantSellGoodLabel.autoSize  = false
+	_tradeWantSellGoodLabel.W=40
+	_tradeWantSellGoodLabel.fontColor=0x33ff66
+	
+	_tradeCountWantSellGoodLabel=_tradeSellForm:addLabel(xStart,21,"За 0 эм")
+	_tradeCountWantSellGoodLabel.color = _mainBackgroundColor
+	_tradeCountWantSellGoodLabel.centered = true
+	_tradeCountWantSellGoodLabel.autoSize  = false
+	_tradeCountWantSellGoodLabel.W=40 
+	_tradeCountWantSellGoodLabel.fontColor=0x33ff66
+	
+	buyButton= _tradeSellForm:addButton(56,24,"Продать",function()  
+
+		local soldCount=shop.BuyItem(_tradeSellList.items[_tradeSellList.index])
+		if soldCount>0 then
+			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_tradeSellList.items[_tradeSellList.index].price).." эм",true)
+			VoiceSay("shop_ems")
+			AddCurrency(soldCount)
+
+			SetBalanceSellView(_playerEms)  
+		else
+			ShowShopSellDialog("В сундуке не хватает ".._tradeSellList.items[_tradeSellList.index].label,false) 
+		end
+
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=23
+	buyButton.H=3-->
+
+	buyButton= _tradeSellForm:addButton(56,30,"Продать всё что есть",function()  
+
+		local soldCount=0
+		local priceAll=0
+		for i=1, #_tradeSellList.items do
+			local iterationCount=shop.BuyItem(_tradeSellList.items[i])
+			soldCount=soldCount+iterationCount
+			priceAll=priceAll+iterationCount*_tradeSellList.items[i].price
+		end
+		
+		if soldCount>0 then
+			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..priceAll.." эм",true)
+			VoiceSay("shop_ems")
+			AddCurrency(priceAll)
+			SetBalanceSellView(_playerEms) 
+		else
+			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
+		end
+
+		UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=23
+	buyButton.H=3
+
+	buyButton= _tradeSellForm:addButton(56,36,"Обновить",function()  
+		--UpdateShopSellGoodInfo()
+	end) 
+	buyButton.color=0x9A9247
+	buyButton.W=23
+	buyButton.H=3
+	
+	--SetBalanceSellView(_playerEms) 
+
+	--SetShopSellList()
+end
+
 function CreateOrechanger()
 	local xStart=48
 	local xShift=17
@@ -1476,6 +1764,7 @@ CreateDialogWindowOrechangerForm()
 CreateDialogWindowTooManyPlayers()
 InitShop()
 InitSaleShop()
+CreateTrade()
 CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()
