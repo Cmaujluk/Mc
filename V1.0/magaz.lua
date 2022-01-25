@@ -384,13 +384,10 @@ function ListSearch()
 	end
 	_shopList:redraw()
 	UpdateShopGoodInfo(false)
-
-	if(#text[1]<=0) then _ShopFindInfoLabel:hide() else _ShopFindInfoLabel:show() end
 end
 
 function ListSearchQuick(Edit,text)
 	if(text[1]==_lastTextToSort) then return end
-	
 	_lastTextToSort=text[1]
 	_shopList:clear()
 	local str=text[1]
@@ -402,8 +399,6 @@ function ListSearchQuick(Edit,text)
 	_shopList:redraw()
 	
 	UpdateShopGoodInfo(true)
-
-	if(#text[1]<=0) then _ShopFindInfoLabel:hide() else _ShopFindInfoLabel:show() end
 end
 
 function SetShopList()
@@ -673,7 +668,7 @@ function CreateShop()
 	_shopForm.H=45
 	_shopForm.color=_mainBackgroundColor
 	
-	backToMain=_shopForm:addButton(5,43,"← Назад",OpenMainMenu) 
+	backToMain=_shopForm:addButton(80,2,"← Назад",OpenMainMenu) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
@@ -706,7 +701,11 @@ function CreateShop()
 	label.autoSize  = false
 	label.W=40
 
-	
+	label = _shopForm:addLabel(5,39,"Поиск предметов (ввод в окне ниже)")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
 
 	local label = _shopForm:addLabel(xStart-1,yStart+19,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
@@ -792,17 +791,11 @@ function CreateShop()
 	
 	SetShopList()
 	-------------------------------------
-	_shopEditField=_shopForm:addEdit(5,38,ListSearch,ListSearchQuick)
+	_shopEditField=_shopForm:addEdit(5,41,ListSearch,ListSearchQuick)
 	_shopEditField.W=40
 	_shopEditField.h=3
 	_shopEditField.border=0
 	_shopEditField.color=0x42414D
-
-	_ShopFindInfoLabel = _shopForm:addLabel(5,39,"Поиск предметов (ввод в окне ниже)")
-	_ShopFindInfoLabel.color = _mainBackgroundColor
-	_ShopFindInfoLabel.centered = true
-	_ShopFindInfoLabel.autoSize  = false
-	_ShopFindInfoLabel.W=40
 	--_shopSelectedGoodLabel:hide()
 end
 
