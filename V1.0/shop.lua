@@ -68,7 +68,7 @@ function ParseItemsToSale()
 	for index,item in pairs(_itemsBD) do
 		for meIndex,meItem in pairs(_itemsME) do 
 			if(item.name==meItem.fingerprint.id and item.damage==meItem.fingerprint.dmg) then
-				_itemsToSale[i]	= {fingerprint=meItem.fingerprint, price = item.price, label = item.label, stackSize=64, localId=item.localId}
+				_itemsToSale[i]	= {fingerprint=meItem.fingerprint, price = item.price, label = item.label, stackSize=64, localId=item.localId,itemId=item.itemId}
 				i=i+1
 			end
 		end
