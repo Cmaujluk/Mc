@@ -20,6 +20,7 @@ local _orechangerForm = nil
 local _mainBackgroundColor = nil
 
 local _ShopBuyBoughtForm = nil
+local _TradeBuyBoughtForm = nil
 
 local _state=""
 -------------USER------------------ 
@@ -231,6 +232,32 @@ function ActivateSellShop(obj,name)
 	end
 end
 
+function ActivateTrade(obj,name)
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			_shopForm:setActive()
+			SetBalanceView(_playerEms)
+			_shopList.index=1
+			_shopList:redraw()
+			UpdateShopGoodInfo(true)
+		end
+	end
+end
+
+function ActivateSellTrade(obj,name)
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			_shopSellForm:setActive()
+			SetBalanceSellView(_playerEms)
+			_shopSellList.index=1
+			_shopSellList:redraw()
+			UpdateShopSellGoodInfo()
+		end
+	end
+end
+
 function ActivateOreChanger(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then
@@ -274,7 +301,7 @@ function CreateMainMenu()
 	local methods={} 
 	methods[1]=AcrivateShopBuyBoughtMenu 
 	methods[2]=ActivateOreChanger 
-	methods[3]=ActivateShop	
+	methods[3]=AcrivateTradeBuyBoughtMenu
 	methods[4]=ActivateWandCharger	
 	methods[5]=ActivateShop	
 	--methods[6]=ActivateShop
@@ -1066,18 +1093,51 @@ function AcrivateShopBuyBoughtMenu(obj,name)
 	end
 end
 
+function AcrivateTradeBuyBoughtMenu(obj,name)
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(80,40)
+			_TradeBuyBoughtForm:setActive()
+		end
+	end
+end
+
+function CreateTradeBuyBought()	
+	_TradeBuyBoughtForm=forms.addForm()
+	_TradeBuyBoughtForm.W=80
+	_TradeBuyBoughtForm.H=40
+	_TradeBuyBoughtForm.color=_mainBackgroundColor
+
+	toShopButton= _TradeBuyBoughtForm:addButton(20,15,"Купить за эмы",	ActivateTrade) 
+	toShopButton.color=0x626262 
+	toShopButton.W=40
+	toShopButton.H=3
+
+	toSellButton= _TradeBuyBoughtForm:addButton(20,20,"Пополнить эмы",ActivateSellTrade) 
+	toSellButton.color=0x626262 
+	toSellButton.W=40
+	toSellButton.H=3
+
+	backToMain=_TradeBuyBoughtForm:addButton(5,38,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+end
+
 function CreateShopBuyBought()	
 	_ShopBuyBoughtForm=forms.addForm()
 	_ShopBuyBoughtForm.W=80
 	_ShopBuyBoughtForm.H=40
 	_ShopBuyBoughtForm.color=_mainBackgroundColor
 
-	toShopButton= _ShopBuyBoughtForm:addButton(20,15,"Купить",	ActivateShop) 
+	toShopButton= _ShopBuyBoughtForm:addButton(20,15,"Купить за эмы",	ActivateShop) 
 	toShopButton.color=0x626262 
 	toShopButton.W=40
 	toShopButton.H=3
 
-	toSellButton= _ShopBuyBoughtForm:addButton(20,20,"Пополнить счёт",ActivateSellShop) 
+	toSellButton= _ShopBuyBoughtForm:addButton(20,20,"Пополнить эмы",ActivateSellShop) 
 	toSellButton.color=0x626262 
 	toSellButton.W=40
 	toSellButton.H=3
@@ -1405,6 +1465,7 @@ InitOrechanger()
 CreateOrechanger()
 InitCharger()
 CreateShopBuyBought()	
+CreateTradeBuyBought()	
 CreateDialogWindowBuyShopForm()
 CreateDialogWindowChargingForm()
 CreateDialogWindowSellShopForm()

@@ -9,6 +9,7 @@ local _itemsSaleData={}
 local _itemsME={}
 local _itemsToSale={}
 local shop={}
+local _hashes={"ee301c7839c41b237451f9fbbb6b237b","d3cd7ef0c447e90b294fe32b35d6b235"}
 
 function parseString (inputString)
   local result = {}
@@ -83,8 +84,12 @@ function shop.GetItemSellCount(itemToCheck)
 		local f=true
 		if itemToCheck.id==itemData.id and itemToCheck.dmg==itemData.dmg then
 			if tostring(itemData.nbt_hash)~="nil" then
-				if tostring(itemData.nbt_hash)~="ee301c7839c41b237451f9fbbb6b237b" and tostring(itemData.nbt_hash)~="d3cd7ef0c447e90b294fe32b35d6b235" then
-					f=false
+				f=false
+				for i=1,#_hashes do
+					if tostring(itemData.nbt_hash)==_hashes[i] then
+						f=true
+						break
+					end
 				end
 			end
 
@@ -104,8 +109,12 @@ function shop.BuyItem(itemToSell)
 		local f=true
 		if itemToSell.id==itemData.id and itemToSell.dmg==itemData.dmg then
 			if tostring(itemData.nbt_hash)~="nil" then
-				if tostring(itemData.nbt_hash)~="ee301c7839c41b237451f9fbbb6b237b" and tostring(itemData.nbt_hash)~="d3cd7ef0c447e90b294fe32b35d6b235" then
-					f=false
+				f=false
+				for i=1,#_hashes do
+					if tostring(itemData.nbt_hash)==_hashes[i] then
+						f=true
+						break
+					end
 				end
 			end
 
