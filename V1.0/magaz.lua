@@ -1111,12 +1111,12 @@ function CreateTradeBuyBought()
 	_TradeBuyBoughtForm.H=40
 	_TradeBuyBoughtForm.color=_mainBackgroundColor
 
-	toShopButton= _TradeBuyBoughtForm:addButton(20,15,"Купить за эмы",	ActivateTrade) 
+	toShopButton= _TradeBuyBoughtForm:addButton(20,15,"Обмен ресурсов",	ActivateTrade) 
 	toShopButton.color=0x626262 
 	toShopButton.W=40
 	toShopButton.H=3
 
-	toSellButton= _TradeBuyBoughtForm:addButton(20,20,"Пополнить эмы",ActivateSellTrade) 
+	toSellButton= _TradeBuyBoughtForm:addButton(20,20,"Пополнить коины",ActivateSellTrade) 
 	toSellButton.color=0x626262 
 	toSellButton.W=40
 	toSellButton.H=3
