@@ -481,6 +481,9 @@ function UpdateShopGoodInfo(check)
 
 	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
 	_shopEnoughEmsLabel:redraw()
+
+	_shopIDLabel.caption="ID ".._shopList.items[_shopList.index].itemId
+	_shopIDLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
 	ShopShowImage()
@@ -698,6 +701,12 @@ function CreateShop()
 	label.autoSize  = false
 	label.W=40
 
+	label = _shopForm:addLabel(5,38,"Поиск предметов (ввод в окне ниже)")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
 	local label = _shopForm:addLabel(xStart-1,yStart+19,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
 	label.centered = true
@@ -721,6 +730,9 @@ function CreateShop()
 	
 	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,15,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
+
+	_shopIDLabel=_shopForm:addLabel(xStart+xShift,17,"4")
+	_shopIDLabel.color = _mainBackgroundColor
 
 	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
@@ -779,7 +791,7 @@ function CreateShop()
 	
 	SetShopList()
 	-------------------------------------
-	_shopEditField=_shopForm:addEdit(5,38,ListSearch,ListSearchQuick)
+	_shopEditField=_shopForm:addEdit(5,39,ListSearch,ListSearchQuick)
 	_shopEditField.W=40
 	_shopEditField.h=3
 	_shopEditField.border=0
@@ -1353,9 +1365,13 @@ function CheckMessages(_,_,_,_,_,message)
 	else
 		local mes=string.gsub(message, "players", "")
 
-			if #message~=#mes then
-				_playersNear=tonumber(mes)
-			end
+		if #message~=#mes then
+			_playersNear=tonumber(mes)
+		end
+
+		if _playersNear==0 then
+			 OpenEnterMenu()
+		end
 	end
 end
 
