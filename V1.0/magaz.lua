@@ -9,7 +9,6 @@ local changer=require("orechanger")
 local internet = require("internet")
 local modem = component.tunnel
 local _tapeMagaz
-
 -------------FORMS------------------
 local _mainForm = nil
 local _menuForm = nil
@@ -22,10 +21,12 @@ local _mainBackgroundColor = nil
 local _ShopBuyBoughtForm = nil
 local _TradeBuyBoughtForm = nil
 
+local _tradeSellForm = nil
+local _tradeForm = nil
+
 local _state=""
 -------------USER------------------ 
 local _playerName=""  
-
 ------------BUTTONS----------------
 local _btnEnter=nil
 
@@ -62,6 +63,8 @@ local _orechangerTradeGoodLabel = nil
 local _shopList=nil
 local _shopSellList=nil
 local _orechangerList=nil
+local _tradeSellList = nil
+local _tradeList = nil
 ------------EDITS----------------
 local _shopEditField = nil
 ----------GLOBALVARS-------------
@@ -236,11 +239,11 @@ function ActivateTrade(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then
 			gpu.setResolution(90,45)
-			_shopForm:setActive()
-			SetBalanceView(_playerEms)
-			_shopList.index=1
-			_shopList:redraw()
-			UpdateShopGoodInfo(true)
+			_tradeForm:setActive()
+			--SetBalanceView(_playerEms)-->
+			_tradeList.index=1
+			_tradeList:redraw()
+			--UpdateShopGoodInfo(true)-->
 		end
 	end
 end
@@ -249,11 +252,11 @@ function ActivateSellTrade(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then
 			gpu.setResolution(90,45)
-			_shopSellForm:setActive()
-			SetBalanceSellView(_playerEms)
-			_shopSellList.index=1
-			_shopSellList:redraw()
-			UpdateShopSellGoodInfo()
+			_tradeSellForm:setActive()
+			--SetBalanceSellView(_playerEms)-->
+			_tradeSellList.index=1
+			_tradeSellList:redraw()
+			--UpdateShopSellGoodInfo()-->
 		end
 	end
 end
