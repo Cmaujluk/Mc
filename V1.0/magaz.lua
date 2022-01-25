@@ -482,8 +482,8 @@ function UpdateShopGoodInfo(check)
 	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
 	_shopEnoughEmsLabel:redraw()
 
-	_shopIDLabel.caption="ID ".._shopList.items[_shopList.index].itemId
-	_shopIDLabel:redraw()
+	--_shopIDLabel.caption="ID ".._shopList.items[_shopList.index].itemId
+	--_shopIDLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
 	ShopShowImage()
@@ -731,8 +731,8 @@ function CreateShop()
 	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,15,"4")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
-	_shopIDLabel=_shopForm:addLabel(xStart+xShift,17,"4")
-	_shopIDLabel.color = _mainBackgroundColor
+	--_shopIDLabel=_shopForm:addLabel(xStart+xShift,17,"4")
+	--_shopIDLabel.color = _mainBackgroundColor
 
 	_shopBalanceEmsLabel=_shopForm:addLabel(2,2,"")
 	_shopBalanceEmsLabel.color = _mainBackgroundColor
