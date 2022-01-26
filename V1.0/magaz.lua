@@ -464,7 +464,7 @@ function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(47,10,16,9," ")
 
-	pic=graffiti.load("/home/".._shopList.items[_shopList.index].localId..".png") --debug
+	pic=graffiti.load("/home/imgs/".._shopList.items[_shopList.index].localId..".png") --debug
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
 end
 
@@ -472,7 +472,7 @@ function ShopShowImageSell()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(47,10,16,9," ")
 
-	pic=graffiti.load("/home/".._shopSellList.items[_shopSellList.index].img..".png") --debug
+	pic=graffiti.load("/home/imgs/".._shopSellList.items[_shopSellList.index].img..".png") --debug
 	graffiti.draw(pic, 47,21,16,16) --debug картиночки
 end
 
@@ -481,13 +481,13 @@ function ShowImageOrechanger()
 		gpu.setBackground(0x3E3D47)
 		gpu.fill(47,10,16,9," ")
 
-		pic=graffiti.load("/home/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
+		pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
 		graffiti.draw(pic, 47,21,16,16) --debug картиночки
 
 		gpu.setBackground(0x3E3D47)
 		gpu.fill(47,22,16,9," ")
 
-		pic=graffiti.load("/home/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
+		pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
 		graffiti.draw(pic, 47,45,16,16) --debug картиночки
 	else
 		_orechangerForm:redraw()
