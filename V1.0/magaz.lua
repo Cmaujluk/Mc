@@ -287,6 +287,18 @@ function ActivateWandCharger(obj,name)
 	end
 end
 
+function ActivateCasinoBuy(obj,name)---->>> TODO
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then
+			gpu.setResolution(90,45)
+			--SetBalanceChargerView(_playerEms)
+			--_wandChargerForm:setActive()
+			_chargingLabel.caption=""
+			_chargingLabel:redraw()
+		end
+	end
+end
+
 function CreateMainMenu()
 	_menuForm=forms.addForm()       
 	_menuForm.W=80
@@ -306,7 +318,7 @@ function CreateMainMenu()
 	methods[2]=ActivateOreChanger 
 	--methods[3]=AcrivateTradeBuyBoughtMenu
 	methods[3]=ActivateWandCharger	
-	methods[4]=ActivateShop	
+	methods[4]=ActivateCasinoBuy	
 	--methods[6]=ActivateShop
 	--methods[7]=ActivateShop
 
@@ -325,9 +337,9 @@ function CreateMainMenu()
 	_menuPlayerEmsLabel=_menuForm:addLabel(3,5,_playerEms.." эм")
 	_menuPlayerEmsLabel.color=_mainBackgroundColor   
 	_menuPlayerEmsLabel.fontColor=0xFFE9BD  
-	_menuPlayerCoinsLabel=_menuForm:addLabel(3,6,_playerCoins.." коинов") -->
-	_menuPlayerCoinsLabel.color=_mainBackgroundColor   
-	_menuPlayerCoinsLabel.fontColor=0xFFE9BD  
+	--_menuPlayerCoinsLabel=_menuForm:addLabel(3,6,_playerCoins.." коинов") -->
+	--_menuPlayerCoinsLabel.color=_mainBackgroundColor   
+	--_menuPlayerCoinsLabel.fontColor=0xFFE9BD  
 
 	backToEnterMenu=_menuForm:addButton(3,38,"← Назад",OpenEnterMenu) 
 	backToEnterMenu.autoSize=false
