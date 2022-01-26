@@ -1349,7 +1349,7 @@ function CreateOrechanger()
 	_orechangerYouWillGetLabel.color = _mainBackgroundColor 
 	_orechangerYouWillGetLabel:hide()
 	
-	buyButton= _orechangerForm:addButton(56,30,"Обменять",function(obj,name)
+	buyButton= _orechangerForm:addButton(56,32,"Обменять",function(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then  
 			if #_orechangerList.items>0 then
@@ -1393,7 +1393,7 @@ function CreateOrechanger()
 			end
 
 			if allTrades>0 then
-				ShowOrechangerDialog("Вы успешно обменяли "..allTrades.." руд",true)
+				ShowOrechangerDialog("Вы успешно обменяли руду на "..allTrades.." слитков",true)
 				VoiceSay("trade_ores")
 			else
 				ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
@@ -1405,7 +1405,7 @@ function CreateOrechanger()
 	buyButton.W=23
 	buyButton.H=3
 
-	buyButton= _orechangerForm:addButton(56,42,"Обновить",function()  
+	buyButton= _orechangerForm:addButton(56,40,"Обновить",function()  
 		SetOrechangerList()
 		_orechangerList.index=0
 		UpdateOrechangerGoodInfo()
