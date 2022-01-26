@@ -1,6 +1,6 @@
 local component = require("component")  
 local internet = require("internet")
-local bd = component.database
+local bd = nil
 local chest = component.crystal
 local interface
 
@@ -161,8 +161,9 @@ function shop.GetItemsSaleData()
 	return _itemsSaleData
 end
 
-function shop.Init(address)
+function shop.Init(address,bdaddress)
 	interface = component.proxy(address)
+	bd = component.proxy(bdaddress)
 	GetItemsFromBD()
 	GetItemsFromME()
 	ParseItemsToSale()

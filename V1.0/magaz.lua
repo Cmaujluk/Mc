@@ -296,21 +296,21 @@ function CreateMainMenu()
 	local labels={}	
 	labels[1]="Магазин"	
 	labels[2]="Обмен руд 1 к 2"	
-	labels[3]="Обмен ресурсы на ресурсы без эмов"	
-	labels[4]="Зарядка жезлов таумкрафт"	
-	labels[5]="Купить билеты в казино"	
+	--labels[3]="Обмен ресурсы на ресурсы без эмов"	
+	labels[3]="Зарядка жезлов таумкрафт"	
+	labels[4]="Купить билеты в казино"	
 	--labels[6]="Лотерея"	
 	--labels[7]="Мехи"
 	local methods={} 
 	methods[1]=AcrivateShopBuyBoughtMenu 
 	methods[2]=ActivateOreChanger 
-	methods[3]=AcrivateTradeBuyBoughtMenu
-	methods[4]=ActivateWandCharger	
-	methods[5]=ActivateShop	
+	--methods[3]=AcrivateTradeBuyBoughtMenu
+	methods[3]=ActivateWandCharger	
+	methods[4]=ActivateShop	
 	--methods[6]=ActivateShop
 	--methods[7]=ActivateShop
 
-	local shift=4
+	local shift=6
 	for i=1, #labels do
 		CreateButton(_menuForm,20,8+shift*i,3, 40,labels[i],methods[i])
 	end
@@ -1107,7 +1107,7 @@ function CreateTrade()-->
 		button.border=0
 	end
 	
-	--SetShopList()-->
+	SetTradeList()-->
 	-------------------------------------
 	_tradeEditField=_tradeForm:addEdit(5,41,ListSearch,ListSearchQuick)-->
 	_tradeEditField.W=40
@@ -1750,13 +1750,14 @@ function OnlyOnePLayer()
 end
 ------------------------------------
 Init()
-shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
+local bdaddres="1928bda8-78cc-4734-b7a8-c3c7f741faaa"
+shop.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda",bdaddres)
 changer.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
 InitOrechanger()
 CreateOrechanger()
 InitCharger()
 CreateShopBuyBought()	
-CreateTradeBuyBought()	
+--CreateTradeBuyBought()	
 CreateDialogWindowBuyShopForm()
 CreateDialogWindowChargingForm()
 CreateDialogWindowSellShopForm()
@@ -1765,8 +1766,8 @@ CreateDialogWindowTooManyPlayers()
 InitShop()
 InitSaleShop()
 CreateShop()
-CreateTrade()
-CreateTradeSell()
+--CreateTrade()
+--CreateTradeSell()
 CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()
