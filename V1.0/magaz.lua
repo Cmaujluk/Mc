@@ -103,7 +103,7 @@ end
 
 function InitCharger()
 	local chargerAddress="fdef5243-78b2-4bc8-ae95-3c4d20ed7a19"
-	local getterAddress="32c9152e-d90c-4b3e-88c3-7d29b2dc562e"
+	local getterAddress="1c512da8-3170-469e-a9c3-789fee25a7f1"
 	charger.Init(chargerAddress,getterAddress)
 end
 
@@ -310,7 +310,7 @@ function CreateMainMenu()
 	--methods[6]=ActivateShop
 	--methods[7]=ActivateShop
 
-	local shift=6
+	local shift=5
 	for i=1, #labels do
 		CreateButton(_menuForm,20,8+shift*i,3, 40,labels[i],methods[i])
 	end
@@ -1750,9 +1750,9 @@ function OnlyOnePLayer()
 end
 ------------------------------------
 Init()
-local getterInterface="32c9152e-d90c-4b3e-88c3-7d29b2dc562e"
+local getterInterface="1c512da8-3170-469e-a9c3-789fee25a7f1"
 shop.Init(getterInterface)
-changer.Init("32c9152e-d90c-4b3e-88c3-7d29b2dc562e")
+changer.Init("1c512da8-3170-469e-a9c3-789fee25a7f1")
 InitOrechanger()
 CreateOrechanger()
 InitCharger()
