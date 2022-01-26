@@ -453,7 +453,7 @@ function SetOrechangerList()
 	local data = changer.GetDataItems()
 
 	for i,j in pairs(_itemsOrechanger) do
-		data[i][10]=j
+		data[i][20]=j
 		_orechangerList:insert(data[i][3],data[i])
 	end
 
@@ -487,7 +487,7 @@ function ShowImageOrechanger()
 		gpu.setBackground(0x3E3D47)
 		gpu.fill(47,22,16,9," ")
 
-		pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
+		pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][10]..".png") --debug
 		graffiti.draw(pic, 47,45,16,16) --debug картиночки
 	else
 		_orechangerForm:redraw()
@@ -581,9 +581,9 @@ function UpdateOrechangerGoodInfo()-->
 
 	if(#_orechangerList.items>0) then
 		if _orechangerList.index<1 then _orechangerList.index=1 end
-		_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][10]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
+		_orechangerTradeGoodLabel.caption=(_orechangerList.items[_orechangerList.index][20]*_orechangerList.items[_orechangerList.index][7]).." ".._orechangerList.items[_orechangerList.index][6]
 		_orechangerSelectedGoodLabel.caption=_orechangerList.items[_orechangerList.index][3]
-		_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][10].." шт"
+		_orechangerAvailableGoodLabel.caption="У вас есть ".._orechangerList.items[_orechangerList.index][20].." шт"
 		_orechangerLeftChestLabel:show()
 		_orechangerYouWillGetLabel:show()
 	else
@@ -1337,21 +1337,52 @@ function CreateOrechanger()
 	_orechangerYouWillGetLabel.color = _mainBackgroundColor 
 	_orechangerYouWillGetLabel:hide()
 	
-	buyButton= _orechangerForm:addButton(56,36,"Обменять",function(obj,name)
+	buyButton= _orechangerForm:addButton(56,30,"Обменять",function(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then  
 			if #_orechangerList.items>0 then
-				if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10]) then
+				if changer.CanChange(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][20]) then
 
-					local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][10])
+					local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][20])
 					if soldCount>0 then
-						ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][10].." ".._orechangerList.items[_orechangerList.index][3],true)
+						ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][20].." ".._orechangerList.items[_orechangerList.index][3],true)
 						VoiceSay("trade_ores")
 					end
 				else
 					ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[_orechangerList.index][3],false) 
 				end
 				SetOrechangerList()
+			else
+				ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
+			end
+		end
+	end
+	end) 
+	buyButton.color=0x5C9A47
+	buyButton.W=23
+	buyButton.H=3
+
+
+	buyButton= _orechangerForm:addButton(56,36,"Обменять всё",function(obj,name)
+
+	
+	local allTrades=0
+	if(OnlyOnePLayer()) then
+		if(CheckLogin(name)) then  
+			if #_orechangerList.items>0 then
+				for i=1, #_orechangerList.items do
+					if changer.CanChange(_orechangerList.items[i][8],_orechangerList.items[i][20]) then
+						allTrades=allTrades+changer.Change(_orechangerList.items[i][8],_orechangerList.items[i][20])
+					else
+						ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[i][3],false) 
+					end
+				end
+				SetOrechangerList()
+			end
+
+			if allTrades>0 then
+				ShowOrechangerDialog("Вы успешно обменяли "..allTrades.." руд",true)
+				VoiceSay("trade_ores")
 			else
 				ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
 			end
