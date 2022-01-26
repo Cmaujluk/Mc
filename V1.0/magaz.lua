@@ -1752,7 +1752,7 @@ end
 Init()
 local getterInterface="32c9152e-d90c-4b3e-88c3-7d29b2dc562e"
 shop.Init(getterInterface)
-changer.Init("63dbdd6d-78a9-4fdd-aecd-22c0eb789bda")
+changer.Init("fdef5243-78b2-4bc8-ae95-3c4d20ed7a19")
 InitOrechanger()
 CreateOrechanger()
 InitCharger()
