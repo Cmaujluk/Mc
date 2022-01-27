@@ -488,8 +488,8 @@ function ShopShowImageSell()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(47,10,16,9," ")
 
-	pic=graffiti.load("/home/imgs/".._shopSellList.items[_shopSellList.index].img..".png") --debug
-	graffiti.draw(pic, 47,21,16,16) --debug картиночки
+	--pic=graffiti.load("/home/imgs/".._shopSellList.items[_shopSellList.index].img..".png") --debug
+	graffiti.draw(_allPictures[tostring(_shopSellList.items[_shopSellList.index].img)], 47,21,16,16) --debug картиночки
 end
 
 function ShowImageOrechanger()
@@ -497,14 +497,14 @@ function ShowImageOrechanger()
 		gpu.setBackground(0x3E3D47)
 		gpu.fill(47,10,16,9," ")
 
-		pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
-		graffiti.draw(pic, 47,21,16,16) --debug картиночки
+		--pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][9]..".png") --debug
+		graffiti.draw(_allPictures[tostring(_orechangerList.items[_orechangerList.index][9])], 47,21,16,16) --debug картиночки
 
 		gpu.setBackground(0x3E3D47)
 		gpu.fill(47,22,16,9," ")
 
-		pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][10]..".png") --debug
-		graffiti.draw(pic, 47,45,16,16) --debug картиночки
+		--pic=graffiti.load("/home/imgs/".._orechangerList.items[_orechangerList.index][10]..".png") --debug
+		graffiti.draw(_allPictures[tostring(_orechangerList.items[_orechangerList.index][10])], 47,45,16,16) --debug картиночки
 	else
 		_orechangerForm:redraw()
 	end
@@ -522,7 +522,14 @@ function UpdateShopGoodInfo(check)
 	_shopPriceGoodLabel.caption="Цена: ".._shopList.items[_shopList.index].price.." эм"
 	_shopPriceGoodLabel:redraw()
 
-	_shopAvailableGoodLabel.caption="Доступно: "..shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
+	local count = shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
+	local toShow=count
+
+	if(count>10000) then toShow = ">10к" end
+	if(count>5000) then toShow = ">5к" end
+	if(count>2000) then toShow = ">1к" end
+
+	_shopAvailableGoodLabel.caption="Доступно: "..toShow
 	_shopAvailableGoodLabel:redraw()
 
 	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
