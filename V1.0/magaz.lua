@@ -151,6 +151,7 @@ function Login(name)
 
 	if(loginName==nil) then 
 		OpenEnterMenu()
+		return
 	end
 	
 	getdata = internet.request("https://toolbexgames.com/mc_getdata.php?name="..loginName)
