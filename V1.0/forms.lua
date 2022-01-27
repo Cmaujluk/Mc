@@ -307,10 +307,6 @@ term.setCursorBlink(true)
 writeText()
 local event, address, arg1, arg2, arg3
 while running do
-    local ev,adr,x,y,btn,user=computer.pullSignal()--event.pull()
-    if(user=="stop") then
-        running=false
-    end
   event, address, arg1, arg2, arg3 = term.pull()
   if type(address) == "string" and isPrimary(address) then
     term.setCursorBlink(false)

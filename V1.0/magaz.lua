@@ -148,6 +148,10 @@ function Login(name)
 	--_mainGPU.setForeground(0xffcc00) 
 	--_mainGPU.fill(1,1,w,1," ")
 	--_mainGPU.set(1,1,"Соединение с базой данных...")
+
+	if(loginName==nil) then 
+		OpenEnterMenu()
+	end
 	
 	getdata = internet.request("https://toolbexgames.com/mc_getdata.php?name="..loginName)
 	
@@ -511,9 +515,9 @@ function ShowImageOrechanger()
 end
 
 function UpdateShopGoodInfo(check)
-	if check then
+	--if check then
 		if #_shopList.items==0 or _shopList.index==nil then return end
-	end
+	--end
 
 	_shopSelectedGoodLabel.caption =_shopList.items[_shopList.index].label
 	_shopSelectedGoodLabel.centered =true
