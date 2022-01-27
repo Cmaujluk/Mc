@@ -223,10 +223,10 @@ function ActivateShop(obj,name)
 			gpu.setResolution(90,45)
 			_shopForm:setActive()
 			SetBalanceView(_playerEms)
-			_shopList.index=1
-			_shopList:redraw()
 			_shopEditField.text=""
 			_shopEditField:redraw()
+			_shopList.index=1
+			_shopList:redraw()
 			UpdateShopGoodInfo(true)
 		end
 	end
