@@ -33,11 +33,11 @@ for i=1,#product/8 do
 end
 
 for i=1,8 do
-	shell.execute("wget -f "..prefix.."sell_"..i..".png /home/imgs/".."sell_"..i..".png")
+	shell.execute("wget -f "..prefix.."sell_"..i..".png /home/imgs/sell_"..i..".png")
 end
 
 for i=1,12 do
-	shell.execute("wget -f "..prefix.."trade_"..i..".png /home/imgs/".."trade_"..i..".png")
+	shell.execute("wget -f "..prefix.."trade_"..i..".png /home/imgs/trade_"..i..".png")
 end
 
 

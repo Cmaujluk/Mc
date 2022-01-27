@@ -481,7 +481,7 @@ function ShopShowImage()
 
 	--pic=graffiti.load("/home/imgs/".._shopList.items[_shopList.index].localId..".png") --debug
 	--graffiti.draw(pic, 47,21,16,16) --debug картиночки
-	graffiti.draw(_allPictures[_shopList.items[_shopList.index].localId], 47,21,16,16)
+	graffiti.draw(_allPictures[tostring(_shopList.items[_shopList.index].localId)], 47,21,16,16)
 end
 
 function ShopShowImageSell()
@@ -1780,15 +1780,12 @@ end
 
 function PreloadAllPictures()
 	local fileindex={}
-	function getfiles(dir)
-		tempload = 0
-		for file in filesystem.list(dir) do
-		  tempload = tempload + 1
-		  fileindex[tempload] = file
-		  end
+	tempload = 0
+	
+	for file in filesystem.list("home/imgs/") do
+		tempload = tempload + 1
+		fileindex[tempload] = file
 	end
-
-	getfiles("home/imgs/")
 
 	for i=1,#fileindex do
 		local fileName = tostring(fileindex[i])
