@@ -60,7 +60,6 @@ local _shopPriceSellGoodLabel = nil
 local _orechangerAvailableGoodLabel = nil
 local _shopAvailableSellGoodLabel = nil
 local _orechangerTradeGoodLabel = nil
-
 -------------LISTS---------------
 local _shopList=nil
 local _shopSellList=nil
@@ -77,7 +76,7 @@ local _items={}
 local _lastTextToSort=""
 local _playersNear=0
 local _allPictures={}
-local _forceQuit=false
+
 
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
@@ -137,19 +136,11 @@ function AcrivateMainMenu(obj, name)
 end
 
 function OpenEnterMenu()
-	 _forceQuit=false
 	gpu.setResolution(140,40)
 	_mainForm:setActive()
 end
 
 function Login(name)
-
-	if(_forceQuit) then
-		_forceQuit=false
-	    OpenEnterMenu()
-	    return
-	end
-
 	local loginName=name
 	local result = ""
 	
@@ -534,9 +525,17 @@ function UpdateShopGoodInfo(check)
 	local count = shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
 	local toShow=count
 
-	if(count>10000) then toShow = ">10к" end
-	if(count>5000) then toShow = ">5к" end
-	if(count>2000) then toShow = ">1к" end
+	if(count>10000) then 
+		toShow = ">10к" 
+	else
+		if(count>5000) then 
+			toShow = ">5к" 
+		else
+			if(count>1000) then 
+				toShow = ">1к" 
+			end 
+		end 
+	end
 
 	_shopAvailableGoodLabel.caption="Доступно: "..toShow
 	_shopAvailableGoodLabel:redraw()
@@ -544,8 +543,6 @@ function UpdateShopGoodInfo(check)
 	_shopEnoughEmsLabel.caption="Хватает на "..math.floor(_playerEms/_shopList.items[_shopList.index].price).." шт"
 	_shopEnoughEmsLabel:redraw()
 
-	--_shopIDLabel.caption="ID ".._shopList.items[_shopList.index].itemId
-	--_shopIDLabel:redraw()
 	_shopSelectedCount = ""
 	ShopUpdateSelectedGoodsCount()
 	ShopShowImage()
@@ -1784,7 +1781,6 @@ function CheckMessages(_,_,_,_,_,message)
 		end
 
 		if _playersNear==0 then
-			 _forceQuit=true
 			 OpenEnterMenu()
 		end
 	end

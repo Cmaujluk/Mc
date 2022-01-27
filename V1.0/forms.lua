@@ -316,6 +316,10 @@ while running do
     elseif event == "scroll" then onScroll(arg3)
     end
     term.setCursorBlink(true)
+    local ev,adr,x,y,btn,user=computer.pullSignal()--event.pull()
+    if(user=="stop") then
+        running=false
+    end
   end
 end
 if event=="touch" then pushSignal( event, address, arg1, arg2, arg3 ) end
