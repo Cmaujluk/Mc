@@ -226,8 +226,7 @@ function ActivateShop(obj,name)
 			_shopEditField.text=""
 			_shopEditField:redraw()
 			_shopList.index=1
-			_shopList:redraw()
-			UpdateShopGoodInfo(true)
+			ListSearch()
 		end
 	end
 end
