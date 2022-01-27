@@ -39,3 +39,7 @@ end
 for i=1,12 do
 	shell.execute("wget -f "..prefix.."trade_"..i..".png /home/imgs/".."trade_"..i..".png")
 end
+
+
+
+--wget -f ttps://raw.githubusercontent.com/Cmaujluk/Mc/master/V1.0/mcImgs/trade_124.png /home/imgs/trade_124.png 
