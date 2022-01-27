@@ -7,6 +7,7 @@ local unicode = require("unicode")
 local shop = require("shop")
 local changer=require("orechanger")
 local internet = require("internet")
+local filesystem = require("filesystem")
 local modem = component.tunnel
 local _tapeMagaz
 -------------FORMS------------------
@@ -74,6 +75,8 @@ local _playerCoins=0
 local _items={}
 local _lastTextToSort=""
 local _playersNear=0
+local _allPictures={}
+
 
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
@@ -476,8 +479,9 @@ function ShopShowImage()
 	gpu.setBackground(0x3E3D47)
 	gpu.fill(47,10,16,9," ")
 
-	pic=graffiti.load("/home/imgs/".._shopList.items[_shopList.index].localId..".png") --debug
-	graffiti.draw(pic, 47,21,16,16) --debug картиночки
+	--pic=graffiti.load("/home/imgs/".._shopList.items[_shopList.index].localId..".png") --debug
+	--graffiti.draw(pic, 47,21,16,16) --debug картиночки
+	graffiti.draw(_allPictures[_shopList.items[_shopList.index].localId], 47,21,16,16)
 end
 
 function ShopShowImageSell()
@@ -1774,6 +1778,28 @@ function InitRemoveControl()
 end
 
 
+function PreloadAllPictures()
+	local fileindex={}
+	function getfiles(dir)
+		tempload = 0
+		for file in filesystem.list(dir) do
+		  tempload = tempload + 1
+		  fileindex[tempload] = file
+		  end
+	end
+
+	getfiles("home/imgs/")
+
+	for i=1,#fileindex do
+		local fileName = tostring(fileindex[i])
+		local name=fileName:gsub("%.png", "")
+		
+		_allPictures[name]=graffiti.load("/home/imgs/"..name..".png") --debug
+	end
+end
+	
+
+
 ------------------------------------
 function RunForm()
 	forms.run(_mainForm) 
@@ -1817,4 +1843,5 @@ CreateMainMenu()
 CreateShopSell()
 CreateWandCharger()
 InitRemoveControl()
+PreloadAllPictures()
 RunForm()
