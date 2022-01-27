@@ -137,6 +137,7 @@ function AcrivateMainMenu(obj, name)
 end
 
 function OpenEnterMenu()
+	 _forceQuit=false
 	gpu.setResolution(140,40)
 	_mainForm:setActive()
 end
@@ -144,6 +145,7 @@ end
 function Login(name)
 
 	if(_forceQuit) then
+		_forceQuit=false
 	    OpenEnterMenu()
 	    return
 	end
