@@ -60,6 +60,7 @@ local _shopPriceSellGoodLabel = nil
 local _orechangerAvailableGoodLabel = nil
 local _shopAvailableSellGoodLabel = nil
 local _orechangerTradeGoodLabel = nil
+
 -------------LISTS---------------
 local _shopList=nil
 local _shopSellList=nil
@@ -76,7 +77,7 @@ local _items={}
 local _lastTextToSort=""
 local _playersNear=0
 local _allPictures={}
-
+local _forceQuit=false
 
 local keyboard = {"１","２","３","４","５","６","７","８","９","Ｃ","０","←"}
 ------------DEBUG----------------
@@ -141,6 +142,12 @@ function OpenEnterMenu()
 end
 
 function Login(name)
+
+	if(_forceQuit) then
+	    OpenEnterMenu()
+	    return
+	end
+
 	local loginName=name
 	local result = ""
 	
@@ -1775,6 +1782,7 @@ function CheckMessages(_,_,_,_,_,message)
 		end
 
 		if _playersNear==0 then
+			 _forceQuit=true
 			 OpenEnterMenu()
 		end
 	end
