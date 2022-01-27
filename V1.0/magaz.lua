@@ -147,7 +147,7 @@ function Login(name)
 	--_mainGPU.setBackground(_backColor)
 	--_mainGPU.setForeground(0xffcc00) 
 	--_mainGPU.fill(1,1,w,1," ")
-	--_mainGPU.set(1,1,"Соединение с базой данных...")
+	--_mainGPU.set(1,1,"Соединение с базой данных...") -->
 
 	if(loginName==nil) then 
 		OpenEnterMenu()
@@ -225,6 +225,8 @@ function ActivateShop(obj,name)
 			SetBalanceView(_playerEms)
 			_shopList.index=1
 			_shopList:redraw()
+			_shopEditField.text=""
+			_shopEditField:redraw()
 			UpdateShopGoodInfo(true)
 		end
 	end
