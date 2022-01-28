@@ -9,7 +9,7 @@ local _itemsSaleData={}
 local _itemsME={}
 local _itemsToSale={}
 local shop={}
-local _hashes={"ee301c7839c41b237451f9fbbb6b237b","d3cd7ef0c447e90b294fe32b35d6b235"}
+local _hashes={"2e94223230f58b25132845f36a7f3691","d3cd7ef0c4"}
 
 function parseString (inputString)
   local result = {}

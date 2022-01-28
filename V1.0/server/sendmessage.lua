@@ -8,23 +8,23 @@ local computer = require("computer")
 
 local _lastTimer=-1
 
-local _tapeMagaz = component.proxy("540ad9de-fcb1-481a-978e-3ab5c3e51cbe")
+local _tapeMagaz = component.proxy("8f20cdb2-7ac1-42d3-a6cb-b54314b19f6b")
 local _tapeMagazLength=-1
 _tapeMagaz.setSpeed(2)
 
-local _tapeEms = component.proxy("88509495-8410-485f-83ee-f8b7f3042572")
+local _tapeEms = component.proxy("d48fb3d2-5150-42ef-8eaf-1ddb127bc97a")
 local _tapeEmsLength=-1
 _tapeEms.setSpeed(2)
 
-local _tapeOres = component.proxy("ef5782d0-f518-4e29-93a3-bed245f6da4d")
+local _tapeOres = component.proxy("5f81e0d1-da45-466b-bb71-ae890e5078df")
 local _tapeOresLength=-1
 _tapeOres.setSpeed(2)
 
-local _tapeTrade = component.proxy("ad67551f-4f82-4dc1-be07-09972abee96d")
+local _tapeTrade = component.proxy("3f2434ae-d34f-4565-acb3-033724ca1326")
 local _tapeTradeLength=-1
 _tapeTrade.setSpeed(2)
 
-local _tapeWand = component.proxy("cbc8dfb1-918c-492b-a0ea-a230f24d0ff8")
+local _tapeWand = component.proxy("62572dba-88e4-4fe3-87af-5587c81e92ff")
 local _tapeWandLength=-1
 _tapeWand.setSpeed(2)
 
@@ -152,7 +152,7 @@ function Timer()
 end
 
 function Work()
-	if(redstone.getBundledInput(4,colors.orange)~=0) then
+	if(redstone.getBundledInput(2,colors.orange)~=0) then
 		modem.send("stop")
 	end
 	
@@ -161,9 +161,9 @@ function Work()
 	modem.send("players".._playersNear)
 	
 	if(_playersNear==1) then
-		redstone.setBundledOutput(4,colors.white,15)
+		redstone.setBundledOutput(2,colors.white,15)
 	else
-		redstone.setBundledOutput(4,colors.white,0)
+		redstone.setBundledOutput(2,colors.white,0)
 	end
 	
 	local ev,adr,x,y,btn,user=computer.pullSignal(0.01)

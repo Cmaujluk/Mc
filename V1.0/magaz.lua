@@ -25,6 +25,8 @@ local _TradeBuyBoughtForm = nil
 local _tradeSellForm = nil
 local _tradeForm = nil
 
+local _casinoTradeForm = nil
+
 local _state=""
 -------------USER------------------ 
 local _playerName=""  
@@ -42,8 +44,13 @@ local _shopPriceGoodLabel=nil
 local _shopEnoughEmsLabel=nil
 local _shopBalanceEmsLabel=nil
 local _shopBalanceEmsLabel2=nil
+local _casinoTradeBalanceEmsLabel = nil
+local _casinoTradeBalanceEmsLabel2 = nil
 local _shopWantBuyGoodLabel=nil
+local _casinoTradeWantBuyGoodLabel=nil
 local _shopCountWantBuyGoodLabel=nil
+local _casinoTradeWantBuyGoodLabel=nil
+local _casinoTradeCountWantBuyGoodLabel=nil
 local _shopSelectedSellGoodLabel=nil
 local _orechangerSelectedGoodLabel=nil
 local _shopDialogLabel = nil
@@ -105,8 +112,8 @@ function Init()
 end
 
 function InitCharger()
-	local chargerAddress="fdef5243-78b2-4bc8-ae95-3c4d20ed7a19"
-	local getterAddress="1c512da8-3170-469e-a9c3-789fee25a7f1"
+	local chargerAddress="34df9f06-d04e-4308-b207-42e97fd27b32"
+	local getterAddress="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
 	charger.Init(chargerAddress,getterAddress)
 end
 
@@ -666,6 +673,23 @@ function SetBalanceView(count)
 	_shopBalanceEmsLabel2:redraw()
 end
 
+function SetBalanceCasinoTradeView(count)
+	local str=tostring(count)
+	local add=""
+	for i=1, #str do
+		add=add.." "
+	end
+
+	local score=tonumber(add)
+	if score==nil then score=0 end
+
+	_casinoTradeBalanceEmsLabel.caption="Баланс: "..add.." эм ♦"
+	_casinoTradeBalanceEmsLabel2.caption=str
+	_casinoTradeBalanceEmsLabel:redraw()
+	_casinoTradeBalanceEmsLabel2:redraw()
+end
+
+
 function SetBalanceSellView(count)
 	local str=tostring(count)
 	local add=""
@@ -961,7 +985,7 @@ function CreateShopSell()
 		if soldCount>0 then
 			ShowShopSellDialog("Вы успешно продали "..soldCount.." товаров на сумму "..(soldCount*_shopSellList.items[_shopSellList.index].price).." эм",true)
 			VoiceSay("shop_ems")
-			AddCurrency(soldCount)
+			AddCurrency(soldCount*_shopSellList.items[_shopSellList.index].price)
 
 			SetBalanceSellView(_playerEms)  
 		else
@@ -1441,6 +1465,109 @@ function CreateOrechanger()
 	SetOrechangerList()
 end
 
+function CreateCasinoTrade()
+	local xStart=48
+	local xShift=17
+	local yStart=1
+	
+	_casinoTradeForm=forms.addForm()
+	_casinoTradeForm.W=90
+	_casinoTradeForm.H=45
+	_casinoTradeForm.color=_mainBackgroundColor
+	
+	backToMain=_casinoTradeForm:addButton(80,2,"← Назад",OpenMainMenu) 
+	backToMain.autoSize=false
+	backToMain.centered=true
+	backToMain.H=1
+	backToMain.W=10
+	backToMain.color=_mainBackgroundColor    
+
+	frame=_casinoTradeForm:addFrame(32,1,1) 
+	frame.W=25
+	frame.H=3 
+	frame.color= _mainBackgroundColor
+
+	local label = _orechangerForm:addLabel(5,7,"Сложите руды на обмен в левый сундук")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=80
+	
+	label=_casinoTradeForm:addLabel(42,2,"Покупка билетов в казино") 
+	label.fontColor =0xFFE600
+	label.color=_mainBackgroundColor --
+	
+	local label = _casinoTradeForm:addLabel(xStart-1,yStart+19,"Наберите кол-во товара")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+	
+	_casinoTradeBalanceEmsLabel=_casinoTradeForm:addLabel(2,2,"")
+	_casinoTradeBalanceEmsLabel.color = _mainBackgroundColor
+	_casinoTradeBalanceEmsLabel.fontColor = 0xFFB950
+	_casinoTradeBalanceEmsLabel2=_casinoTradeForm:addLabel(10,2,"")
+	_casinoTradeBalanceEmsLabel2.color = _mainBackgroundColor
+	_casinoTradeBalanceEmsLabel2.fontColor = 0x7DFF50
+	SetBalanceCasinoTradeView(_playerEms)
+	
+	_casinoTradeWantBuyGoodLabel=_casinoTradeForm:addLabel(xStart,yStart+37,"6")
+	_casinoTradeWantBuyGoodLabel.color = _mainBackgroundColor
+	_casinoTradeWantBuyGoodLabel.centered = true
+	_casinoTradeWantBuyGoodLabel.autoSize  = false
+	_casinoTradeWantBuyGoodLabel.W=40
+	
+	_casinoTradeCountWantBuyGoodLabel=_casinoTradeForm:addLabel(xStart,yStart+38,"7")
+	_casinoTradeCountWantBuyGoodLabel.color = _mainBackgroundColor
+	_casinoTradeCountWantBuyGoodLabel.centered = true
+	_casinoTradeCountWantBuyGoodLabel.autoSize  = false
+	_casinoTradeCountWantBuyGoodLabel.W=40
+	
+	buyButton= _casinoTradeForm:addButton(56,yStart+40,"Купить",BuyCasinoTickets) -->
+	buyButton.color=0x5C9A47
+	buyButton.W=20
+	buyButton.H=3
+	
+	
+	for i=1, 12 do
+		local toWrite=keyboard[i]
+		local xSpace=8
+		local ySpace=7
+		button=_casinoTradeForm:addButton(56+((i-1)*xSpace%(xSpace*3)),yStart+21+math.floor((i-1)/3)*4,toWrite,function() 
+			local j=i
+			if(i<10) then _casinoTradeWantBuyGoodLabel=_casinoTradeWantBuyGoodLabel..j.."" end
+			if i==10 then _casinoTradeWantBuyGoodLabel=""end
+			if i==11 then _casinoTradeWantBuyGoodLabel=_casinoTradeWantBuyGoodLabel.."0"end
+			if i==12 then
+				if(unicode.len(_casinoTradeWantBuyGoodLabel)>0) then
+					_casinoTradeWantBuyGoodLabel = _casinoTradeWantBuyGoodLabel:sub(1, -2)
+				else
+					_casinoTradeWantBuyGoodLabel = ""
+				end
+			end
+			ShopUpdateSelectedGoodsCount()-->
+		end) 
+		if i==10 or i==12 then
+			button.color=0x42AECB
+		else
+			button.color=0xD26262 
+		end
+		
+		button.H=3
+		button.W=6
+		button.border=0
+	end
+
+	gpu.setBackground(0x3E3D47)
+	gpu.fill(47,10,16,9," ")
+
+	graffiti.draw(_allPictures["casino"], 47,21,16,16)
+end
+
+function BuyCasinoTickets()
+
+end
+
 function AcrivateShopBuyBoughtMenu(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then
@@ -1751,7 +1878,7 @@ function CreateWandCharger()
 	label.autoSize  = false
 	label.W=60  
 
-	backToMain=_wandChargerForm:addButton(2,4,"Пополнить",ActivateSellShop) 
+	backToMain=_wandChargerForm:addButton(2,4,"Пополнить Эмы",ActivateSellShop) 
 	backToMain.autoSize=false
 	backToMain.centered=true
 	backToMain.H=1
@@ -1835,9 +1962,9 @@ function OnlyOnePLayer()
 end
 ------------------------------------
 Init()
-local getterInterface="1c512da8-3170-469e-a9c3-789fee25a7f1"
+local getterInterface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
 shop.Init(getterInterface)
-changer.Init("1c512da8-3170-469e-a9c3-789fee25a7f1")
+changer.Init("aa60ad29-10d1-4301-ab1d-a946658f2ac9")
 InitOrechanger()
 CreateOrechanger()
 InitCharger()
