@@ -142,7 +142,7 @@ function AcrivateMainMenu(obj, name)
 end
 
 function OpenEnterMenu()
-	gpu.setResolution(140,40)
+	gpu.setResolution(40,20)
 	_mainForm:setActive()
 end
 
@@ -804,7 +804,7 @@ function CreateShop()
 	label.autoSize  = false
 	label.W=40
 	
-	_shopSelectedGoodLabel=_shopForm:addLabel(xStart,8,"1")
+	_shopSelectedGoodLabel=_shopForm:addLabel(xStart,8,"")
 	_shopSelectedGoodLabel.color=0x009999
 	_shopSelectedGoodLabel.fontColor=0xffd875
 	_shopSelectedGoodLabel.color = _mainBackgroundColor
@@ -812,14 +812,14 @@ function CreateShop()
 	_shopSelectedGoodLabel.autoSize  = false
 	_shopSelectedGoodLabel.W=40
 	
-	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+xShift,11,"2")
+	_shopAvailableGoodLabel=_shopForm:addLabel(xStart+xShift,11,"")
 	_shopAvailableGoodLabel.color = _mainBackgroundColor
 		
-	_shopPriceGoodLabel=_shopForm:addLabel(xStart+xShift,13,"3")
+	_shopPriceGoodLabel=_shopForm:addLabel(xStart+xShift,13,"")
 	_shopPriceGoodLabel.color = _mainBackgroundColor
 
 	
-	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,15,"4")
+	_shopEnoughEmsLabel=_shopForm:addLabel(xStart+xShift,15,"")
 	_shopEnoughEmsLabel.color = _mainBackgroundColor
 
 	--_shopIDLabel=_shopForm:addLabel(xStart+xShift,17,"4")
@@ -833,13 +833,13 @@ function CreateShop()
 	_shopBalanceEmsLabel2.fontColor = 0x7DFF50
 	SetBalanceView(_playerEms)
 	
-	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,yStart+37,"6")
+	_shopWantBuyGoodLabel=_shopForm:addLabel(xStart,yStart+37,"")
 	_shopWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopWantBuyGoodLabel.centered = true
 	_shopWantBuyGoodLabel.autoSize  = false
 	_shopWantBuyGoodLabel.W=40
 	
-	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,yStart+38,"7")
+	_shopCountWantBuyGoodLabel=_shopForm:addLabel(xStart,yStart+38,"")
 	_shopCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_shopCountWantBuyGoodLabel.centered = true
 	_shopCountWantBuyGoodLabel.autoSize  = false
@@ -940,7 +940,7 @@ function CreateShopSell()
 	label.autoSize  = false
 	label.W=40
 
-	_shopSelectedSellGoodLabel=_shopSellForm:addLabel(xStart,8,"1")
+	_shopSelectedSellGoodLabel=_shopSellForm:addLabel(xStart,8,"")
 	_shopSelectedSellGoodLabel.color=0x009999
 	_shopSelectedSellGoodLabel.fontColor=0xffd875
 	_shopSelectedSellGoodLabel.color = _mainBackgroundColor
@@ -948,10 +948,10 @@ function CreateShopSell()
 	_shopSelectedSellGoodLabel.autoSize  = false
 	_shopSelectedSellGoodLabel.W=40  
 
-	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"3")
+	_shopPriceSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,12,"")
 	_shopPriceSellGoodLabel.color = _mainBackgroundColor 
 	
-	_shopAvailableSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,14,"2")
+	_shopAvailableSellGoodLabel=_shopSellForm:addLabel(xStart+xShift,14,"")
 	_shopAvailableSellGoodLabel.color = _mainBackgroundColor
 		
 	
@@ -1092,7 +1092,7 @@ function CreateTrade()-->
 	label.autoSize  = false
 	label.W=40
 	
-	_tradeSelectedGoodLabel=_tradeForm:addLabel(xStart,8,"1")-->
+	_tradeSelectedGoodLabel=_tradeForm:addLabel(xStart,8,"")-->
 	_tradeSelectedGoodLabel.color=0x009999
 	_tradeSelectedGoodLabel.fontColor=0xffd875
 	_tradeSelectedGoodLabel.color = _mainBackgroundColor
@@ -1100,14 +1100,14 @@ function CreateTrade()-->
 	_tradeSelectedGoodLabel.autoSize  = false
 	_tradeSelectedGoodLabel.W=40
 	
-	_tradeAvailableGoodLabel=_tradeForm:addLabel(xStart+xShift,11,"2")
+	_tradeAvailableGoodLabel=_tradeForm:addLabel(xStart+xShift,11,"")
 	_tradeAvailableGoodLabel.color = _mainBackgroundColor
 		
-	_tradericeGoodLabel=_tradeForm:addLabel(xStart+xShift,13,"3")
+	_tradericeGoodLabel=_tradeForm:addLabel(xStart+xShift,13,"")
 	_tradericeGoodLabel.color = _mainBackgroundColor
 
 	
-	_tradenoughCoinsLabel=_tradeForm:addLabel(xStart+xShift,15,"4")
+	_tradenoughCoinsLabel=_tradeForm:addLabel(xStart+xShift,15,"")
 	_tradenoughCoinsLabel.color = _mainBackgroundColor
 
 	--_shopIDLabel=_shopForm:addLabel(xStart+xShift,17,"4")
@@ -1121,13 +1121,13 @@ function CreateTrade()-->
 	_tradeBalanceCoinsLabel2.fontColor = 0x7DFF50
 	--SetBalanceView(_playerEms)-->
 	
-	_tradeWantBuyGoodLabel=_tradeForm:addLabel(xStart,yStart+37,"6")
+	_tradeWantBuyGoodLabel=_tradeForm:addLabel(xStart,yStart+37,"")
 	_tradeWantBuyGoodLabel.color = _mainBackgroundColor
 	_tradeWantBuyGoodLabel.centered = true
 	_tradeWantBuyGoodLabel.autoSize  = false
 	_tradeWantBuyGoodLabel.W=40
 	
-	_tradeCountWantBuyGoodLabel=_tradeForm:addLabel(xStart,yStart+38,"7")
+	_tradeCountWantBuyGoodLabel=_tradeForm:addLabel(xStart,yStart+38,"")
 	_tradeCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_tradeCountWantBuyGoodLabel.centered = true
 	_tradeCountWantBuyGoodLabel.autoSize  = false
@@ -1228,7 +1228,7 @@ function CreateTradeSell() -->
 	label.autoSize  = false
 	label.W=40
 
-	_tradeSelectedSellGoodLabel=_tradeSellForm:addLabel(xStart,8,"1")
+	_tradeSelectedSellGoodLabel=_tradeSellForm:addLabel(xStart,8,"")
 	_tradeSelectedSellGoodLabel.color=0x009999
 	_tradeSelectedSellGoodLabel.fontColor=0xffd875
 	_tradeSelectedSellGoodLabel.color = _mainBackgroundColor
@@ -1236,10 +1236,10 @@ function CreateTradeSell() -->
 	_tradeSelectedSellGoodLabel.autoSize  = false
 	_tradeSelectedSellGoodLabel.W=40  
 
-	_tradericeSellGoodLabel=_tradeSellForm:addLabel(xStart+xShift,12,"3")
+	_tradericeSellGoodLabel=_tradeSellForm:addLabel(xStart+xShift,12,"")
 	_tradericeSellGoodLabel.color = _mainBackgroundColor 
 	
-	_tradeAvailableSellGoodLabel=_tradeSellForm:addLabel(xStart+xShift,14,"2")
+	_tradeAvailableSellGoodLabel=_tradeSellForm:addLabel(xStart+xShift,14,"")
 	_tradeAvailableSellGoodLabel.color = _mainBackgroundColor
 		
 	
@@ -1375,7 +1375,7 @@ function CreateOrechanger()
 	label.autoSize  = false
 	label.W=40-->
 
-	_orechangerSelectedGoodLabel=_orechangerForm:addLabel(xStart,8,"1")
+	_orechangerSelectedGoodLabel=_orechangerForm:addLabel(xStart,8,"")
 	_orechangerSelectedGoodLabel.color=0x009999
 	_orechangerSelectedGoodLabel.fontColor=0xffd875
 	_orechangerSelectedGoodLabel.color = _mainBackgroundColor
@@ -1587,8 +1587,9 @@ function CreateCasinoTrade()
 	label.autoSize  = false
 	label.W=40
 
-	backToMain=_wandChargerForm:addButton(2,4,"Пополнить Эмы",ActivateSellShop) 
+	backToMain=_casinoTradeForm:addButton(2,4,"Пополнить Эмы",ActivateSellShop) 
 	backToMain.color=_mainBackgroundColor  
+	backToMain.W = 20
 	
 	_casinoTradeBalanceEmsLabel=_casinoTradeForm:addLabel(2,2,"")
 	_casinoTradeBalanceEmsLabel.color = _mainBackgroundColor
@@ -1694,7 +1695,7 @@ function BuyCasinoTickets()
 
 				ShowShopCasinoDialog("Вы успешно купили "..count.." билетов в казино!",true)
 				VoiceSay("shop_buy")
-				SetBalanceView(_playerEms)
+				SetBalanceCasinoTradeView(_playerEms)
 			end
 		else
 			ShowShopCasinoDialog("Не хватает эмов. Пополните счёт",false)
@@ -2047,6 +2048,7 @@ function CreateWandCharger()
 
 	backToMain=_wandChargerForm:addButton(2,4,"Пополнить Эмы",ActivateSellShop) 
 	backToMain.color=_mainBackgroundColor  
+	backToMain.W = 20
 
 	_shopBalanceEmsChangerLabel=_wandChargerForm:addLabel(2,2,"")
 	_shopBalanceEmsChangerLabel.color = _mainBackgroundColor
@@ -2146,7 +2148,7 @@ CreateShop()
 CreateCasinoTrade()
 --CreateTrade()
 --CreateTradeSell()
-CreateButtonExit()
+--CreateButtonExit()
 CreateEnterButton()
 CreateMainMenu()
 CreateShopSell()
