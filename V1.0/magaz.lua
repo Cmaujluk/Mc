@@ -1346,7 +1346,7 @@ function CreateOrechanger()
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
-	label=_orechangerForm:addLabel(37,2,"Обмен руд") 
+	label=_orechangerForm:addLabel(42,2,"Обмен руд") 
 	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor
 	
@@ -1586,6 +1586,9 @@ function CreateCasinoTrade()
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
+
+	backToMain=_wandChargerForm:addButton(2,4,"Пополнить Эмы",ActivateSellShop) 
+	backToMain.color=_mainBackgroundColor  
 	
 	_casinoTradeBalanceEmsLabel=_casinoTradeForm:addLabel(2,2,"")
 	_casinoTradeBalanceEmsLabel.color = _mainBackgroundColor
@@ -1995,7 +1998,7 @@ function CreateWandCharger()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor  
 	
-	frame=_wandChargerForm:addFrame(33,1,1) frame.W=22 frame.H=3 frame.color= _mainBackgroundColor
+	frame=_wandChargerForm:addFrame(36,1,1) frame.W=22 frame.H=3 frame.color= _mainBackgroundColor
 	
 	label=_wandChargerForm:addLabel(39,2,"Зарядка жезлов") label.fontColor =0xFFE600 label.color=_mainBackgroundColor
 	
@@ -2043,10 +2046,6 @@ function CreateWandCharger()
 	label.W=60  
 
 	backToMain=_wandChargerForm:addButton(2,4,"Пополнить Эмы",ActivateSellShop) 
-	backToMain.autoSize=false
-	backToMain.centered=true
-	backToMain.H=1
-	backToMain.W=10
 	backToMain.color=_mainBackgroundColor  
 
 	_shopBalanceEmsChangerLabel=_wandChargerForm:addLabel(2,2,"")
