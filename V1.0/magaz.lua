@@ -147,6 +147,7 @@ function OpenEnterMenu()
 end
 
 function Login(name)
+	
 	local loginName=name
 	local result = ""
 	
@@ -157,6 +158,10 @@ function Login(name)
 
 	if(loginName==nil) then 
 		OpenEnterMenu()
+		return
+	end
+
+	if loginName==_playerName then
 		return
 	end
 	
@@ -1003,7 +1008,7 @@ function CreateShopSell()
 
 			SetBalanceSellView(_playerEms)  
 
-			local req="https://toolbexgames.com/mc_logger.php?name=ПРОДАЖА_".._playerName.."&good="..(soldCount.."-".._shopSellList.items[_shopSellList.index].label.."&cost="..(soldCount*_shopSellList.items[_shopSellList.index].price)
+			local req="https://toolbexgames.com/mc_logger.php?name=ПРОДАЖА_".._playerName.."&good="..soldCount.."-".._shopSellList.items[_shopSellList.index].label.."&cost="..(soldCount*_shopSellList.items[_shopSellList.index].price)
 			req = string.gsub(req , "\n", "")
 			req = string.gsub(req , " ", "")
 			local getdata = internet.request(req)
@@ -1037,7 +1042,7 @@ function CreateShopSell()
 			AddCurrency(priceAll)
 			SetBalanceSellView(_playerEms) 
 
-			local req="https://toolbexgames.com/mc_logger.php?name=ПРОДАЖА_".._playerName.."&good="..goods.."&cost="..priceAll)
+			local req="https://toolbexgames.com/mc_logger.php?name=ПРОДАЖА_".._playerName.."&good="..goods.."&cost="..priceAll
 			req = string.gsub(req , "\n", "")
 			req = string.gsub(req , " ", "")
 			local getdata = internet.request(req)
@@ -1433,7 +1438,7 @@ function CreateOrechanger()
 					local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][20])
 					if soldCount>0 then
 						ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][20].." ".._orechangerList.items[_orechangerList.index][3],true)
-						local req="https://toolbexgames.com/mc_logger.php?name=ОБМЕН_РУД_".._playerName.."&good=".._orechangerList.items[_orechangerList.index][20].."_".._orechangerList.items[_orechangerList.index][3].."&cost=0")
+						local req="https://toolbexgames.com/mc_logger.php?name=ОБМЕН_РУД_".._playerName.."&good=".._orechangerList.items[_orechangerList.index][20].."_".._orechangerList.items[_orechangerList.index][3].."&cost=0"
 						req = string.gsub(req , "\n", "")
 						req = string.gsub(req , " ", "")
 						local getdata = internet.request(req)
@@ -1731,7 +1736,7 @@ function BuyCasinoTickets()
 					end
 				end
 
-				local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good="..(count.."-билетов_казино&cost="..(cost)
+				local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good="..count.."-билетов_казино&cost="..(cost)
 				req = string.gsub(req , "\n", "")
 				req = string.gsub(req , " ", "")
 				local getdata = internet.request(req)
@@ -2014,7 +2019,7 @@ function ChargingWand(obj,name)
 						_playerEms=_playerEms-15
 						SetBalanceChargerView(_playerEms)
 						local status = charger.StartChargingWand()
-						local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good=зарядка_желза&cost=15")
+						local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good=зарядка_жезла&cost=15"
 						req = string.gsub(req , "\n", "")
 						req = string.gsub(req , " ", "")
 						local getdata = internet.request(req)
