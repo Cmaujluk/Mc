@@ -308,9 +308,9 @@ function ActivateCasinoBuy(obj,name)
 			SetBalanceCasinoTradeView(_playerEms)
 			_casinoTradeForm:setActive()
 			gpu.setBackground(0x3E3D47)
-			local posx=25
+			local posx=22
 			local posy=22
-			gpu.fill(posx,posy,16,9," ")
+			gpu.fill(posx,posy,15,9," ")
 			graffiti.draw(_allPictures["casino"], posx,posy+21,16,16)
 		end
 	end
@@ -1549,25 +1549,25 @@ function CreateCasinoTrade()
 	label.autoSize  = false
 	label.W=80
 
-	local label = _casinoTradeForm:addLabel(5,35,"1 билет - 10 эм")
+	local label = _casinoTradeForm:addLabel(8,34,"1 билет - 10 эм")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
 
-	local label = _casinoTradeForm:addLabel(5,37,"5 билетов - 47 эм")
+	local label = _casinoTradeForm:addLabel(8,36,"5 билетов - 47 эм")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
 
-	local label = _casinoTradeForm:addLabel(5,39,"10 билетов - 90 эм")
+	local label = _casinoTradeForm:addLabel(8,38,"10 билетов - 90 эм")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=40
 
-	local label = _casinoTradeForm:addLabel(5,41,"25 билетов - 200 эм")
+	local label = _casinoTradeForm:addLabel(8,40,"25 билетов - 200 эм")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -1591,13 +1591,13 @@ function CreateCasinoTrade()
 	_casinoTradeBalanceEmsLabel2.fontColor = 0x7DFF50
 	SetBalanceCasinoTradeView(_playerEms)
 	
-	_casinoTradeWantBuyGoodLabel=_casinoTradeForm:addLabel(xStart,yStart+37,"6")
+	_casinoTradeWantBuyGoodLabel=_casinoTradeForm:addLabel(xStart,yStart+37,"")
 	_casinoTradeWantBuyGoodLabel.color = _mainBackgroundColor
 	_casinoTradeWantBuyGoodLabel.centered = true
 	_casinoTradeWantBuyGoodLabel.autoSize  = false
 	_casinoTradeWantBuyGoodLabel.W=40
 	
-	_casinoTradeCountWantBuyGoodLabel=_casinoTradeForm:addLabel(xStart,yStart+38,"7")
+	_casinoTradeCountWantBuyGoodLabel=_casinoTradeForm:addLabel(xStart,yStart+38,"")
 	_casinoTradeCountWantBuyGoodLabel.color = _mainBackgroundColor
 	_casinoTradeCountWantBuyGoodLabel.centered = true
 	_casinoTradeCountWantBuyGoodLabel.autoSize  = false
@@ -1644,7 +1644,49 @@ function CreateCasinoTrade()
 end
 
 function BuyCasinoTickets()
-	print("buy ".._casinoTradeWantBuyGood.." tickets")
+	local count = tonumber(_casinoTradeWantBuyGood)
+
+	local ticketPrice=10
+	if(count>=25) then ticketPrice=8
+	else if(count>=10) then ticketPrice=9
+	else if(count>=5) then ticketPrice=9.4 end end end
+
+	local finger = {dmg=1.0,id="ThermalExpansion:diagram",nbt_hash="c80c10e5f63741b7499b9b4d068b0181"}
+	local item = interface.getItemDetail(finger).all()
+
+	if item == nil then
+		ShowShopBuyDialog("В системе нет столько билетов",false)
+	end
+
+	local ticketsCount = item.qty
+
+	if count>ticketsCount then
+		ShowShopBuyDialog("В системе нет столько билетов",false)
+	else
+		local cost = ticketPrice*count 
+		if _playerEms>=cost then
+			if ChangeBDValue(name,_playerEms-cost,cost) then
+				_playerEms=_playerEms-cost
+				local resourchesToGive=count
+				while resourchesToGive>0 do
+					if resourchesToGive>item.max_size then 
+						interface.exportItem(item,2,item.max_size)
+						resourchesToGive=resourchesToGive-item.max_size
+					else
+						interface.exportItem(item,2,resourchesToGive)
+						resourchesToGive=0
+					end
+				end
+
+				ShowShopBuyDialog("Вы успешно купили "..count.." билетов в казино!",true)
+				VoiceSay("shop_buy")
+				SetBalanceView(_playerEms)
+			end
+		else
+			ShowShopBuyDialog("Не хватает эмов. Пополните счёт",false)
+		end
+	end
+	
 end
 
 function AcrivateShopBuyBoughtMenu(obj,name)
@@ -1764,6 +1806,18 @@ function ShowShopBuyDialog(string,enough)
 		_shopDialogLabel.fontColor=0xdb7093
 	end
 	_shopDialogLabel:redraw()
+end
+
+function ShowShopBuyDialog(string,enough)
+
+	dialogForm:setActive()
+	_casinoTradeDialogLabel.caption=string
+	if enough then
+		_casinoTradeDialogLabel.fontColor=0x92DEA3
+	else
+		_casinoTradeDialogLabel.fontColor=0xdb7093
+	end
+	_casinoTradeDialogLabel:redraw()
 end
 
 function CreateDialogWindowChargingForm()
@@ -2041,6 +2095,7 @@ function OnlyOnePLayer()
 end
 ------------------------------------
 Init()
+interface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
 local getterInterface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
 shop.Init(getterInterface)
 changer.Init("aa60ad29-10d1-4301-ab1d-a946658f2ac9")
