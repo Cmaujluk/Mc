@@ -10,6 +10,7 @@ local internet = require("internet")
 local filesystem = require("filesystem")
 local modem = component.tunnel
 local _tapeMagaz
+local interface = nil
 -------------FORMS------------------
 local _mainForm = nil
 local _menuForm = nil
@@ -1645,7 +1646,9 @@ end
 
 function BuyCasinoTickets()
 	local count = tonumber(_casinoTradeWantBuyGood)
-
+	if count<=0 then
+		ShowShopCasinoDialog("Выберите кол-во покупаемых билетов",false)
+	end
 	local ticketPrice=10
 	if(count>=25) then ticketPrice=8
 	else if(count>=10) then ticketPrice=9
@@ -1655,13 +1658,13 @@ function BuyCasinoTickets()
 	local item = interface.getItemDetail(finger).all()
 
 	if item == nil then
-		ShowShopBuyDialog("В системе нет столько билетов",false)
+		ShowShopCasinoDialog("В системе нет столько билетов",false)
 	end
 
 	local ticketsCount = item.qty
 
 	if count>ticketsCount then
-		ShowShopBuyDialog("В системе нет столько билетов",false)
+		ShowShopCasinoDialog("В системе нет столько билетов",false)
 	else
 		local cost = ticketPrice*count 
 		if _playerEms>=cost then
@@ -1678,12 +1681,12 @@ function BuyCasinoTickets()
 					end
 				end
 
-				ShowShopBuyDialog("Вы успешно купили "..count.." билетов в казино!",true)
+				ShowShopCasinoDialog("Вы успешно купили "..count.." билетов в казино!",true)
 				VoiceSay("shop_buy")
 				SetBalanceView(_playerEms)
 			end
 		else
-			ShowShopBuyDialog("Не хватает эмов. Пополните счёт",false)
+			ShowShopCasinoDialog("Не хватает эмов. Пополните счёт",false)
 		end
 	end
 	
@@ -1808,9 +1811,9 @@ function ShowShopBuyDialog(string,enough)
 	_shopDialogLabel:redraw()
 end
 
-function ShowShopBuyDialog(string,enough)
+function ShowShopCasinoDialog(string,enough)
 
-	dialogForm:setActive()
+	dialogcasinoForm:setActive()
 	_casinoTradeDialogLabel.caption=string
 	if enough then
 		_casinoTradeDialogLabel.fontColor=0x92DEA3
@@ -1818,6 +1821,26 @@ function ShowShopBuyDialog(string,enough)
 		_casinoTradeDialogLabel.fontColor=0xdb7093
 	end
 	_casinoTradeDialogLabel:redraw()
+end
+
+function CreateDialogWindowCasinoForm()
+	dialogcasinoForm=forms.addForm()       
+	dialogcasinoForm.border=1
+	dialogcasinoForm.W=70
+	dialogcasinoForm.H=7
+	dialogcasinoForm.left=math.floor(10)
+	dialogcasinoForm.top =math.floor(19)
+	_casinoTradeDialogLabel=dialogcasinoForm:addLabel(3,3,"")
+	_casinoTradeDialogLabel.autoSize=false
+	_casinoTradeDialogLabel.centered=true
+	_casinoTradeDialogLabel.W=64
+	_casinoTradeDialogLabel.fontColor=0x92DEA3
+	_casinoTradeDialogLabel.color=0x333145
+	btn=dialogcasinoForm:addButton(30,5,"Ок",function() 
+		_casinoTradeForm:setActive() 
+	end)
+	btn.color=0xC1C1C1
+	dialogcasinoForm.color=0x333145
 end
 
 function CreateDialogWindowChargingForm()
