@@ -1491,21 +1491,21 @@ function CasinoTradeUpdateSelectedGoodsCount()
 
 
 		_casinoTradeWantBuyGood=tostring(count)
-		local price=count*ticketPrice)
+		local price=count*ticketPrice
 
 		if price>tonumber(_playerEms) then
-			_shopWantBuyGoodLabel.fontColor=0xff3333
-			_shopCountWantBuyGoodLabel.fontColor=0xff3333
+			_casinoTradeWantBuyGoodLabel.fontColor=0xff3333
+			_casinoTradeCountWantBuyGoodLabel.fontColor=0xff3333
 		else
-			_shopWantBuyGoodLabel.fontColor=0x33ff66
-			_shopCountWantBuyGoodLabel.fontColor=0x33ff66
+			_casinoTradeWantBuyGoodLabel.fontColor=0x33ff66
+			_casinoTradeCountWantBuyGoodLabel.fontColor=0x33ff66
 		end
 
-		_shopWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
-		_shopWantBuyGoodLabel:redraw()
+		_casinoTradeWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
+		_casinoTradeWantBuyGoodLabel:redraw()
 
-		_shopCountWantBuyGoodLabel.caption="за "..(count*ticketPrice.." эм"
-		_shopCountWantBuyGoodLabel:redraw()
+		_casinoTradeCountWantBuyGoodLabel.caption="за "..(count*ticketPrice).." эм"
+		_casinoTradeCountWantBuyGoodLabel:redraw()
 	end
 end
 
@@ -1531,19 +1531,19 @@ function CreateCasinoTrade()
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
-	local label = _orechangerForm:addLabel(5,7,"Здесь вы можете купить билеты чтобы использовать их в любом казино на /warp smart")
+	local label = _casinoTradeForm:addLabel(5,7,"Здесь вы можете купить билеты чтобы использовать их в любом казино на /warp smart")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=80
 
-	local label = _orechangerForm:addLabel(5,9,"Покупка билетов в компьютере выгодна, вы получаете скидку если покупаете несколько!")
+	local label = _casinoTradeForm:addLabel(5,9,"Покупка билетов в компьютере выгодна, вы получаете скидку если покупаете несколько!")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=80
 
-	local label = _orechangerForm:addLabel(5,11,"Сколько билетов в казино вы хотите купить?")
+	local label = _casinoTradeForm:addLabel(5,11,"Сколько билетов в казино вы хотите купить?")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
