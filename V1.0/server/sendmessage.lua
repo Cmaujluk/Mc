@@ -130,7 +130,7 @@ function DetectPlayers()
 					local Y=playerPos.y
 					local Z=playerPos.z
 					  
-					if Y<=1.5 or X<-2 or Z<-1 or X>3 or Z>4.7 or (X>-0.45 and X<1.7 and Z>3.15 and #playerNear==1) then
+					if Y<=1.5 or X>2.76 or X<-2.76 or Z>1.75 or Z<-2.75 or (Z<-2.06 and X>-0.26 and X<0.8) then
 						playersInArea=playersInArea-1
 					end
 				end

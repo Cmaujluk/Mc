@@ -189,11 +189,13 @@ end
 
 function OpenMainMenu(obj,userName)
 	--_playerName=userName
-	SetState("main_menu")
-	Login(userName)
-	_playerNameLabel.caption=_playerName
-	_playerNameLabel:redraw()
-	AcrivateMainMenu()
+	if(OnlyOnePLayer()) then
+		SetState("main_menu")
+		Login(userName)
+		_playerNameLabel.caption=_playerName
+		_playerNameLabel:redraw()
+		AcrivateMainMenu()
+	end
 end
 
 function CreateEnterButton()
@@ -1527,7 +1529,7 @@ function CreateCasinoTrade()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor    
 
-	frame=_casinoTradeForm:addFrame(28,1,1) 
+	frame=_casinoTradeForm:addFrame(31,1,1) 
 	frame.W=29
 	frame.H=3 
 	frame.color= _mainBackgroundColor
