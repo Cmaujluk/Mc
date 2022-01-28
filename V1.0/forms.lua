@@ -486,13 +486,7 @@ end
 
 
 ----------------------------------------
-
-function forms.run(form)
-  work=true
-  local Fc, Bc = gpu.getForeground(), gpu.getBackground()
-  activeForm=form
-  activeForm:draw()
-  while work do
+function DoWork()
     local ev,adr,x,y,btn,user=computer.pullSignal()--event.pull()
     if mouseEv[ev] and adr==gpu.getScreen() then activeForm:mouseEv(ev,x,y,btn,user) end
 	if listeners[ev] then
@@ -501,8 +495,15 @@ function forms.run(form)
 	if listeners[""] then
 	  for i=1,#listeners[""] do listeners[""][i](ev,adr,x,y,btn,user) end
     end
+end
 
-    
+function forms.run(form)
+  work=true
+  local Fc, Bc = gpu.getForeground(), gpu.getBackground()
+  activeForm=form
+  activeForm:draw()
+  while work do
+    pcall(DoWork)
   end
   gpu.setForeground(Fc)
   gpu.setBackground(Bc)
