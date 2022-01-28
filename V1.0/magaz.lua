@@ -307,6 +307,9 @@ function ActivateCasinoBuy(obj,name)
 			gpu.setResolution(90,45)
 			SetBalanceCasinoTradeView(_playerEms)
 			_casinoTradeForm:setActive()
+			gpu.setBackground(0x3E3D47)
+			gpu.fill(47,10,16,9," ")
+			graffiti.draw(_allPictures["casino"], 47,21,16,16)
 		end
 	end
 end
@@ -1566,10 +1569,9 @@ function CreateCasinoTrade()
 		button.border=0
 	end
 
-	gpu.setBackground(0x3E3D47)
-	gpu.fill(47,10,16,9," ")
+	
 
-	graffiti.draw(_allPictures["casino"], 47,21,16,16)
+	
 end
 
 function BuyCasinoTickets()
