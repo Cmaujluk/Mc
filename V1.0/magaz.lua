@@ -94,8 +94,6 @@ function VoiceSay(message)
 	modem.send(message)
 end
 
-
-		
 function SetState(state)
 	_state=state
 end
@@ -303,14 +301,12 @@ function ActivateWandCharger(obj,name)
 	end
 end
 
-function ActivateCasinoBuy(obj,name)---->>> TODO
+function ActivateCasinoBuy(obj,name)
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then
 			gpu.setResolution(90,45)
-			--SetBalanceChargerView(_playerEms)
-			--_wandChargerForm:setActive()
-			_chargingLabel.caption=""
-			_chargingLabel:redraw()
+			SetBalanceCasinoTradeView(_playerEms)
+			_casinoTradeForm:setActive()
 		end
 	end
 end
@@ -1487,7 +1483,19 @@ function CreateCasinoTrade()
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
-	local label = _orechangerForm:addLabel(5,7,"Сложите руды на обмен в левый сундук")
+	local label = _orechangerForm:addLabel(5,7,"Здесь вы можете купить билеты чтобы использовать их в любом казино на /warp smart")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=80
+
+	local label = _orechangerForm:addLabel(5,9,"Покупка билетов в компьютере выгодна, вы получаете скидку если покупаете несколько!")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=80
+
+	local label = _orechangerForm:addLabel(5,11,"Сколько билетов в казино вы хотите купить?")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -1565,7 +1573,7 @@ function CreateCasinoTrade()
 end
 
 function BuyCasinoTickets()
-
+	print("buy ".._casinoTradeWantBuyGoodLabel.." tickets")
 end
 
 function AcrivateShopBuyBoughtMenu(obj,name)
@@ -1978,6 +1986,7 @@ CreateDialogWindowTooManyPlayers()
 InitShop()
 InitSaleShop()
 CreateShop()
+CreateCasinoTrade()
 --CreateTrade()
 --CreateTradeSell()
 CreateButtonExit()
