@@ -1531,13 +1531,13 @@ function CreateCasinoTrade()
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
-	local label = _casinoTradeForm:addLabel(5,7,"Здесь вы можете купить билеты чтобы использовать их в любом казино на /warp smart")
+	local label = _casinoTradeForm:addLabel(5,7,"Здесь вы покупаете билеты чтобы использовать их в любом казино на /warp smart")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
 	label.W=80
 
-	local label = _casinoTradeForm:addLabel(5,9,"Покупка билетов в компьютере выгодна, вы получаете скидку если покупаете несколько!")
+	local label = _casinoTradeForm:addLabel(5,9,"Вы получаете скидку если покупаете несколько билетов!")
 	label.color = _mainBackgroundColor
 	label.centered = true
 	label.autoSize  = false
@@ -1548,6 +1548,30 @@ function CreateCasinoTrade()
 	label.centered = true
 	label.autoSize  = false
 	label.W=80
+
+	local label = _casinoTradeForm:addLabel(5,35,"1 билет - 10 эм")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _casinoTradeForm:addLabel(5,37,"5 билетов - 47 эм")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _casinoTradeForm:addLabel(5,39,"10 билетов - 90 эм")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
+
+	local label = _casinoTradeForm:addLabel(5,41,"25 билетов - 200 эм")
+	label.color = _mainBackgroundColor
+	label.centered = true
+	label.autoSize  = false
+	label.W=40
 	
 	label=_casinoTradeForm:addLabel(42,2,"Покупка билетов в казино") 
 	label.fontColor =0xFFE600
