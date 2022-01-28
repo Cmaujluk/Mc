@@ -185,6 +185,11 @@ function Login(name)
 			end
 		end
 	end
+
+	local req="https://toolbexgames.com/mc_logger.php?name=ЛОГИН_".._playerName.."&good=0&cost=0"
+	req = string.gsub(req , "\n", "")
+	req = string.gsub(req , " ", "")
+	local getdata = internet.request(req)
 end
 
 function OpenMainMenu(obj,userName)
@@ -741,6 +746,11 @@ function ActivateBuyWindow(obj,name)
 						ShowShopBuyDialog("Вы успешно купили "..count.." ".._shopList.items[_shopList.index].label,true)
 						VoiceSay("shop_buy")
 						SetBalanceView(_playerEms)
+
+						local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good="..(count.."-".._shopList.items[_shopList.index].label).."&cost="..(cost)
+						req = string.gsub(req , "\n", "")
+						req = string.gsub(req , " ", "")
+						local getdata = internet.request(req)
 					end
 				else
 					ShowShopBuyDialog("Не хватает "..(cost-_playerEms).." эм на покупку "..count.." ".._shopList.items[_shopList.index].label,false) 
@@ -992,6 +1002,11 @@ function CreateShopSell()
 			AddCurrency(soldCount*_shopSellList.items[_shopSellList.index].price)
 
 			SetBalanceSellView(_playerEms)  
+
+			local req="https://toolbexgames.com/mc_logger.php?name=ПРОДАЖА_".._playerName.."&good="..(soldCount.."-".._shopSellList.items[_shopSellList.index].label.."&cost="..(soldCount*_shopSellList.items[_shopSellList.index].price)
+			req = string.gsub(req , "\n", "")
+			req = string.gsub(req , " ", "")
+			local getdata = internet.request(req)
 		else
 			ShowShopSellDialog("В сундуке не хватает ".._shopSellList.items[_shopSellList.index].label,false) 
 		end
@@ -1006,10 +1021,14 @@ function CreateShopSell()
 
 		local soldCount=0
 		local priceAll=0
+		local goods=""
 		for i=1, #_shopSellList.items do
 			local iterationCount=shop.BuyItem(_shopSellList.items[i])
-			soldCount=soldCount+iterationCount
-			priceAll=priceAll+iterationCount*_shopSellList.items[i].price
+			if iterationCount>0 then
+				soldCount=soldCount+iterationCount
+				priceAll=priceAll+iterationCount*_shopSellList.items[i].price
+				goods=goods.._shopSellList.items[i].label.."_"..iterationCount.."___"
+			end
 		end
 		
 		if soldCount>0 then
@@ -1017,6 +1036,11 @@ function CreateShopSell()
 			VoiceSay("shop_ems")
 			AddCurrency(priceAll)
 			SetBalanceSellView(_playerEms) 
+
+			local req="https://toolbexgames.com/mc_logger.php?name=ПРОДАЖА_".._playerName.."&good="..goods.."&cost="..priceAll)
+			req = string.gsub(req , "\n", "")
+			req = string.gsub(req , " ", "")
+			local getdata = internet.request(req)
 		else
 			ShowShopSellDialog("В сундуке не хватает предметов для продажи",false) 
 		end
@@ -1409,6 +1433,10 @@ function CreateOrechanger()
 					local soldCount=changer.Change(_orechangerList.items[_orechangerList.index][8],_orechangerList.items[_orechangerList.index][20])
 					if soldCount>0 then
 						ShowOrechangerDialog("Вы успешно обменяли ".._orechangerList.items[_orechangerList.index][20].." ".._orechangerList.items[_orechangerList.index][3],true)
+						local req="https://toolbexgames.com/mc_logger.php?name=ОБМЕН_РУД_".._playerName.."&good=".._orechangerList.items[_orechangerList.index][20].."_".._orechangerList.items[_orechangerList.index][3].."&cost=0")
+						req = string.gsub(req , "\n", "")
+						req = string.gsub(req , " ", "")
+						local getdata = internet.request(req)
 						VoiceSay("trade_ores")
 					end
 				else
@@ -1430,12 +1458,14 @@ function CreateOrechanger()
 
 	
 	local allTrades=0
+	local orestotrade=""
 	if(OnlyOnePLayer()) then
 		if(CheckLogin(name)) then  
 			if #_orechangerList.items>0 then
 				for i=1, #_orechangerList.items do
 					if changer.CanChange(_orechangerList.items[i][8],_orechangerList.items[i][20]) then
 						allTrades=allTrades+changer.Change(_orechangerList.items[i][8],_orechangerList.items[i][20])
+						orestotrade=orestotrade.._orechangerList.items[i][8].."_".._orechangerList.items[i][20].."___"
 					else
 						ShowOrechangerDialog("В сундуке не хватает ".._orechangerList.items[i][3],false) 
 					end
@@ -1445,6 +1475,12 @@ function CreateOrechanger()
 
 			if allTrades>0 then
 				ShowOrechangerDialog("Вы успешно обменяли руду на "..allTrades.." слитков",true)
+				
+				local req="https://toolbexgames.com/mc_logger.php?name=ОБМЕН_РУД_".._playerName.."&good="..orestotrade.."&cost=0"
+				req = string.gsub(req , "\n", "")
+				req = string.gsub(req , " ", "")
+				local getdata = internet.request(req)
+
 				VoiceSay("trade_ores")
 			else
 				ShowOrechangerDialog("Поместите руды в левый сундук и нажмите 'обновить'",false) 
@@ -1694,6 +1730,11 @@ function BuyCasinoTickets()
 						resourchesToGive=0
 					end
 				end
+
+				local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good="..(count.."-билетов_казино&cost="..(cost)
+				req = string.gsub(req , "\n", "")
+				req = string.gsub(req , " ", "")
+				local getdata = internet.request(req)
 
 				ShowShopCasinoDialog("Вы успешно купили "..count.." билетов в казино!",true)
 				VoiceSay("shop_buy")
@@ -1973,6 +2014,10 @@ function ChargingWand(obj,name)
 						_playerEms=_playerEms-15
 						SetBalanceChargerView(_playerEms)
 						local status = charger.StartChargingWand()
+						local req="https://toolbexgames.com/mc_logger.php?name=".._playerName.."&good=зарядка_желза&cost=15")
+						req = string.gsub(req , "\n", "")
+						req = string.gsub(req , " ", "")
+						local getdata = internet.request(req)
 						ShowChargingStatus(status) 
 						VoiceSay("wand")
 					end
