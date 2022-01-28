@@ -27,7 +27,7 @@ local _tradeForm = nil
 
 local _casinoTradeForm = nil
 
-local _state=""_casinoTradeWantBuyGoodLabel
+local _state=""
 -------------USER------------------ 
 local _playerName=""  
 ------------BUTTONS----------------
@@ -47,7 +47,7 @@ local _shopBalanceEmsLabel2=nil
 local _casinoTradeBalanceEmsLabel = nil
 local _casinoTradeBalanceEmsLabel2 = nil
 local _shopWantBuyGoodLabel=nil
-local _casinoTradeWantBuyGood=nil
+local _casinoTradeWantBuyGood=""
 local _shopCountWantBuyGoodLabel=nil
 local _casinoTradeWantBuyGoodLabel=nil
 local _casinoTradeCountWantBuyGoodLabel=nil
@@ -311,7 +311,7 @@ function ActivateCasinoBuy(obj,name)
 			local posx=25
 			local posy=22
 			gpu.fill(posx,posy,16,9," ")
-			graffiti.draw(_allPictures["casino"], posx,posy+11,16,16)
+			graffiti.draw(_allPictures["casino"], posx,posy+21,16,16)
 		end
 	end
 end
@@ -1466,6 +1466,49 @@ function CreateOrechanger()
 	SetOrechangerList()
 end
 
+function CasinoTradeUpdateSelectedGoodsCount()
+	local count = tonumber(_casinoTradeWantBuyGood)
+	
+	if count==nil or count==0 then
+		_casinoTradeWantBuyGoodLabel.caption=""
+		_casinoTradeWantBuyGoodLabel:redraw()
+
+		_casinoTradeCountWantBuyGoodLabel.caption=""
+		_casinoTradeCountWantBuyGoodLabel:redraw()
+	else
+
+		if count >1000then 
+			count =1000 
+		end
+		--if count > shop.GetItemCount(_shopList.items[_shopList.index].fingerprint) then 
+		--	count = shop.GetItemCount(_shopList.items[_shopList.index].fingerprint)
+		--end
+		local ticketPrice=10
+		if(count>=25) then ticketPrice=8
+		else if(count>=10) then ticketPrice=9
+		else if(count>=5) then ticketPrice=9.4 end end end
+
+
+
+		_casinoTradeWantBuyGood=tostring(count)
+		local price=count*ticketPrice)
+
+		if price>tonumber(_playerEms) then
+			_shopWantBuyGoodLabel.fontColor=0xff3333
+			_shopCountWantBuyGoodLabel.fontColor=0xff3333
+		else
+			_shopWantBuyGoodLabel.fontColor=0x33ff66
+			_shopCountWantBuyGoodLabel.fontColor=0x33ff66
+		end
+
+		_shopWantBuyGoodLabel.caption="Я хочу купить: "..count.." шт"
+		_shopWantBuyGoodLabel:redraw()
+
+		_shopCountWantBuyGoodLabel.caption="за "..(count*ticketPrice.." эм"
+		_shopCountWantBuyGoodLabel:redraw()
+	end
+end
+
 function CreateCasinoTrade()
 	local xStart=48
 	local xShift=17
@@ -1558,7 +1601,7 @@ function CreateCasinoTrade()
 					_casinoTradeWantBuyGood = ""
 				end
 			end
-			ShopUpdateSelectedGoodsCount()-->
+			CasinoTradeUpdateSelectedGoodsCount()-->
 		end) 
 		if i==10 or i==12 then
 			button.color=0x42AECB
