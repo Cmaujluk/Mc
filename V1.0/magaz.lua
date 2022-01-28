@@ -309,7 +309,7 @@ function ActivateCasinoBuy(obj,name)
 			SetBalanceCasinoTradeView(_playerEms)
 			_casinoTradeForm:setActive()
 			gpu.setBackground(0x3E3D47)
-			local posx=21
+			local posx=22
 			local posy=22
 			gpu.fill(posx,posy,16,9," ")
 			graffiti.draw(_allPictures["casino"], posx,posy+21,16,16)
@@ -1527,8 +1527,8 @@ function CreateCasinoTrade()
 	backToMain.W=10
 	backToMain.color=_mainBackgroundColor    
 
-	frame=_casinoTradeForm:addFrame(32,1,1) 
-	frame.W=25
+	frame=_casinoTradeForm:addFrame(28,1,1) 
+	frame.W=29
 	frame.H=3 
 	frame.color= _mainBackgroundColor
 
@@ -1574,9 +1574,12 @@ function CreateCasinoTrade()
 	label.autoSize  = false
 	label.W=40
 	
-	label=_casinoTradeForm:addLabel(42,2,"Покупка билетов в казино") 
+	label=_casinoTradeForm:addLabel(30,2,"Покупка билетов в казино") 
 	label.fontColor =0xFFE600
 	label.color=_mainBackgroundColor --
+	label.centered = true
+	label.autoSize  = false
+	label.W=30
 	
 	local label = _casinoTradeForm:addLabel(xStart-1,yStart+19,"Наберите кол-во товара")
 	label.color = _mainBackgroundColor
