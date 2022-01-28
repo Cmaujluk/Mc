@@ -82,7 +82,7 @@ function shop.GetItemSellCount(itemToCheck)
 	for _,item in pairs(items) do
 		itemData=item.all()
 		local f=true
-		if itemToCheck.id==itemData.id and itemToCheck.dmg==itemData.dmg then
+		if itemToCheck(item.fingerprint.id==itemData.id and itemToCheck.dmg==itemData.dmg then
 			if tostring(itemData.nbt_hash)~="nil" then
 				f=false
 				for i=1,#_hashes do

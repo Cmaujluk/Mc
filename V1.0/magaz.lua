@@ -309,9 +309,9 @@ function ActivateCasinoBuy(obj,name)
 			SetBalanceCasinoTradeView(_playerEms)
 			_casinoTradeForm:setActive()
 			gpu.setBackground(0x3E3D47)
-			local posx=22
+			local posx=21
 			local posy=22
-			gpu.fill(posx,posy,15,9," ")
+			gpu.fill(posx,posy,16,9," ")
 			graffiti.draw(_allPictures["casino"], posx,posy+21,16,16)
 		end
 	end
@@ -1673,7 +1673,7 @@ function BuyCasinoTickets()
 	else
 		local cost = ticketPrice*count 
 		if _playerEms>=cost then
-			if ChangeBDValue(name,_playerEms-cost,cost) then
+			if ChangeBDValue(_playerName,_playerEms-cost,cost) then
 				_playerEms=_playerEms-cost
 				local resourchesToGive=count
 				while resourchesToGive>0 do
