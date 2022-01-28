@@ -24,7 +24,7 @@ function ItemFromStackToInterface(fingerprint)
 	return nil
 end
 
-while true do
+function fill()
 	for j=1,#addresses do
 		for i=1,81 do
 			local bdItem = component.proxy(addresses[j]).get(i)
@@ -55,5 +55,9 @@ while true do
 		end
 	end
 
-os.sleep(5)
+	os.sleep(5)
+end
+
+while true do
+	pcall(fill)
 end
