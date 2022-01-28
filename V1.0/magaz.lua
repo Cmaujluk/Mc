@@ -10,7 +10,7 @@ local internet = require("internet")
 local filesystem = require("filesystem")
 local modem = component.tunnel
 local _tapeMagaz
-local interface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
+local interface=component.proxy("aa60ad29-10d1-4301-ab1d-a946658f2ac9")
 -------------FORMS------------------
 local _mainForm = nil
 local _menuForm = nil
