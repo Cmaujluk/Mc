@@ -10,7 +10,7 @@ local internet = require("internet")
 local filesystem = require("filesystem")
 local modem = component.tunnel
 local _tapeMagaz
-local interface = nil
+local interface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
 -------------FORMS------------------
 local _mainForm = nil
 local _menuForm = nil
@@ -1645,11 +1645,16 @@ function CreateCasinoTrade()
 end
 
 function BuyCasinoTickets()
-	local count = tonumber(_casinoTradeWantBuyGood)
-	if count<=0 then
+
+	if(_casinoTradeWantBuyGood=="" or _casinoTradeWantBuyGood==nil or _casinoTradeWantBuyGood=="0")	 then
 		ShowShopCasinoDialog("Выберите кол-во покупаемых билетов",false)
+		return
 	end
+
+	local count = tonumber(_casinoTradeWantBuyGood)
+
 	local ticketPrice=10
+
 	if(count>=25) then ticketPrice=8
 	else if(count>=10) then ticketPrice=9
 	else if(count>=5) then ticketPrice=9.4 end end end
@@ -2118,7 +2123,7 @@ function OnlyOnePLayer()
 end
 ------------------------------------
 Init()
-interface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
+
 local getterInterface="aa60ad29-10d1-4301-ab1d-a946658f2ac9"
 shop.Init(getterInterface)
 changer.Init("aa60ad29-10d1-4301-ab1d-a946658f2ac9")
