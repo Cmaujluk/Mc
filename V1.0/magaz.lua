@@ -27,7 +27,7 @@ local _tradeForm = nil
 
 local _casinoTradeForm = nil
 
-local _state=""
+local _state=""_casinoTradeWantBuyGoodLabel
 -------------USER------------------ 
 local _playerName=""  
 ------------BUTTONS----------------
@@ -47,7 +47,7 @@ local _shopBalanceEmsLabel2=nil
 local _casinoTradeBalanceEmsLabel = nil
 local _casinoTradeBalanceEmsLabel2 = nil
 local _shopWantBuyGoodLabel=nil
-local _casinoTradeWantBuyGoodLabel=nil
+local _casinoTradeWantBuyGood=nil
 local _shopCountWantBuyGoodLabel=nil
 local _casinoTradeWantBuyGoodLabel=nil
 local _casinoTradeCountWantBuyGoodLabel=nil
@@ -308,8 +308,10 @@ function ActivateCasinoBuy(obj,name)
 			SetBalanceCasinoTradeView(_playerEms)
 			_casinoTradeForm:setActive()
 			gpu.setBackground(0x3E3D47)
-			gpu.fill(47,10,16,9," ")
-			graffiti.draw(_allPictures["casino"], 47,21,16,16)
+			local posx=25
+			local posy=22
+			gpu.fill(posx,posy,16,9," ")
+			graffiti.draw(_allPictures["casino"], posx,posy+11,16,16)
 		end
 	end
 end
@@ -1546,14 +1548,14 @@ function CreateCasinoTrade()
 		local ySpace=7
 		button=_casinoTradeForm:addButton(56+((i-1)*xSpace%(xSpace*3)),yStart+21+math.floor((i-1)/3)*4,toWrite,function() 
 			local j=i
-			if(i<10) then _casinoTradeWantBuyGoodLabel=_casinoTradeWantBuyGoodLabel..j.."" end
-			if i==10 then _casinoTradeWantBuyGoodLabel=""end
-			if i==11 then _casinoTradeWantBuyGoodLabel=_casinoTradeWantBuyGoodLabel.."0"end
+			if(i<10) then _casinoTradeWantBuyGood=_casinoTradeWantBuyGood..j.."" end
+			if i==10 then _casinoTradeWantBuyGood=""end
+			if i==11 then _casinoTradeWantBuyGood=_casinoTradeWantBuyGood.."0"end
 			if i==12 then
-				if(unicode.len(_casinoTradeWantBuyGoodLabel)>0) then
-					_casinoTradeWantBuyGoodLabel = _casinoTradeWantBuyGoodLabel:sub(1, -2)
+				if(unicode.len(_casinoTradeWantBuyGood)>0) then
+					_casinoTradeWantBuyGood = _casinoTradeWantBuyGood:sub(1, -2)
 				else
-					_casinoTradeWantBuyGoodLabel = ""
+					_casinoTradeWantBuyGood = ""
 				end
 			end
 			ShopUpdateSelectedGoodsCount()-->
@@ -1575,7 +1577,7 @@ function CreateCasinoTrade()
 end
 
 function BuyCasinoTickets()
-	print("buy ".._casinoTradeWantBuyGoodLabel.." tickets")
+	print("buy ".._casinoTradeWantBuyGood.." tickets")
 end
 
 function AcrivateShopBuyBoughtMenu(obj,name)
