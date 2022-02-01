@@ -45,8 +45,8 @@ function fill()
 				if need then		
 					print("i need "..bdItem.name)
 					local item = ItemFromStackToInterface({id=bdItem.name,dmg=bdItem.damage})
-					if item then
-						interface.exportItem(item, 2, 1)
+					if item~= nil and item ~=0 and item then
+						interface.exportItem(item, 2, item.max_size)
 					end
 				end
 			else
@@ -59,5 +59,6 @@ function fill()
 end
 
 while true do
-	pcall(fill)
+	--pcall(fill)
+	fill()
 end
